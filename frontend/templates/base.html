@@ -17,9 +17,67 @@
       </button>
       <div class="collapse navbar-collapse" id="navMain">
         <ul class="navbar-nav me-auto">
-          <li class="nav-item"><a class="nav-link" href="{{ url_for('main.index') }}">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="{{ url_for('main.topics') }}">Learn</a></li>
-          <li class="nav-item"><a class="nav-link" href="{{ url_for('main.phishing') }}">Phishing Sim</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('main.index') }}"><i class="fa fa-home me-1"></i> Home</a></li>
+          
+          <!-- Learning Levels Dropdown -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="learnDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="fa fa-graduation-cap me-1"></i> Learn Levels
+            </a>
+            <ul class="dropdown-menu shadow border-0" aria-labelledby="learnDropdown">
+              <li><h6 class="dropdown-header text-uppercase fw-bold text-muted small">Select Proficiency Tier</h6></li>
+              <li>
+                <a class="dropdown-item d-flex align-items-center justify-content-between py-2" href="{{ url_for('main.topics', level='Basic') }}">
+                  <span><span class="badge bg-success me-2">Level 1</span> <strong>Basic Security</strong></span>
+                  <small class="text-muted ms-2">3 Modules</small>
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item d-flex align-items-center justify-content-between py-2" href="{{ url_for('main.topics', level='Intermediate') }}">
+                  <span><span class="badge bg-warning text-dark me-2">Level 2</span> <strong>Intermediate Defense</strong></span>
+                  <small class="text-muted ms-2">4 Modules</small>
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item d-flex align-items-center justify-content-between py-2" href="{{ url_for('main.topics', level='Advanced') }}">
+                  <span><span class="badge bg-danger me-2">Level 3</span> <strong>Advanced Security</strong></span>
+                  <small class="text-muted ms-2">3 Modules</small>
+                </a>
+              </li>
+              <li><hr class="dropdown-divider"></li>
+              <li>
+                <a class="dropdown-item fw-bold text-primary text-center py-2" href="{{ url_for('main.topics') }}">
+                  🌐 View All 10 Modules &amp; Quizzes &rarr;
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <!-- Quizzes Direct Access -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="quizNavDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="fa fa-puzzle-piece me-1"></i> Quizzes
+            </a>
+            <ul class="dropdown-menu shadow border-0" aria-labelledby="quizNavDropdown" style="min-width: 280px;">
+              <li><h6 class="dropdown-header text-success fw-bold">🟢 BASIC LEVEL QUIZZES</h6></li>
+              <li><a class="dropdown-item small" href="{{ url_for('quiz.start_quiz', topic_id=1) }}">🔑 Password Security (12Q)</a></li>
+              <li><a class="dropdown-item small" href="{{ url_for('quiz.start_quiz', topic_id=2) }}">🎣 Phishing Attacks (11Q)</a></li>
+              <li><a class="dropdown-item small" href="{{ url_for('quiz.start_quiz', topic_id=3) }}">🌐 Safe Browsing (9Q)</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><h6 class="dropdown-header text-warning text-dark fw-bold">🟡 INTERMEDIATE LEVEL QUIZZES</h6></li>
+              <li><a class="dropdown-item small" href="{{ url_for('quiz.start_quiz', topic_id=4) }}">🦠 Malware Protection (10Q)</a></li>
+              <li><a class="dropdown-item small" href="{{ url_for('quiz.start_quiz', topic_id=5) }}">🔐 Two-Factor Authentication (6Q)</a></li>
+              <li><a class="dropdown-item small" href="{{ url_for('quiz.start_quiz', topic_id=6) }}">📶 Public Wi-Fi Safety (7Q)</a></li>
+              <li><a class="dropdown-item small" href="{{ url_for('quiz.start_quiz', topic_id=7) }}">📱 Mobile Security (6Q)</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><h6 class="dropdown-header text-danger fw-bold">🔴 ADVANCED LEVEL QUIZZES</h6></li>
+              <li><a class="dropdown-item small" href="{{ url_for('quiz.start_quiz', topic_id=8) }}">👤 Social Engineering (9Q)</a></li>
+              <li><a class="dropdown-item small" href="{{ url_for('quiz.start_quiz', topic_id=9) }}">🛡️ Network Defense &amp; Firewalls (5Q)</a></li>
+              <li><a class="dropdown-item small" href="{{ url_for('quiz.start_quiz', topic_id=10) }}">⚡ Web App Security &amp; OWASP (5Q)</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('main.phishing') }}"><i class="fa fa-fish me-1"></i> Phishing Sim</a></li>
           {% if current_user.is_authenticated %}
           <li class="nav-item"><a class="nav-link" href="{{ url_for('main.dashboard') }}">Dashboard</a></li>
           {% if current_user.is_admin %}

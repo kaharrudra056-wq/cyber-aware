@@ -35,40 +35,134 @@
   </div>
 </div>
 
-<div class="card border-0 shadow-sm mb-4">
-  <div class="card-body">
-    <h5 class="fw-bold">Cybersecurity Learning Progress</h5>
-    <div class="progress" style="height:25px">
-      <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" style="width:{{ progress_pct }}%">{{ progress_pct }}%</div>
+<div class="row g-4 mb-4">
+  <!-- Overall Progress -->
+  <div class="col-lg-6">
+    <div class="card border-0 shadow-sm rounded-4 h-100 p-4 bg-white">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h5 class="fw-bold mb-0">Overall Curriculum Mastery</h5>
+        <span class="badge bg-primary px-3 py-1 fs-6">{{ progress_pct }}% Complete</span>
+      </div>
+      <div class="progress mb-3" style="height: 20px;">
+        <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" style="width: {{ progress_pct }}%;">{{ progress_pct }}%</div>
+      </div>
+      <small class="text-muted">{{ completed_topics }} of {{ total_topics }} total modules completed across all levels.</small>
     </div>
-    <small class="text-muted">{{ completed_topics }} of {{ total_topics }} topics completed</small>
+  </div>
+
+  <!-- Level Progress Breakdown -->
+  <div class="col-lg-6">
+    <div class="card border-0 shadow-sm rounded-4 h-100 p-4 bg-white">
+      <h5 class="fw-bold mb-3">Progress by Proficiency Level</h5>
+      
+      <!-- Basic Progress -->
+      <div class="mb-3">
+        <div class="d-flex justify-content-between small fw-bold mb-1">
+          <span class="text-success"><i class="fa fa-seedling me-1"></i> Level 1: Basic Security</span>
+          <span>{{ basic_completed }} / {{ basic_topics|length }} Modules ({{ basic_pct }}%)</span>
+        </div>
+        <div class="progress" style="height: 10px;">
+          <div class="progress-bar bg-success" style="width: {{ basic_pct }}%;"></div>
+        </div>
+      </div>
+
+      <!-- Intermediate Progress -->
+      <div class="mb-3">
+        <div class="d-flex justify-content-between small fw-bold mb-1">
+          <span class="text-warning text-dark"><i class="fa fa-shield-halved me-1"></i> Level 2: Intermediate Defense</span>
+          <span>{{ intermediate_completed }} / {{ intermediate_topics|length }} Modules ({{ intermediate_pct }}%)</span>
+        </div>
+        <div class="progress" style="height: 10px;">
+          <div class="progress-bar bg-warning" style="width: {{ intermediate_pct }}%;"></div>
+        </div>
+      </div>
+
+      <!-- Advanced Progress -->
+      <div>
+        <div class="d-flex justify-content-between small fw-bold mb-1">
+          <span class="text-danger"><i class="fa fa-bolt me-1"></i> Level 3: Advanced Security</span>
+          <span>{{ advanced_completed }} / {{ advanced_topics|length }} Modules ({{ advanced_pct }}%)</span>
+        </div>
+        <div class="progress" style="height: 10px;">
+          <div class="progress-bar bg-danger" style="width: {{ advanced_pct }}%;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Quick Level Actions -->
+<div class="row g-3 mb-4">
+  <div class="col-md-4">
+    <a href="{{ url_for('main.topics', level='Basic') }}" class="btn btn-outline-success w-100 py-3 rounded-3 text-start d-flex align-items-center justify-content-between shadow-sm bg-white">
+      <div>
+        <span class="badge bg-success mb-1">Level 1</span>
+        <h6 class="fw-bold mb-0 text-dark">Basic Security</h6>
+      </div>
+      <i class="fa fa-arrow-right text-success fs-5"></i>
+    </a>
+  </div>
+  <div class="col-md-4">
+    <a href="{{ url_for('main.topics', level='Intermediate') }}" class="btn btn-outline-warning w-100 py-3 rounded-3 text-start d-flex align-items-center justify-content-between shadow-sm bg-white">
+      <div>
+        <span class="badge bg-warning text-dark mb-1">Level 2</span>
+        <h6 class="fw-bold mb-0 text-dark">Intermediate Defense</h6>
+      </div>
+      <i class="fa fa-arrow-right text-warning fs-5"></i>
+    </a>
+  </div>
+  <div class="col-md-4">
+    <a href="{{ url_for('main.topics', level='Advanced') }}" class="btn btn-outline-danger w-100 py-3 rounded-3 text-start d-flex align-items-center justify-content-between shadow-sm bg-white">
+      <div>
+        <span class="badge bg-danger mb-1">Level 3</span>
+        <h6 class="fw-bold mb-0 text-dark">Advanced Security</h6>
+      </div>
+      <i class="fa fa-arrow-right text-danger fs-5"></i>
+    </a>
   </div>
 </div>
 
 <h5 class="fw-bold mb-3">📋 Recent Quiz Scores</h5>
 {% if scores %}
 <div class="table-responsive">
-  <table class="table table-hover">
+  <table class="table table-hover align-middle">
     <thead class="table-dark">
-      <tr><th>Topic</th><th>Score</th><th>Percentage</th><th>Date</th></tr>
+      <tr>
+        <th>Level</th>
+        <th>Topic</th>
+        <th>Score</th>
+        <th>Percentage</th>
+        <th>Date</th>
+        <th>Action</th>
+      </tr>
     </thead>
     <tbody>
-      {% for s in scores[:10] %}
+      {% for s in scores[:15] %}
       <tr>
-        <td>{{ s.topic.icon }} {{ s.topic.title }}</td>
-        <td>{{ s.score }}/{{ s.total }}</td>
+        <td>
+          <span class="badge bg-{% if (s.topic.level or 'Basic') == 'Basic' %}success{% elif s.topic.level == 'Intermediate' %}warning text-dark{% else %}danger{% endif %}">
+            {{ s.topic.level or 'Basic' }}
+          </span>
+        </td>
+        <td class="fw-semibold">{{ s.topic.icon }} {{ s.topic.title }}</td>
+        <td>{{ s.score }} / {{ s.total }}</td>
         <td>
           <span class="badge bg-{{ 'success' if s.percentage >= 70 else 'warning' if s.percentage >= 50 else 'danger' }}">
             {{ s.percentage }}%
           </span>
         </td>
-        <td>{{ s.taken_at.strftime('%d %b %Y') }}</td>
+        <td>{{ s.taken_at.strftime('%d %b %Y, %H:%M') }}</td>
+        <td>
+          <a href="{{ url_for('quiz.start_quiz', topic_id=s.topic_id) }}" class="btn btn-outline-primary btn-sm">
+            Retake Quiz
+          </a>
+        </td>
       </tr>
       {% endfor %}
     </tbody>
   </table>
 </div>
 {% else %}
-<div class="alert alert-info">No quiz scores yet. <a href="{{ url_for('main.topics') }}">Take a quiz!</a></div>
+<div class="alert alert-info">No quiz scores recorded yet. Select any level module above to take your first evaluation quiz!</div>
 {% endif %}
 {% endblock %}

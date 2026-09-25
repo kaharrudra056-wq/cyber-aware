@@ -40,7 +40,7 @@
   <div class="col-md-3 col-6">
     <div class="stat-card card border-0 shadow-sm p-4 bg-white h-100">
       <div class="stat-icon text-success">🧩</div>
-      <h3 class="fw-bold text-success mb-1">50 Questions</h3>
+      <h3 class="fw-bold text-success mb-1">80 Questions</h3>
       <p class="text-muted small mb-0">Level-Tailored Knowledge Quizzes</p>
     </div>
   </div>
@@ -55,40 +55,253 @@
     <div class="stat-card card border-0 shadow-sm p-4 bg-white h-100">
       <div class="stat-icon text-danger">🛡️</div>
       <h3 class="fw-bold text-danger mb-1">3 Tiers</h3>
-      <p class="text-muted small mb-0">Progressive Cyber Defense</p>
+      <p class="text-muted small mb-0">Progressive Learning Curriculum</p>
     </div>
   </div>
 </div>
 
-<!-- Topics Grid -->
-<div class="d-flex justify-content-between align-items-center mb-4">
-  <div>
-    <h2 class="fw-bold mb-1">🔐 Cyber Defense Learning Modules</h2>
-    <p class="text-muted mb-0">Explore detailed practical guides and pass corresponding knowledge quizzes.</p>
+<!-- 3 Learning Levels Banner & Track Selector -->
+<div class="mb-5">
+  <div class="text-center mb-4">
+    <span class="badge bg-primary px-3 py-2 rounded-pill fw-bold text-uppercase tracking-wider mb-2">Structured Learning Roadmap</span>
+    <h2 class="fw-bold display-6 mb-2">Choose Your Skill Track</h2>
+    <p class="text-muted mx-auto" style="max-width: 700px;">
+      Whether you are an absolute beginner wanting safe cyber habits or an IT student diving into enterprise defense, our modules and quizzes are calibrated for your level.
+    </p>
   </div>
-  <a href="{{ url_for('main.topics') }}" class="btn btn-outline-primary btn-sm d-none d-md-inline-block">View All Modules &rarr;</a>
-</div>
 
-<div class="row g-4 mb-5">
-  {% for topic in topics %}
-  <div class="col-lg-3 col-md-4 col-sm-6">
-    <div class="card topic-card h-100 border-0 shadow-sm">
-      <div class="card-body p-4 text-center d-flex flex-column justify-content-between">
-        <div>
-          <div style="font-size: 46px;" class="mb-2">{{ topic.icon }}</div>
-          <h5 class="fw-bold mb-2">{{ topic.title }}</h5>
-          <p class="text-muted small mb-3">{{ topic.description }}</p>
+  <div class="row g-4">
+    <!-- Level 1: Basic -->
+    <div class="col-lg-4 col-md-6">
+      <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden" style="border-top: 5px solid #198754 !important;">
+        <div class="card-body p-4 d-flex flex-column justify-content-between">
+          <div>
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <span class="badge bg-success px-3 py-1">🟢 LEVEL 1 • BASIC</span>
+              <small class="text-muted fw-bold">3 Modules • 32Q</small>
+            </div>
+            <h4 class="fw-bold text-dark mb-2">Foundational Cyber Hygiene</h4>
+            <p class="text-muted small mb-3">
+              Essential personal security practices: creating high-entropy passwords, password manager setup, identifying deceptive phishing emails, and safe web encryption.
+            </p>
+            <ul class="list-unstyled small text-secondary mb-4">
+              <li class="mb-1"><i class="fa fa-check text-success me-2"></i> Password Entropy &amp; Credential Hygiene</li>
+              <li class="mb-1"><i class="fa fa-check text-success me-2"></i> Phishing, Smishing &amp; Vishing Red Flags</li>
+              <li class="mb-1"><i class="fa fa-check text-success me-2"></i> Safe Browsing, HTTPS &amp; Cookie Privacy</li>
+            </ul>
+          </div>
+          <div class="d-grid gap-2">
+            <a href="{{ url_for('main.topics', level='Basic') }}" class="btn btn-outline-success fw-bold">
+              Explore Basic Track &rarr;
+            </a>
+          </div>
         </div>
-        <div class="d-grid gap-2">
-          <a href="{{ url_for('main.topic_detail', slug=topic.slug) }}" class="btn btn-primary btn-sm">📖 Read Module</a>
-          {% if topic.questions %}
-          <a href="{{ url_for('quiz.start_quiz', topic_id=topic.id) }}" class="btn btn-outline-success btn-sm">🧩 Quiz ({{ topic.questions|length }}Q)</a>
-          {% endif %}
+      </div>
+    </div>
+
+    <!-- Level 2: Intermediate -->
+    <div class="col-lg-4 col-md-6">
+      <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden" style="border-top: 5px solid #d97706 !important;">
+        <div class="card-body p-4 d-flex flex-column justify-content-between">
+          <div>
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <span class="badge bg-warning text-dark px-3 py-1">🟡 LEVEL 2 • INTERMEDIATE</span>
+              <small class="text-muted fw-bold">4 Modules • 29Q</small>
+            </div>
+            <h4 class="fw-bold text-dark mb-2">Systems &amp; Network Defense</h4>
+            <p class="text-muted small mb-3">
+              Technical defense controls: understanding ransomware encryption vectors, 3-2-1 backup strategies, TOTP 2FA mechanics, public Wi-Fi VPNs, and mobile endpoint hardening.
+            </p>
+            <ul class="list-unstyled small text-secondary mb-4">
+              <li class="mb-1"><i class="fa fa-check text-warning me-2"></i> Malware, Ransomware &amp; Spyware Defense</li>
+              <li class="mb-1"><i class="fa fa-check text-warning me-2"></i> Two-Factor Authentication (TOTP &amp; Hardware Keys)</li>
+              <li class="mb-1"><i class="fa fa-check text-warning me-2"></i> Public Wi-Fi Sniffing &amp; VPN Encryption</li>
+              <li class="mb-1"><i class="fa fa-check text-warning me-2"></i> Mobile OS Sandboxing &amp; Permissions</li>
+            </ul>
+          </div>
+          <div class="d-grid gap-2">
+            <a href="{{ url_for('main.topics', level='Intermediate') }}" class="btn btn-outline-warning text-dark fw-bold">
+              Explore Intermediate Track &rarr;
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Level 3: Advanced -->
+    <div class="col-lg-4 col-md-6">
+      <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden" style="border-top: 5px solid #dc3545 !important;">
+        <div class="card-body p-4 d-flex flex-column justify-content-between">
+          <div>
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <span class="badge bg-danger px-3 py-1">🔴 LEVEL 3 • ADVANCED</span>
+              <small class="text-muted fw-bold">3 Modules • 19Q</small>
+            </div>
+            <h4 class="fw-bold text-dark mb-2">Enterprise Defense &amp; OWASP</h4>
+            <p class="text-muted small mb-3">
+              Specialist-grade security: psychological pretexting &amp; OSINT footprinting, packet filtering vs. stateful firewalls vs. IDS/IPS, and OWASP Top 10 vulnerabilities (SQLi, XSS, CSRF).
+            </p>
+            <ul class="list-unstyled small text-secondary mb-4">
+              <li class="mb-1"><i class="fa fa-check text-danger me-2"></i> Social Engineering, Pretexting &amp; OSINT</li>
+              <li class="mb-1"><i class="fa fa-check text-danger me-2"></i> Firewalls, DMZs &amp; Intrusion Detection (IDS/IPS)</li>
+              <li class="mb-1"><i class="fa fa-check text-danger me-2"></i> Web Application Security &amp; OWASP Top 10</li>
+            </ul>
+          </div>
+          <div class="d-grid gap-2">
+            <a href="{{ url_for('main.topics', level='Advanced') }}" class="btn btn-outline-danger fw-bold">
+              Explore Advanced Track &rarr;
+            </a>
+          </div>
         </div>
       </div>
     </div>
   </div>
-  {% endfor %}
+</div>
+
+<!-- Topics Grid with Level Filters -->
+<div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-3">
+  <div>
+    <h2 class="fw-bold mb-1">🔐 Cyber Defense Learning Modules</h2>
+    <p class="text-muted mb-0">Explore detailed practical guides and pass corresponding knowledge quizzes.</p>
+  </div>
+  
+  <!-- Interactive Pill Filter for Homepage -->
+  <ul class="nav nav-pills gap-1 bg-light p-1 rounded-pill" id="homeLevelTabs" role="tablist">
+    <li class="nav-item">
+      <button class="nav-link active rounded-pill px-3 py-1 small fw-bold" id="home-all-tab" data-bs-toggle="pill" data-bs-target="#home-tab-all" type="button">
+        All (10)
+      </button>
+    </li>
+    <li class="nav-item">
+      <button class="nav-link rounded-pill px-3 py-1 small fw-bold text-success" id="home-basic-tab" data-bs-toggle="pill" data-bs-target="#home-tab-basic" type="button">
+        🟢 Basic (3)
+      </button>
+    </li>
+    <li class="nav-item">
+      <button class="nav-link rounded-pill px-3 py-1 small fw-bold text-warning" id="home-intermediate-tab" data-bs-toggle="pill" data-bs-target="#home-tab-intermediate" type="button">
+        🟡 Intermediate (4)
+      </button>
+    </li>
+    <li class="nav-item">
+      <button class="nav-link rounded-pill px-3 py-1 small fw-bold text-danger" id="home-advanced-tab" data-bs-toggle="pill" data-bs-target="#home-tab-advanced" type="button">
+        🔴 Advanced (3)
+      </button>
+    </li>
+  </ul>
+</div>
+
+<div class="tab-content mb-5" id="homeLevelTabsContent">
+  <!-- Tab: All Modules -->
+  <div class="tab-pane fade show active" id="home-tab-all" role="tabpanel">
+    <div class="row g-4">
+      {% for topic in topics %}
+      <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="card topic-card h-100 border-0 shadow-sm" style="border-top: 4px solid {% if (topic.level or 'Basic') == 'Basic' %}#198754{% elif topic.level == 'Intermediate' %}#d97706{% else %}#dc3545{% endif %} !important;">
+          <div class="card-body p-4 text-center d-flex flex-column justify-content-between">
+            <div>
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="badge bg-{% if (topic.level or 'Basic') == 'Basic' %}success{% elif topic.level == 'Intermediate' %}warning text-dark{% else %}danger{% endif %} small">
+                  {{ topic.level or 'Basic' }}
+                </span>
+                <span class="badge bg-light text-muted border small">{{ topic.questions|length }}Q</span>
+              </div>
+              <div style="font-size: 46px;" class="my-2">{{ topic.icon }}</div>
+              <h5 class="fw-bold mb-2">{{ topic.title }}</h5>
+              <p class="text-muted small mb-3">{{ topic.description }}</p>
+            </div>
+            <div class="d-grid gap-2">
+              <a href="{{ url_for('main.topic_detail', slug=topic.slug) }}" class="btn btn-outline-primary btn-sm fw-bold">📖 Study Guide</a>
+              {% if topic.questions %}
+              <a href="{{ url_for('quiz.start_quiz', topic_id=topic.id) }}" class="btn btn-{% if (topic.level or 'Basic') == 'Basic' %}success{% elif topic.level == 'Intermediate' %}warning text-dark{% else %}danger{% endif %} btn-sm fw-bold">🧩 Take Quiz ({{ topic.questions|length }}Q)</a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Tab: Basic Modules -->
+  <div class="tab-pane fade" id="home-tab-basic" role="tabpanel">
+    <div class="row g-4">
+      {% for topic in basic_topics %}
+      <div class="col-lg-4 col-md-6">
+        <div class="card topic-card h-100 border-0 shadow-sm" style="border-top: 4px solid #198754 !important;">
+          <div class="card-body p-4 text-center d-flex flex-column justify-content-between">
+            <div>
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="badge bg-success small">🌱 Basic Level</span>
+                <span class="badge bg-light text-muted border small">{{ topic.questions|length }} Questions</span>
+              </div>
+              <div style="font-size: 50px;" class="my-2">{{ topic.icon }}</div>
+              <h5 class="fw-bold mb-2">{{ topic.title }}</h5>
+              <p class="text-muted small mb-3">{{ topic.description }}</p>
+            </div>
+            <div class="d-grid gap-2">
+              <a href="{{ url_for('main.topic_detail', slug=topic.slug) }}" class="btn btn-outline-primary btn-sm fw-bold">📖 Study Guide</a>
+              <a href="{{ url_for('quiz.start_quiz', topic_id=topic.id) }}" class="btn btn-success btn-sm fw-bold">🧩 Take Basic Quiz ({{ topic.questions|length }}Q)</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Tab: Intermediate Modules -->
+  <div class="tab-pane fade" id="home-tab-intermediate" role="tabpanel">
+    <div class="row g-4">
+      {% for topic in intermediate_topics %}
+      <div class="col-lg-3 col-md-6">
+        <div class="card topic-card h-100 border-0 shadow-sm" style="border-top: 4px solid #d97706 !important;">
+          <div class="card-body p-4 text-center d-flex flex-column justify-content-between">
+            <div>
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="badge bg-warning text-dark small">🛡️ Intermediate</span>
+                <span class="badge bg-light text-muted border small">{{ topic.questions|length }} Questions</span>
+              </div>
+              <div style="font-size: 50px;" class="my-2">{{ topic.icon }}</div>
+              <h5 class="fw-bold mb-2">{{ topic.title }}</h5>
+              <p class="text-muted small mb-3">{{ topic.description }}</p>
+            </div>
+            <div class="d-grid gap-2">
+              <a href="{{ url_for('main.topic_detail', slug=topic.slug) }}" class="btn btn-outline-primary btn-sm fw-bold">📖 Study Guide</a>
+              <a href="{{ url_for('quiz.start_quiz', topic_id=topic.id) }}" class="btn btn-warning text-dark btn-sm fw-bold">🧩 Take Intermediate Quiz ({{ topic.questions|length }}Q)</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Tab: Advanced Modules -->
+  <div class="tab-pane fade" id="home-tab-advanced" role="tabpanel">
+    <div class="row g-4">
+      {% for topic in advanced_topics %}
+      <div class="col-lg-4 col-md-6">
+        <div class="card topic-card h-100 border-0 shadow-sm" style="border-top: 4px solid #dc3545 !important;">
+          <div class="card-body p-4 text-center d-flex flex-column justify-content-between">
+            <div>
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="badge bg-danger small">⚡ Advanced Level</span>
+                <span class="badge bg-light text-muted border small">{{ topic.questions|length }} Questions</span>
+              </div>
+              <div style="font-size: 50px;" class="my-2">{{ topic.icon }}</div>
+              <h5 class="fw-bold mb-2">{{ topic.title }}</h5>
+              <p class="text-muted small mb-3">{{ topic.description }}</p>
+            </div>
+            <div class="d-grid gap-2">
+              <a href="{{ url_for('main.topic_detail', slug=topic.slug) }}" class="btn btn-outline-primary btn-sm fw-bold">📖 Study Guide</a>
+              <a href="{{ url_for('quiz.start_quiz', topic_id=topic.id) }}" class="btn btn-danger btn-sm fw-bold">🧩 Take Advanced Quiz ({{ topic.questions|length }}Q)</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
 </div>
 
 <!-- Interactive Tool: Password Strength & Crack Time Estimator -->

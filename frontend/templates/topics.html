@@ -101,22 +101,22 @@
 <!-- Level Filter Navigation -->
 <ul class="nav nav-pills justify-content-center gap-2 mb-4 p-2 bg-white rounded-3 shadow-sm" id="levelTabs" role="tablist">
   <li class="nav-item" role="presentation">
-    <button class="nav-link active px-4 fw-bold" id="all-tab" data-bs-toggle="pill" data-bs-target="#tab-all" type="button" role="tab">
+    <button class="nav-link {% if not active_level or active_level == 'All' %}active{% endif %} px-4 fw-bold" id="all-tab" data-bs-toggle="pill" data-bs-target="#tab-all" type="button" role="tab">
       🌐 All Modules ({{ topics|length }})
     </button>
   </li>
   <li class="nav-item" role="presentation">
-    <button class="nav-link px-4 fw-bold text-success" id="basic-tab" data-bs-toggle="pill" data-bs-target="#tab-basic" type="button" role="tab">
+    <button class="nav-link {% if active_level == 'Basic' %}active{% endif %} px-4 fw-bold text-success" id="basic-tab" data-bs-toggle="pill" data-bs-target="#tab-basic" type="button" role="tab">
       🌱 Basic Level ({{ basic_topics|length }})
     </button>
   </li>
   <li class="nav-item" role="presentation">
-    <button class="nav-link px-4 fw-bold text-warning" id="intermediate-tab" data-bs-toggle="pill" data-bs-target="#tab-intermediate" type="button" role="tab">
+    <button class="nav-link {% if active_level == 'Intermediate' %}active{% endif %} px-4 fw-bold text-warning" id="intermediate-tab" data-bs-toggle="pill" data-bs-target="#tab-intermediate" type="button" role="tab">
       🛡️ Intermediate Level ({{ intermediate_topics|length }})
     </button>
   </li>
   <li class="nav-item" role="presentation">
-    <button class="nav-link px-4 fw-bold text-danger" id="advanced-tab" data-bs-toggle="pill" data-bs-target="#tab-advanced" type="button" role="tab">
+    <button class="nav-link {% if active_level == 'Advanced' %}active{% endif %} px-4 fw-bold text-danger" id="advanced-tab" data-bs-toggle="pill" data-bs-target="#tab-advanced" type="button" role="tab">
       ⚡ Advanced Level ({{ advanced_topics|length }})
     </button>
   </li>
@@ -126,7 +126,7 @@
 <div class="tab-content" id="levelTabsContent">
 
   <!-- ==================== TAB: ALL MODULES ==================== -->
-  <div class="tab-pane fade show active" id="tab-all" role="tabpanel">
+  <div class="tab-pane fade {% if not active_level or active_level == 'All' %}show active{% endif %}" id="tab-all" role="tabpanel">
     
     <!-- Basic Section -->
     <div class="d-flex align-items-center justify-content-between mb-3 mt-2 border-bottom pb-2">
@@ -172,7 +172,7 @@
   </div>
 
   <!-- ==================== TAB: BASIC ONLY ==================== -->
-  <div class="tab-pane fade" id="tab-basic" role="tabpanel">
+  <div class="tab-pane fade {% if active_level == 'Basic' %}show active{% endif %}" id="tab-basic" role="tabpanel">
     <div class="alert alert-success d-flex align-items-center mb-4">
       <span class="fs-4 me-3">🌱</span>
       <div>
@@ -187,7 +187,7 @@
   </div>
 
   <!-- ==================== TAB: INTERMEDIATE ONLY ==================== -->
-  <div class="tab-pane fade" id="tab-intermediate" role="tabpanel">
+  <div class="tab-pane fade {% if active_level == 'Intermediate' %}show active{% endif %}" id="tab-intermediate" role="tabpanel">
     <div class="alert alert-warning d-flex align-items-center mb-4">
       <span class="fs-4 me-3">🛡️</span>
       <div>
@@ -202,7 +202,7 @@
   </div>
 
   <!-- ==================== TAB: ADVANCED ONLY ==================== -->
-  <div class="tab-pane fade" id="tab-advanced" role="tabpanel">
+  <div class="tab-pane fade {% if active_level == 'Advanced' %}show active{% endif %}" id="tab-advanced" role="tabpanel">
     <div class="alert alert-danger d-flex align-items-center mb-4">
       <span class="fs-4 me-3">⚡</span>
       <div>
