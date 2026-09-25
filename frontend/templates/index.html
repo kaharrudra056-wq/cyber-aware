@@ -1,96 +1,365 @@
 {% extends 'base.html' %}
-{% block title %}Home - CyberSec Awareness{% endblock %}
+{% block title %}CyberSec Awareness - Home{% endblock %}
 {% block content %}
-<!-- Hero -->
-<div class="hero-section text-white rounded-4 p-5 mb-5">
+
+<!-- Hero Section -->
+<div class="hero-section text-white rounded-4 p-5 mb-5 shadow-lg position-relative overflow-hidden">
   <div class="row align-items-center">
     <div class="col-lg-7">
-      <h1 class="display-4 fw-bold">🛡️ Cybersecurity Awareness</h1>
-      <p class="lead mb-4">Learn how to protect yourself online. Take quizzes, complete topics, and track your cybersecurity knowledge.</p>
-      {% if current_user.is_authenticated %}
-        <a href="{{ url_for('main.topics') }}" class="btn btn-light btn-lg me-2">📚 Start Learning</a>
-        <a href="{{ url_for('main.dashboard') }}" class="btn btn-outline-light btn-lg">📊 My Dashboard</a>
-      {% else %}
-        <a href="{{ url_for('auth.register') }}" class="btn btn-light btn-lg me-2">Get Started Free</a>
-        <a href="{{ url_for('main.topics') }}" class="btn btn-outline-light btn-lg">Explore Topics</a>
-      {% endif %}
+      <span class="badge bg-warning text-dark px-3 py-2 rounded-pill fw-bold mb-3">🛡️ National Cyber Safety Initiative</span>
+      <h1 class="display-4 fw-bold mb-3">Learn to Defend Against Modern Cyber Threats</h1>
+      <p class="lead mb-4 text-light">Over 90% of security breaches originate from human deception rather than system flaws. Master password entropy, identify phishing traps, simulate cyber attacks, and earn your digital badge.</p>
+      <div class="d-flex flex-wrap gap-2">
+        {% if current_user.is_authenticated %}
+          <a href="{{ url_for('main.topics') }}" class="btn btn-light btn-lg px-4 fw-semibold shadow-sm">📚 Start Learning Modules</a>
+          <a href="{{ url_for('main.dashboard') }}" class="btn btn-outline-light btn-lg px-4">📊 My Progress Dashboard</a>
+        {% else %}
+          <a href="{{ url_for('auth.register') }}" class="btn btn-light btn-lg px-4 fw-semibold shadow-sm">Get Started Free</a>
+          <a href="{{ url_for('main.topics') }}" class="btn btn-outline-light btn-lg px-4">Explore Topics</a>
+        {% endif %}
+        <a href="#password-analyzer" class="btn btn-warning btn-lg px-4 text-dark fw-bold">⚡ Test Password Strength</a>
+      </div>
     </div>
     <div class="col-lg-5 text-center d-none d-lg-block">
-      <div style="font-size:150px;">🔐</div>
+      <div class="p-4 rounded-circle d-inline-block bg-white bg-opacity-10 shadow-lg">
+        <div style="font-size: 130px; animation: pulse 2s infinite;">🔐</div>
+      </div>
     </div>
   </div>
 </div>
 
-<!-- Stats -->
-<div class="row text-center mb-5">
-  <div class="col-md-4 mb-3">
-    <div class="stat-card card border-0 shadow-sm p-4">
-      <div class="stat-icon">🎯</div>
-      <h3 class="fw-bold text-primary">{{ topics|length }}+</h3>
-      <p class="text-muted">Cybersecurity Topics</p>
+<!-- Stats Counter -->
+<div class="row text-center mb-5 g-3">
+  <div class="col-md-3 col-6">
+    <div class="stat-card card border-0 shadow-sm p-4 bg-white h-100">
+      <div class="stat-icon text-primary">📚</div>
+      <h3 class="fw-bold text-primary mb-1">8 Core Modules</h3>
+      <p class="text-muted small mb-0">From 2FA to Zero-Day Malware</p>
     </div>
   </div>
-  <div class="col-md-4 mb-3">
-    <div class="stat-card card border-0 shadow-sm p-4">
-      <div class="stat-icon">🧩</div>
-      <h3 class="fw-bold text-success">50+</h3>
-      <p class="text-muted">Quiz Questions</p>
+  <div class="col-md-3 col-6">
+    <div class="stat-card card border-0 shadow-sm p-4 bg-white h-100">
+      <div class="stat-icon text-success">🧩</div>
+      <h3 class="fw-bold text-success mb-1">40+ Questions</h3>
+      <p class="text-muted small mb-0">Topic-Specific Knowledge Tests</p>
     </div>
   </div>
-  <div class="col-md-4 mb-3">
-    <div class="stat-card card border-0 shadow-sm p-4">
-      <div class="stat-icon">📊</div>
-      <h3 class="fw-bold text-warning">100%</h3>
-      <p class="text-muted">Free to Use</p>
+  <div class="col-md-3 col-6">
+    <div class="stat-card card border-0 shadow-sm p-4 bg-white h-100">
+      <div class="stat-icon text-warning">🎣</div>
+      <h3 class="fw-bold text-warning mb-1">Interactive Sim</h3>
+      <p class="text-muted small mb-0">Hands-on Phishing Detection</p>
+    </div>
+  </div>
+  <div class="col-md-3 col-6">
+    <div class="stat-card card border-0 shadow-sm p-4 bg-white h-100">
+      <div class="stat-icon text-danger">🛡️</div>
+      <h3 class="fw-bold text-danger mb-1">100% Free</h3>
+      <p class="text-muted small mb-0">Open Security Education</p>
     </div>
   </div>
 </div>
 
-<!-- Topics Preview -->
-<h2 class="mb-4 fw-bold">🔐 Cybersecurity Topics</h2>
-<div class="row">
+<!-- Topics Grid -->
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div>
+    <h2 class="fw-bold mb-1">🔐 Cyber Defense Learning Modules</h2>
+    <p class="text-muted mb-0">Explore detailed practical guides and pass corresponding knowledge quizzes.</p>
+  </div>
+  <a href="{{ url_for('main.topics') }}" class="btn btn-outline-primary btn-sm d-none d-md-inline-block">View All Modules &rarr;</a>
+</div>
+
+<div class="row g-4 mb-5">
   {% for topic in topics %}
-  <div class="col-md-4 col-sm-6 mb-4">
+  <div class="col-lg-3 col-md-4 col-sm-6">
     <div class="card topic-card h-100 border-0 shadow-sm">
-      <div class="card-body text-center p-4">
-        <div style="font-size:48px;">{{ topic.icon }}</div>
-        <h5 class="card-title fw-bold mt-2">{{ topic.title }}</h5>
-        <p class="card-text text-muted">{{ topic.description }}</p>
-        <a href="{{ url_for('main.topic_detail', slug=topic.slug) }}" class="btn btn-primary btn-sm">Learn More</a>
+      <div class="card-body p-4 text-center d-flex flex-column justify-content-between">
+        <div>
+          <div style="font-size: 46px;" class="mb-2">{{ topic.icon }}</div>
+          <h5 class="fw-bold mb-2">{{ topic.title }}</h5>
+          <p class="text-muted small mb-3">{{ topic.description }}</p>
+        </div>
+        <div class="d-grid gap-2">
+          <a href="{{ url_for('main.topic_detail', slug=topic.slug) }}" class="btn btn-primary btn-sm">📖 Read Module</a>
+          {% if topic.questions %}
+          <a href="{{ url_for('quiz.start_quiz', topic_id=topic.id) }}" class="btn btn-outline-success btn-sm">🧩 Quiz ({{ topic.questions|length }}Q)</a>
+          {% endif %}
+        </div>
       </div>
     </div>
   </div>
   {% endfor %}
 </div>
 
-<!-- Common Threats -->
-<div class="alert-section mt-5 p-4 rounded-4 bg-dark text-white">
-  <h3 class="mb-3">⚠️ Common Cyber Threats</h3>
-  <div class="row">
-    <div class="col-md-3 mb-3">
-      <div class="threat-item p-3 rounded-3 bg-danger bg-opacity-25">
-        <h6>🎣 Phishing</h6>
-        <small>91% of cyberattacks start with phishing</small>
+<!-- Interactive Tool: Password Strength & Crack Time Estimator -->
+<div class="card border-0 shadow-lg rounded-4 p-4 p-lg-5 mb-5 bg-white" id="password-analyzer">
+  <div class="row align-items-center">
+    <div class="col-lg-6 mb-4 mb-lg-0">
+      <span class="badge bg-primary px-3 py-2 rounded-pill fw-bold mb-2">⚡ Interactive Security Tool</span>
+      <h3 class="fw-bold">Test Your Password Entropy & Crack Time</h3>
+      <p class="text-muted">Type any sample password to calculate its mathematical entropy and estimated time required for high-speed GPU rigs to crack it. <em>(Your input is processed strictly in your local browser and never transmitted over the network).</em></p>
+      
+      <div class="mb-3">
+        <label class="form-label fw-bold">Enter a test password:</label>
+        <div class="input-group">
+          <input type="text" id="pwdInput" class="form-control form-control-lg" placeholder="e.g. Try: Coffee#2024! or pass123" oninput="analyzePassword()">
+          <button class="btn btn-outline-secondary" type="button" onclick="generateRandomPassphrase()">🎲 Generate Strong</button>
+        </div>
+      </div>
+
+      <!-- Strength Progress Bar -->
+      <div class="mb-3">
+        <div class="d-flex justify-content-between small fw-bold mb-1">
+          <span>Security Score: <span id="scoreText">None</span></span>
+          <span id="entropyText">0 bits</span>
+        </div>
+        <div class="progress" style="height: 12px;">
+          <div id="pwdBar" class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" style="width: 0%;"></div>
+        </div>
+      </div>
+
+      <div class="alert alert-secondary p-3 mb-0" id="crackTimeBox">
+        <strong>⏱️ Estimated Brute-Force Crack Time:</strong>
+        <div class="h4 fw-bold mt-1 text-primary" id="crackTimeResult">Enter a password above</div>
+        <small class="text-muted" id="pwdFeedback">Passwords under 12 characters are cracked in seconds.</small>
       </div>
     </div>
-    <div class="col-md-3 mb-3">
-      <div class="threat-item p-3 rounded-3 bg-warning bg-opacity-25">
-        <h6>🔐 Weak Passwords</h6>
-        <small>80% of breaches involve weak passwords</small>
-      </div>
-    </div>
-    <div class="col-md-3 mb-3">
-      <div class="threat-item p-3 rounded-3 bg-info bg-opacity-25">
-        <h6>🦠 Ransomware</h6>
-        <small>Attack every 11 seconds globally</small>
-      </div>
-    </div>
-    <div class="col-md-3 mb-3">
-      <div class="threat-item p-3 rounded-3 bg-success bg-opacity-25">
-        <h6>👤 Social Engineering</h6>
-        <small>Exploits human trust, not technology</small>
+
+    <div class="col-lg-6">
+      <div class="p-4 rounded-4 bg-light border">
+        <h5 class="fw-bold mb-3">🛡️ Password Rule Verification</h5>
+        <ul class="list-unstyled mb-0" id="ruleList">
+          <li class="mb-2 text-muted" id="ruleLen"><span class="badge bg-secondary me-2">✖</span> Minimum 12 characters long</li>
+          <li class="mb-2 text-muted" id="ruleUpper"><span class="badge bg-secondary me-2">✖</span> Includes uppercase letter (A-Z)</li>
+          <li class="mb-2 text-muted" id="ruleLower"><span class="badge bg-secondary me-2">✖</span> Includes lowercase letter (a-z)</li>
+          <li class="mb-2 text-muted" id="ruleNum"><span class="badge bg-secondary me-2">✖</span> Includes number (0-9)</li>
+          <li class="mb-2 text-muted" id="ruleSym"><span class="badge bg-secondary me-2">✖</span> Includes special symbol (!@#$%^&*)</li>
+          <li class="text-muted" id="ruleCommon"><span class="badge bg-secondary me-2">✖</span> Not on common breach lists (e.g. password, admin, 123456)</li>
+        </ul>
       </div>
     </div>
   </div>
 </div>
+
+<!-- Real-World Cyber Attacks Case Studies -->
+<div class="mb-5">
+  <div class="text-center mb-4">
+    <span class="badge bg-danger px-3 py-2 rounded-pill fw-bold mb-2">🚨 Historical Case Studies</span>
+    <h2 class="fw-bold">Major Cyber Incidents in History</h2>
+    <p class="text-muted">Real-world lessons from catastrophic cyber breaches and social engineering campaigns.</p>
+  </div>
+
+  <div class="row g-4">
+    <div class="col-md-6 col-lg-3">
+      <div class="card h-100 border-0 shadow-sm border-top border-4 border-danger">
+        <div class="card-body p-4">
+          <span class="badge bg-danger mb-2">Ransomware</span>
+          <h5 class="fw-bold">WannaCry (2017)</h5>
+          <p class="text-muted small">Exploited unpatched Windows SMB vulnerability (EternalBlue). Infected 200,000+ computers across 150 nations within hours, crippling NHS hospitals in the UK.</p>
+          <div class="small fw-semibold text-danger">Lesson: Keep systems patched immediately.</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-3">
+      <div class="card h-100 border-0 shadow-sm border-top border-4 border-warning">
+        <div class="card-body p-4">
+          <span class="badge bg-warning text-dark mb-2">Social Engineering</span>
+          <h5 class="fw-bold">Twitter VIP Hijack (2020)</h5>
+          <p class="text-muted small">Teens phoned Twitter employees pretending to be internal IT helpdesk, obtaining admin access to hijack accounts of Elon Musk, Barack Obama, and Apple for Bitcoin fraud.</p>
+          <div class="small fw-semibold text-warning text-dark">Lesson: Always verify out-of-band identity.</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-3">
+      <div class="card h-100 border-0 shadow-sm border-top border-4 border-primary">
+        <div class="card-body p-4">
+          <span class="badge bg-primary mb-2">Credential Reuse</span>
+          <h5 class="fw-bold">Colonial Pipeline (2021)</h5>
+          <p class="text-muted small">A single compromised legacy VPN password without Two-Factor Authentication forced the shutdown of the largest US fuel pipeline, causing nationwide panic and shortages.</p>
+          <div class="small fw-semibold text-primary">Lesson: Mandate Multi-Factor Auth (MFA).</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-3">
+      <div class="card h-100 border-0 shadow-sm border-top border-4 border-info">
+        <div class="card-body p-4">
+          <span class="badge bg-info text-dark mb-2">Zero-Click Spyware</span>
+          <h5 class="fw-bold">Pegasus Spyware</h5>
+          <p class="text-muted small">Military-grade surveillance spyware developed by NSO Group capable of zero-click infections on iOS/Android via silent WhatsApp packets to monitor microphone, GPS, and chats.</p>
+          <div class="small fw-semibold text-info text-dark">Lesson: Enable Lockdown Mode & reboot phones.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Legal Framework & Incident Helpline -->
+<div class="card border-0 shadow-sm rounded-4 p-4 p-lg-5 mb-5 bg-dark text-white">
+  <div class="row align-items-center">
+    <div class="col-lg-7">
+      <span class="badge bg-danger px-3 py-2 rounded-pill fw-bold mb-3">⚖️ Legal Framework & Incident Reporting</span>
+      <h3 class="fw-bold mb-3">Victim of a Cyber Attack or Online Fraud?</h3>
+      <p class="text-light opacity-75 mb-4">Under the <strong>Information Technology (IT) Act, 2000</strong>, cyber offences carry stringent penalties and prison sentences. In case of financial fraud or harassment, report within the "Golden Hour" for immediate account freezing.</p>
+      
+      <div class="row g-3">
+        <div class="col-sm-6">
+          <div class="p-3 rounded-3 bg-white bg-opacity-10 border border-light border-opacity-25">
+            <h6 class="fw-bold text-warning mb-1">📞 National Helpline</h6>
+            <p class="h4 fw-bold mb-0">Dial 1930</p>
+            <small class="text-light opacity-75">Toll-free 24/7 Financial Cyber Fraud</small>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="p-3 rounded-3 bg-white bg-opacity-10 border border-light border-opacity-25">
+            <h6 class="fw-bold text-info mb-1">🌐 Official Portal</h6>
+            <p class="h5 fw-bold mb-0">cybercrime.gov.in</p>
+            <small class="text-light opacity-75">File formal online FIR complaints</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-5 mt-4 mt-lg-0">
+      <div class="p-4 rounded-4 bg-white bg-opacity-10 border border-light border-opacity-25">
+        <h5 class="fw-bold text-warning mb-3">📜 Key Sections of IT Act, 2000</h5>
+        <ul class="list-unstyled small mb-0">
+          <li class="mb-2"><strong>Sec 43:</strong> Penalty for damage to computer systems, data theft, and unauthorized access (Up to ₹1 Crore).</li>
+          <li class="mb-2"><strong>Sec 66C:</strong> Identity theft, stealing digital signatures or passwords (Imprisonment up to 3 years).</li>
+          <li class="mb-2"><strong>Sec 66D:</strong> Cheating by personation using computer resource / Phishing (Imprisonment up to 3 years).</li>
+          <li><strong>Sec 66E:</strong> Violation of bodily privacy and voyeurism via digital devices.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Interactive Password Strength Analyzer Engine
+function analyzePassword() {
+  const pwd = document.getElementById('pwdInput').value;
+  const bar = document.getElementById('pwdBar');
+  const scoreText = document.getElementById('scoreText');
+  const entropyText = document.getElementById('entropyText');
+  const crackResult = document.getElementById('crackTimeResult');
+  const feedback = document.getElementById('pwdFeedback');
+
+  if (!pwd) {
+    bar.style.width = '0%';
+    scoreText.textContent = 'None';
+    entropyText.textContent = '0 bits';
+    crackResult.textContent = 'Enter a password above';
+    crackResult.className = 'h4 fw-bold mt-1 text-primary';
+    feedback.textContent = 'Passwords under 12 characters are cracked in seconds.';
+    resetRules();
+    return;
+  }
+
+  // Check Rules
+  const hasLen = pwd.length >= 12;
+  const hasUpper = /[A-Z]/.test(pwd);
+  const hasLower = /[a-z]/.test(pwd);
+  const hasNum = /[0-9]/.test(pwd);
+  const hasSym = /[^A-Za-z0-9]/.test(pwd);
+  const common = ['password', '123456', 'admin', 'qwerty', 'welcome', 'login', 'pass123', 'iloveyou'].some(c => pwd.toLowerCase().includes(c));
+
+  updateRule('ruleLen', hasLen);
+  updateRule('ruleUpper', hasUpper);
+  updateRule('ruleLower', hasLower);
+  updateRule('ruleNum', hasNum);
+  updateRule('ruleSym', hasSym);
+  updateRule('ruleCommon', !common && pwd.length >= 6);
+
+  // Calculate Pool Size & Entropy
+  let pool = 0;
+  if (hasLower) pool += 26;
+  if (hasUpper) pool += 26;
+  if (hasNum) pool += 10;
+  if (hasSym) pool += 33;
+  if (pool === 0) pool = 10;
+
+  const entropy = Math.round(pwd.length * Math.log2(pool));
+  entropyText.textContent = `${entropy} bits entropy`;
+
+  // Estimate Crack Time (Assuming modern GPU cluster at 100 Billion hashes/sec)
+  let timeStr = '';
+  let colorClass = '';
+  let scoreLabel = '';
+  let widthPct = 0;
+
+  if (common || entropy < 30 || pwd.length < 8) {
+    timeStr = 'Instant (< 1 millisecond)';
+    colorClass = 'text-danger';
+    scoreLabel = 'Very Weak ❌';
+    widthPct = 15;
+    bar.className = 'progress-bar bg-danger';
+    feedback.textContent = 'This password is trivial to crack using basic automated dictionary attacks.';
+  } else if (entropy < 45 || pwd.length < 10) {
+    timeStr = '~3 minutes to 4 hours';
+    colorClass = 'text-warning';
+    scoreLabel = 'Weak ⚠️';
+    widthPct = 35;
+    bar.className = 'progress-bar bg-warning';
+    feedback.textContent = 'Can be compromised quickly by low-cost GPU hash crackers.';
+  } else if (entropy < 65 || pwd.length < 12) {
+    timeStr = '~3 weeks to 6 months';
+    colorClass = 'text-info';
+    scoreLabel = 'Moderate 🟡';
+    widthPct = 65;
+    bar.className = 'progress-bar bg-info';
+    feedback.textContent = 'Reasonable defense against casual attacks, but vulnerable to targeted cracking.';
+  } else if (entropy < 85) {
+    timeStr = '~3,000 to 50,000 years';
+    colorClass = 'text-success';
+    scoreLabel = 'Strong ✅';
+    widthPct = 85;
+    bar.className = 'progress-bar bg-success';
+    feedback.textContent = 'Excellent strength! Highly resistant to modern brute-force techniques.';
+  } else {
+    timeStr = 'Over 100 Million Years 🛡️';
+    colorClass = 'text-success fw-bolder';
+    scoreLabel = 'Extremely Secure 🏆';
+    widthPct = 100;
+    bar.className = 'progress-bar bg-success progress-bar-striped progress-bar-animated';
+    feedback.textContent = 'Maximum security. Mathematically uncrackable within human timescales.';
+  }
+
+  bar.style.width = widthPct + '%';
+  scoreText.textContent = scoreLabel;
+  crackResult.textContent = timeStr;
+  crackResult.className = `h4 fw-bold mt-1 ${colorClass}`;
+}
+
+function updateRule(elementId, passed) {
+  const el = document.getElementById(elementId);
+  if (passed) {
+    el.innerHTML = `<span class="badge bg-success me-2">✔</span> <span class="text-success fw-semibold">${el.textContent.substring(2)}</span>`;
+  } else {
+    el.innerHTML = `<span class="badge bg-secondary me-2">✖</span> <span class="text-muted">${el.textContent.substring(2)}</span>`;
+  }
+}
+
+function resetRules() {
+  const rules = ['ruleLen', 'ruleUpper', 'ruleLower', 'ruleNum', 'ruleSym', 'ruleCommon'];
+  rules.forEach(r => {
+    const el = document.getElementById(r);
+    el.innerHTML = `<span class="badge bg-secondary me-2">✖</span> <span class="text-muted">${el.textContent.substring(2)}</span>`;
+  });
+}
+
+function generateRandomPassphrase() {
+  const words = ['cyber', 'shield', 'falcon', 'matrix', 'cipher', 'quantum', 'secure', 'nebula', 'glacier', 'phantom', 'beacon', 'vortex'];
+  const symbols = ['#', '@', '$', '!', '&', '%'];
+  const w1 = words[Math.floor(Math.random() * words.length)];
+  const w2 = words[Math.floor(Math.random() * words.length)];
+  const num = Math.floor(Math.random() * 900) + 100;
+  const sym = symbols[Math.floor(Math.random() * symbols.length)];
+  const pass = `${w1.charAt(0).toUpperCase() + w1.slice(1)}-${w2}${sym}${num}`;
+  
+  document.getElementById('pwdInput').value = pass;
+  analyzePassword();
+}
+</script>
 {% endblock %}
