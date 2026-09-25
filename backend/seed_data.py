@@ -11,10 +11,14 @@ from models.quiz import Topic, Question
 app = create_app()
 
 TOPICS = [
+    # ========================================================
+    # BASIC LEVEL (BEGINNER / FOUNDATIONAL CYBER HYGIENE)
+    # ========================================================
     {
         'title': 'Password Security & Credential Hygiene',
         'slug': 'password-security',
         'icon': '🔑',
+        'level': 'Basic',
         'order': 1,
         'description': 'Master strong password creation, entropy, password managers, and brute-force defenses.',
         'content': '''<h4>1. The Psychology and Mathematics of Passwords</h4>
@@ -55,6 +59,7 @@ TOPICS = [
         'title': 'Phishing, Smishing & Vishing Attacks',
         'slug': 'phishing',
         'icon': '🎣',
+        'level': 'Basic',
         'order': 2,
         'description': 'Identify social engineering deception in emails, SMS messages, and voice calls.',
         'content': '''<h4>1. Understanding Phishing in Depth</h4>
@@ -89,78 +94,11 @@ TOPICS = [
 5. Report the incident to your institution's IT security team or the National Cyber Crime Portal (1930 in India).</p>'''
     },
     {
-        'title': 'Malware, Ransomware & Spyware Defense',
-        'slug': 'malware',
-        'icon': '🦠',
-        'order': 3,
-        'description': 'Understand malware variants, zero-day threats, ransomware lifecycles, and defense strategies.',
-        'content': '''<h4>1. What is Malware?</h4>
-<p>Malware (short for <em>Malicious Software</em>) encompasses any software program specifically designed to compromise confidentiality, integrity, or availability of a host computer or network. In 2023 alone, over <strong>5.4 billion malware attacks</strong> were recorded globally.</p>
-
-<h4>2. Classification of Malicious Software</h4>
-<ul>
-  <li><strong>Ransomware:</strong> Encrypts the victim's critical files using unbreakable asymmetric ciphers (e.g., RSA-4096 / AES-256) and demands ransom payments in cryptocurrency. Famous examples: <em>WannaCry</em>, <em>Ryuk</em>, <em>LockBit</em>.</li>
-  <li><strong>Trojans:</strong> Disguised as legitimate, desirable software (such as game cracks or utility tools) that secretly opens a backdoor (Remote Access Trojan / RAT).</li>
-  <li><strong>Spyware & Keyloggers:</strong> Operates silently in the background recording keystrokes, capturing screen activity, and streaming credentials to an external Command and Control (C2) server.</li>
-  <li><strong>Rootkits:</strong> Deeply embedded malware that infects the master boot record (MBR) or OS kernel, masking its presence from conventional task managers and basic antivirus software.</li>
-  <li><strong>Worms:</strong> Self-replicating standalone software that spreads across computer networks exploiting unpatched vulnerabilities without needing human intervention.</li>
-</ul>
-
-<h4>3. The 3-2-1 Backup Strategy (The Ultimate Ransomware Antidote)</h4>
-<p>Never negotiate with ransomware criminals. The only guaranteed recovery method is following the <strong>3-2-1 Backup Rule</strong>:</p>
-<ul>
-  <li>Maintain <strong>3</strong> copies of all critical data (1 primary copy and 2 backups).</li>
-  <li>Store backups on <strong>2</strong> different media types (e.g., Internal SSD and External Hard Drive / NAS).</li>
-  <li>Keep at least <strong>1</strong> backup copy <strong>Off-site or in an immutable cloud bucket</strong> (disconnected from your local network).</li>
-</ul>
-
-<h4>4. Core Defense Recommendations</h4>
-<ul>
-  <li><strong>Patch Promptly:</strong> Over 60% of breaches exploit vulnerabilities for which a patch was already available. Keep your OS, browsers, and software updated automatically.</li>
-  <li><strong>Principle of Least Privilege:</strong> Do not operate your computer daily using a local Administrator account. Standard user accounts prevent malware from modifying system files.</li>
-  <li><strong>Active Protection:</strong> Utilize built-in endpoint security (Windows Defender) or reputable suites with behavioral heuristic analysis.</li>
-</ul>'''
-    },
-    {
-        'title': 'Social Engineering & Human Hacking',
-        'slug': 'social-engineering',
-        'icon': '👤',
-        'order': 4,
-        'description': 'Recognize psychological manipulation, pretexting, baiting, and physical security intrusions.',
-        'content': '''<h4>1. Hacking the Human Firewall</h4>
-<p>Famed security consultant Kevin Mitnick famously stated: <em>"The human factor is truly the weakest link in security."</em> Social engineering bypasses cryptographic algorithms and firewalls by exploiting fundamental human tendencies: trust, desire to help, fear of authority, and curiosity.</p>
-
-<h4>2. Key Psychological Vectors Exploited</h4>
-<ul>
-  <li><strong>Authority:</strong> Attackers pretend to be senior executives, police officers, or IT directors to command obedience.</li>
-  <li><strong>Urgency:</strong> Fabricating a high-stakes scenario (e.g., "The CEO needs this gift card/wire transfer right now before a client meeting").</li>
-  <li><strong>Scarcity & Greed:</strong> Enticing targets with exclusive opportunities, lotteries, or high-return financial investments.</li>
-  <li><strong>Sympathy & Social Proof:</strong> Mentioning names of legitimate colleagues to establish instant unverified trust.</li>
-</ul>
-
-<h4>3. Common In-Person and Digital Tactics</h4>
-<ul>
-  <li><strong>Pretexting:</strong> Inventing a comprehensive fictional persona and backstory to extract sensitive details (e.g., calling an employee pretending to conduct a security audit).</li>
-  <li><strong>Baiting:</strong> Leaving an infected USB flash drive labeled "Q4 Executive Bonuses" in a company cafeteria or parking lot. Curious employees insert it into office workstations, triggering instant malware execution.</li>
-  <li><strong>Tailgating / Piggybacking:</strong> Physically following an authorized employee through a secure keycard-locked door by carrying heavy boxes and asking them to hold the door.</li>
-  <li><strong>Quid Pro Quo:</strong> Offering a fake service (such as "free software technical assistance") in return for credentials or remote desktop access.</li>
-  <li><strong>Shoulder Surfing:</strong> Visually spying on keyboards, PIN pads, or laptop screens in public places like airports or coffee shops.</li>
-</ul>
-
-<h4>4. Institutional Defense: The STOP Protocol</h4>
-<p>Whenever you receive an unexpected request for money, access, or private credentials:</p>
-<ol>
-  <li><strong>S - Slow Down:</strong> Fraud thrives on urgency. Refuse to be rushed.</li>
-  <li><strong>T - Think:</strong> Does this request make logical sense? Why does this person need this information?</li>
-  <li><strong>O - Out-of-Band Verify:</strong> Call the requester on a known, official telephone number — never use numbers provided in the suspicious message.</li>
-  <li><strong>P - Protect:</strong> Report the incident to information security officers immediately.</li>
-</ol>'''
-    },
-    {
         'title': 'Safe Browsing & Web Security',
         'slug': 'safe-browsing',
         'icon': '🌐',
-        'order': 5,
+        'level': 'Basic',
+        'order': 3,
         'description': 'Master HTTPS, certificates, privacy extensions, malicious downloads, and web privacy.',
         'content': '''<h4>1. The Mechanics of Web Security</h4>
 <p>Browsing the web exposes your workstation to multiple threat vectors, including malicious scripts, cookie theft, unencrypted transport interception, and tracking beacons. Understanding web protocols is critical for personal privacy and organizational security.</p>
@@ -191,11 +129,81 @@ TOPICS = [
   <li>Never allow websites to save credit card information or primary passwords in unsecured browser caches.</li>
 </ul>'''
     },
+
+    # ========================================================
+    # INTERMEDIATE LEVEL (SYSTEM & NETWORK DEFENSE)
+    # ========================================================
+    {
+        'title': 'Malware, Ransomware & Spyware Defense',
+        'slug': 'malware',
+        'icon': '🦠',
+        'level': 'Intermediate',
+        'order': 4,
+        'description': 'Understand malware variants, zero-day threats, ransomware lifecycles, and defense strategies.',
+        'content': '''<h4>1. What is Malware?</h4>
+<p>Malware (short for <em>Malicious Software</em>) encompasses any software program specifically designed to compromise confidentiality, integrity, or availability of a host computer or network. In 2023 alone, over <strong>5.4 billion malware attacks</strong> were recorded globally.</p>
+
+<h4>2. Classification of Malicious Software</h4>
+<div class="table-responsive">
+  <table class="table table-bordered table-striped">
+    <thead class="table-dark">
+      <tr><th>Malware Family</th><th>Mechanism of Operation</th><th>Primary Objective</th><th>Real-World Example</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Ransomware</strong></td>
+        <td>Encrypts files using asymmetric ciphers (RSA-4096 / AES-256) and demands cryptocurrency ransom for private keys.</td>
+        <td>Financial extortion; double extortion threatens data leak if unpaid.</td>
+        <td>WannaCry, LockBit, BlackCat</td>
+      </tr>
+      <tr>
+        <td><strong>Spyware / Keyloggers</strong></td>
+        <td>Runs silently in background, capturing keystrokes, clipboard data, webcam feeds, and login credentials.</td>
+        <td>Espionage, identity theft, financial account takeover.</td>
+        <td>Pegasus, AgentTesla, RedLine Stealer</td>
+      </tr>
+      <tr>
+        <td><strong>Trojan Horses</strong></td>
+        <td>Disguised as legitimate, useful software (e.g. cracked game, PDF converter) but delivers hidden backdoor payloads.</td>
+        <td>Remote code execution, botnet recruitment, backdoor access.</td>
+        <td>Emotet, Zeus, TrickBot</td>
+      </tr>
+      <tr>
+        <td><strong>Worms</strong></td>
+        <td>Self-replicating standalone programs that spread across computer networks by exploiting unpatched OS vulnerabilities without human intervention.</td>
+        <td>Network saturation, automated payload propagation.</td>
+        <td>Stuxnet, Conficker, SQL Slammer</td>
+      </tr>
+      <tr>
+        <td><strong>Rootkits</strong></td>
+        <td>Injects into the operating system kernel or bootloader, actively concealing its presence from task managers and antivirus scanners.</td>
+        <td>Persistent undetected administrative control.</td>
+        <td>Necurs, ZeroAccess</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h4>3. The Ransomware Lifecycle</h4>
+<p><strong>Initial Access:</strong> Phishing email attachment, vulnerable RDP (Remote Desktop) port, or drive-by download.<br>
+<strong>Lateral Movement:</strong> Attacker scans local network, escalates privileges (e.g., abusing Active Directory), and locates sensitive databases.<br>
+<strong>Data Exfiltration:</strong> Sensitive files are stolen prior to encryption for double extortion.<br>
+<strong>Payload Execution:</strong> Volume Shadow Copies are deleted, and AES/RSA encryption routines are executed across local and network drives.<br>
+<strong>Ransom Demand:</strong> Desktop wallpaper replaced with countdown timer and Tor payment instructions.</p>
+
+<h4>4. The 3-2-1 Backup Rule (The Ultimate Ransomware Antidote)</h4>
+<ul>
+  <li>Maintain at least <strong>3 copies</strong> of your critical data.</li>
+  <li>Store backups on <strong>2 different media types</strong> (e.g., local external SSD + cloud storage).</li>
+  <li>Keep at least <strong>1 copy completely off-site / immutable</strong> (disconnected from network so ransomware cannot encrypt it).</li>
+</ul>'''
+    },
     {
         'title': 'Multi-Factor Authentication (MFA / 2FA)',
         'slug': '2fa',
         'icon': '🔐',
-        'order': 6,
+        'level': 'Intermediate',
+        'order': 5,
         'description': 'Explore authentication factors, TOTP apps, security keys, and defenses against SIM swapping.',
         'content': '''<h4>1. What is Multi-Factor Authentication?</h4>
 <p>Authentication verifies whether you are who you claim to be. Multi-Factor Authentication (MFA) requires proof from at least two distinct, independent categories of evidence before granting access. Even if an attacker steals your password, they cannot gain entry without the second factor.</p>
@@ -249,98 +257,274 @@ TOPICS = [
         'title': 'Public Wi-Fi & Network Security',
         'slug': 'public-wifi',
         'icon': '📶',
-        'order': 7,
-        'description': 'Protect your traffic against packet sniffing, Man-in-the-Middle attacks, and rogue hotspots.',
-        'content': '''<h4>1. The Inherent Danger of Public Wi-Fi</h4>
-<p>Public wireless networks in airports, hotels, cafes, and train stations are designed for maximum convenience, which usually means <strong>zero network-level encryption</strong>. Anyone within radio range equipped with free network monitoring software (such as <em>Wireshark</em>) can monitor unencrypted transmissions broadcast across the radio frequencies.</p>
+        'level': 'Intermediate',
+        'order': 6,
+        'description': 'Protect your data on open networks, prevent Man-in-the-Middle attacks, and understand VPN tunnels.',
+        'content': '''<h4>1. The Perils of Open Public Wi-Fi</h4>
+<p>Airports, cafes, hotels, and college campuses offer free Wi-Fi for convenience, but public wireless networks are inherently insecure broadcast mediums. Anyone within radio frequency range running packet capture software (such as <em>Wireshark</em>) can potentially capture, inspect, and manipulate unencrypted wireless frames.</p>
 
-<h4>2. Prominent Public Wi-Fi Attack Vectors</h4>
+<h4>2. Critical Public Wi-Fi Attack Vectors</h4>
 <ul>
-  <li><strong>Man-in-the-Middle (MitM) Attacks:</strong> An attacker inserts their computer between your laptop and the internet router. All your network requests route through the attacker's machine first, allowing them to inspect, capture, or alter your data.</li>
-  <li><strong>Evil Twin Attack:</strong> A cybercriminal configures a rogue Wi-Fi access point with the exact same name (SSID) as the venue (e.g., <em>"Starbucks_Guest_WiFi"</em>). Devices set to auto-connect automatically link to the attacker's hotspot.</li>
-  <li><strong>Packet Sniffing:</strong> Intercepting and decoding raw network packets traversing the local wireless local area network (WLAN).</li>
-  <li><strong>SSL Stripping:</strong> Attackers downgrade your connection from secure HTTPS to unencrypted HTTP, stripping the encryption layer so login forms submit in plain readable text.</li>
-  <li><strong>Malicious Hotspot Injections:</strong> Rogue routers serving fake firmware updates or popups requesting software installation before granting internet access.</li>
+  <li><strong>Man-in-the-Middle (MitM) Attacks:</strong> An attacker inserts themselves between your device and the router, intercepting or altering data packets in real time.</li>
+  <li><strong>Evil Twin Hotspots:</strong> Attackers deploy a rogue wireless access point broadcasting the exact SSID of the venue (e.g. <code>Starbucks_Guest_WiFi</code>). When your device automatically connects, all your network traffic routes through the attacker's laptop.</li>
+  <li><strong>Packet Sniffing:</strong> Capturing unencrypted credentials, session cookies, and browsing history broadcast across the shared radio frequency spectrum.</li>
+  <li><strong>SSL Stripping:</strong> Attackers downgrade secure HTTPS connections to plain HTTP, allowing them to harvest login credentials in plain text.</li>
 </ul>
 
-<h4>3. Best Practices for Traveling and Remote Work</h4>
-<ol>
-  <li><strong>Always Use a Trusted VPN:</strong> A Virtual Private Network encrypts 100% of your internet traffic inside an encrypted tunnel, rendering sniffed packets completely unintelligible to eavesdroppers.</li>
-  <li><strong>Turn Off Auto-Connect:</strong> Disable your smartphone and laptop settings that allow automatic connections to available open Wi-Fi networks.</li>
-  <li><strong>Prefer Mobile Data Hotspots:</strong> When dealing with sensitive tasks like banking or exam submissions, tether to your personal smartphone cellular data instead of public Wi-Fi.</li>
-  <li><strong>Disable File Sharing:</strong> On Windows, ensure your network profile is set to <strong>"Public Network"</strong> to disable file sharing, network discovery, and local printer access.</li>
-  <li><strong>Forget the Network:</strong> Once finished at a public venue, instruct your device to "Forget this Network" so it does not probe for the SSID in other locations.</li>
-</ol>'''
+<h4>3. How VPNs Neutralize Wi-Fi Threats</h4>
+<p>A <strong>Virtual Private Network (VPN)</strong> encapsulates your device's traffic inside an encrypted tunnel (using protocols like WireGuard or OpenVPN with AES-256 or ChaCha20 encryption). Even if you connect to a hostile Evil Twin router, the operator only sees unintelligible encrypted ciphertext traveling to the VPN server.</p>
+
+<h4>4. Safe Public Wi-Fi Protocol</h4>
+<ul>
+  <li>Always verify the exact network name and password with venue staff before connecting.</li>
+  <li>Turn off "Auto-Connect to Open Wi-Fi Networks" on your laptop and smartphone.</li>
+  <li>Keep your VPN connected continuously whenever on untrusted networks.</li>
+  <li>Never execute financial banking transactions or login to sensitive admin accounts on open Wi-Fi.</li>
+  <li>Turn off file sharing, AirDrop, and network printer discovery in OS settings.</li>
+</ul>'''
     },
     {
-        'title': 'Mobile Device Security & App Safety',
+        'title': 'Mobile Device Security & Endpoint Hardening',
         'slug': 'mobile-security',
         'icon': '📱',
-        'order': 8,
-        'description': 'Defend smartphones against rogue app permissions, spyware, sideloading risks, and physical loss.',
-        'content': '''<h4>1. The Smartphone as the Master Key</h4>
-<p>Smartphones are no longer just communication devices; they hold your banking apps, private emails, two-factor authentication tokens, personal photos, and biometric profiles. Consequently, mobile operating systems (Android and iOS) have become prime targets for state-sponsored spyware and financial fraudsters.</p>
+        'level': 'Intermediate',
+        'order': 7,
+        'description': 'Secure smartphones, app permissions, prevent juice jacking, and defend against zero-click mobile spyware.',
+        'content': '''<h4>1. Mobile Devices as Primary Attack Targets</h4>
+<p>Smartphones contain our most sensitive personal information: banking apps, private conversations, location telemetry, biometric data, and active session tokens. As a result, mobile platforms (Android and iOS) have become prime targets for state-sponsored spyware and commercial malware syndicates.</p>
 
 <h4>2. Major Mobile Threat Vectors</h4>
 <ul>
-  <li><strong>Malicious Applications (Trojan Droppers):</strong> Apps disguised as calculators, PDF scanners, or games that request excessive permissions to siphon data or send unauthorized premium SMS messages.</li>
-  <li><strong>Sideloading Risks:</strong> Downloading `.apk` files from untrusted third-party websites or Telegram channels bypasses the security scrutiny of official app stores.</li>
-  <li><strong>Over-Privileged Apps:</strong> Simple apps requesting access to your microphone, camera, contacts, SMS, and background location without legitimate functional necessity.</li>
-  <li><strong>Spyware (e.g., Pegasus):</strong> Advanced zero-click exploits that infect mobile devices via missed calls or silent messaging payloads without requiring any user interaction.</li>
-  <li><strong>Juice Jacking:</strong> Compromised public USB charging stations at transit hubs that transfer malware or clone data through the USB data pins while you charge your phone.</li>
+  <li><strong>Sideloading & Malicious APKs:</strong> Installing applications from third-party websites or forums bypasses Google Play Protect and Apple App Store verification, frequently introducing trojanized spyware.</li>
+  <li><strong>Over-Privileged Applications:</strong> Harmless-looking apps (e.g. calculators, flashlight apps) requesting invasive permissions such as Contacts, Microphone, SMS, and Background Location.</li>
+  <li><strong>Juice Jacking:</strong> Public USB charging kiosks modified by attackers to extract data or deliver malware payloads through physical USB data pins while your phone is plugged in to charge.</li>
+  <li><strong>Zero-Click Exploits:</strong> Advanced surveillance malware (e.g. NSO Group's <em>Pegasus</em>) that compromises a device via an incoming message or call without the user ever tapping or clicking anything.</li>
+  <li><strong>Outdated Mobile Operating Systems:</strong> Delaying OS security updates leaves known remote code execution vulnerabilities unpatched on your device.</li>
 </ul>
 
-<h4>3. The Golden Rules of Mobile Hygiene</h4>
+<h4>3. Mobile Hardening Best Practices</h4>
 <ul>
-  <li><strong>Official Stores Only:</strong> Restrict app installations strictly to Google Play Store and Apple App Store. Verify developer names, download counts, and recent reviews.</li>
-  <li><strong>Audit Permissions Periodically:</strong> Go to <em>Settings → Privacy → Permission Manager</em> and revoke Camera, Location, and Microphone access from apps that do not actively require them.</li>
-  <li><strong>Enable Biometrics & Strong Passcodes:</strong> Use at least a 6-digit alphanumeric PIN or biometric unlock (Fingerprint / Face ID). Avoid predictable patterns like "L" shapes or "1234".</li>
-  <li><strong>Activate Remote Tracking & Wipe:</strong> Ensure <em>Find My Device</em> (Android) or <em>Find My</em> (Apple) is enabled so you can remotely track, lock, or factory reset your device if stolen.</li>
-  <li><strong>Use USB Data Blockers:</strong> When charging in airports, use a "USB condom" (data blocker adapter) that physically disconnects data pins and allows only power transfer.</li>
+  <li><strong>Lock Down Permissions:</strong> Regularly audit app permissions. Revoke Location, Camera, and Microphone access for all non-essential apps. Set location permissions to "Only while using app".</li>
+  <li><strong>Enable Full-Disk Encryption:</strong> Ensure modern device encryption and use a 6+ digit alphanumeric passcode (avoid simple 4-digit PINs or pattern locks).</li>
+  <li><strong>Use USB Data Blockers:</strong> When charging at airports or public stations, use a "USB data blocker" (a physical adapter that physically severs data pins, passing only electrical power).</li>
+  <li><strong>Regular Reboots:</strong> Rebooting your smartphone daily flushes memory-resident, non-persistent spyware payloads from RAM.</li>
 </ul>'''
     },
+
+    # ========================================================
+    # ADVANCED LEVEL (ENTERPRISE, APPLICATION & INFRASTRUCTURE)
+    # ========================================================
+    {
+        'title': 'Social Engineering & Psychological Manipulation',
+        'slug': 'social-engineering',
+        'icon': '👤',
+        'level': 'Advanced',
+        'order': 8,
+        'description': 'Deconstruct pretexting, authority bias, baiting, OSINT reconnaissance, and human vulnerability defenses.',
+        'content': '''<h4>1. The Art of Human Hacking</h4>
+<p>Renowned security consultant Kevin Mitnick famously stated: <em>"The human factor is truly that weakest link in security."</em> Social engineering bypasses cryptographic algorithms, next-generation firewalls, and biometric access controls by directly manipulating human psychology, trust, and cognitive biases.</p>
+
+<h4>2. Psychological Principles Exploited by Attackers</h4>
+<ul>
+  <li><strong>Authority:</strong> Impersonating corporate executives (CEO fraud), law enforcement officers, or senior IT directors to induce compliance.</li>
+  <li><strong>Urgency & Scarcity:</strong> Manufacturing high-stress deadlines (<em>"Wire funds within 30 minutes to close this acquisition"</em>) that disrupt logical critical reasoning.</li>
+  <li><strong>Social Proof / Consensus:</strong> Convincing the victim that others in their department have already approved the request.</li>
+  <li><strong>Likability & Flattery:</strong> Building rapport and sympathy to lower the victim's natural defensive suspicion.</li>
+</ul>
+
+<h4>3. Common Social Engineering Vectors</h4>
+<div class="table-responsive">
+  <table class="table table-bordered table-striped">
+    <thead class="table-dark">
+      <tr><th>Vector</th><th>Technique</th><th>Scenario</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Pretexting</strong></td>
+        <td>Creating an intricate, researched backstory to justify requesting confidential data.</td>
+        <td>Attacker calls HR pretending to be an auditor needing employee payroll records for tax compliance.</td>
+      </tr>
+      <tr>
+        <td><strong>Baiting</strong></td>
+        <td>Enticing victims with a physical or digital prize containing a hidden malicious payload.</td>
+        <td>Leaving infected USB flash drives labeled "Executive Salaries 2024" in the corporate parking lot.</td>
+      </tr>
+      <tr>
+        <td><strong>Tailgating / Piggybacking</strong></td>
+        <td>Physically following an authorized employee into a secured physical facility.</td>
+        <td>Attacker holding heavy coffee boxes asking an employee to hold open the electronic keycard door.</td>
+      </tr>
+      <tr>
+        <td><strong>Quid Pro Quo</strong></td>
+        <td>Offering a helpful service in exchange for confidential information or access.</td>
+        <td>Attacker calls employees claiming to be IT support helping fix an internet slowdown if they supply login credentials.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h4>4. Institutional Defense: The STOP Protocol</h4>
+<p>Whenever you receive an unexpected request for money, access, or private credentials:</p>
+<ol>
+  <li><strong>S - Slow Down:</strong> Fraud thrives on urgency. Refuse to be rushed.</li>
+  <li><strong>T - Think:</strong> Does this request make logical sense? Why does this person need this information?</li>
+  <li><strong>O - Out-of-Band Verify:</strong> Call the requester on a known, official telephone number — never use numbers provided in the suspicious message.</li>
+  <li><strong>P - Protect:</strong> Report the incident to information security officers immediately.</li>
+</ol>'''
+    },
+    {
+        'title': 'Network Defense, Firewalls & Intrusion Detection',
+        'slug': 'network-defense',
+        'icon': '🛡️',
+        'level': 'Advanced',
+        'order': 9,
+        'description': 'Master packet filtering, stateful firewalls, IDS/IPS architectures, DMZ segmentation, and DDoS mitigation.',
+        'content': '''<h4>1. Fundamentals of Enterprise Network Defense</h4>
+<p>Network security is the practice of securing computer networks against unauthorized access, malicious modification, and resource depletion. A robust security posture implements <strong>Defense-in-Depth</strong>, layering controls across the physical, data link, network, transport, and application layers of the OSI model.</p>
+
+<h4>2. Firewall Architectures</h4>
+<ul>
+  <li><strong>Stateless Packet Filtering (Layer 3/4):</strong> Evaluates individual packets in isolation based on source/destination IP, port numbers, and protocol headers. Cannot detect attacks hidden within valid connections.</li>
+  <li><strong>Stateful Inspection Firewalls:</strong> Tracks the ongoing state of active TCP/UDP connections. Packets are verified against state tables; incoming traffic is dropped unless it corresponds to an established internal outbound request.</li>
+  <li><strong>Next-Generation Firewalls (NGFW / Layer 7):</strong> Performs deep packet inspection (DPI), application awareness, TLS decryption, and integrated threat intelligence to block advanced application-layer attacks.</li>
+  <li><strong>Web Application Firewalls (WAF):</strong> Sits in front of web servers to inspect HTTP/HTTPS traffic, filtering SQL injection, XSS, and automated bot scrapers.</li>
+</ul>
+
+<h4>3. Intrusion Detection (IDS) vs. Intrusion Prevention (IPS)</h4>
+<div class="table-responsive">
+  <table class="table table-bordered table-striped">
+    <thead class="table-dark">
+      <tr><th>Capability</th><th>Intrusion Detection System (IDS)</th><th>Intrusion Prevention System (IPS)</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Network Placement</strong></td><td>Passive / Out-of-band (receives mirrored SPAN port traffic)</td><td>In-line (traffic flows directly through the sensor)</td></tr>
+      <tr><td><strong>Action on Threat</strong></td><td>Generates real-time alerts and logs alerts to SIEM</td><td>Actively drops malicious packets, resets connections, and updates firewall rules</td></tr>
+      <tr><td><strong>Network Latency</strong></td><td>Zero latency impact on active traffic</td><td>Can introduce minimal latency under high traffic loads</td></tr>
+      <tr><td><strong>Analysis Methods</strong></td><td>Signature-based matching & Anomaly-based statistical heuristics</td><td>Signature matching, protocol anomaly checks & threat blocking</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h4>4. Demilitarized Zones (DMZ) & Network Segmentation</h4>
+<p>A <strong>DMZ (Demilitarized Zone)</strong> is a perimeter network that isolates an organization's public-facing servers (Web, Mail, DNS) from the internal corporate LAN. If an internet-facing web server in the DMZ is compromised, the internal firewall prevents the attacker from laterally pivoting into internal workstations and core database servers.</p>'''
+    },
+    {
+        'title': 'Web Application Security & OWASP Top 10',
+        'slug': 'web-security',
+        'icon': '💻',
+        'level': 'Advanced',
+        'order': 10,
+        'description': 'Analyze injection vectors (SQLi), Cross-Site Scripting (XSS), CSRF, and defensive secure coding patterns.',
+        'content': '''<h4>1. The Web Application Threat Landscape</h4>
+<p>Web applications interface directly with the public internet, exposing business logic and backend datastores to untrusted inputs. The <strong>OWASP (Open Web Application Security Project) Top 10</strong> documents the most critical security risks facing modern web software.</p>
+
+<h4>2. Critical Web Vulnerabilities</h4>
+<ul>
+  <li><strong>SQL Injection (SQLi):</strong> Occurs when untrusted user input is directly concatenated into database queries. Attackers can bypass authentication, exfiltrate entire databases, or delete data.<br>
+  <em>Defense:</em> Always use parameterized queries / Object-Relational Mappers (ORM) such as SQLAlchemy and prepared statements. Never format strings into SQL.</li>
+  <li><strong>Cross-Site Scripting (XSS):</strong>
+    <ul>
+      <li><em>Stored XSS:</em> Malicious scripts permanently saved in a database and served to other users.</li>
+      <li><em>Reflected XSS:</em> Malicious script reflected off a web server in an error message or search result.</li>
+      <li><em>DOM-Based XSS:</em> Vulnerability in client-side JavaScript executing untrusted DOM input.</li>
+    </ul>
+    <em>Defense:</em> Context-aware output encoding, automated Jinja2 template escaping, and Content Security Policy (CSP) headers.</li>
+  <li><strong>Cross-Site Request Forgery (CSRF):</strong> Tricks an authenticated victim into executing unwanted state-changing actions (password change, fund transfer) on a trusted application.<br>
+  <em>Defense:</em> Anti-CSRF synchronizer tokens and <code>SameSite=Lax</code> or <code>Strict</code> cookie attributes.</li>
+  <li><strong>Broken Object Level Authorization (BOLA / IDOR):</strong> Applications exposing direct references to internal objects (e.g. <code>/api/invoices/1042</code>) without verifying if the requesting user owns that object.<br>
+  <em>Defense:</em> Enforce strict server-side authorization checks on every object lookup.</li>
+</ul>
+
+<h4>3. Defensive Security Headers</h4>
+<p>Modern web servers protect users by sending security directives in HTTP response headers:</p>
+<ul>
+  <li><code>Content-Security-Policy (CSP):</code> Restricts domains from which scripts, images, and styles can load.</li>
+  <li><code>Strict-Transport-Security (HSTS):</code> Enforces all browser connections to use HTTPS exclusively.</li>
+  <li><code>X-Content-Type-Options: nosniff:</code> Prevents MIME-type confusion attacks.</li>
+  <li><code>X-Frame-Options: DENY:</code> Prevents clickjacking attacks by blocking iframe embedding.</li>
+</ul>'''
+    }
 ]
 
 QUESTIONS = [
-    # Topic 1: Password Security (3 Questions)
-    {'topic_slug': 'password-security', 'question_text': 'Which of the following password strategies provides the highest mathematical resistance against modern brute-force attacks?', 'option_a': 'An 8-character password with symbols like P@ssw0rd', 'option_b': 'A 20-character multi-word passphrase like correct-horse-battery-staple', 'option_c': 'Using your mother\'s maiden name followed by your birth year', 'option_d': 'Changing a single number in your password every month', 'correct_answer': 'B', 'explanation': 'Passphrases with high character length (16+ characters) have exponentially higher entropy, taking millions of years to crack even on multi-GPU cracking rigs.'},
-    {'topic_slug': 'password-security', 'question_text': 'What is a "Credential Stuffing" attack?', 'option_a': 'Guessing passwords using common dictionary words', 'option_b': 'Automating logins on various services using username/password pairs leaked from other data breaches', 'option_c': 'Intercepting passwords over unencrypted HTTP connections', 'option_d': 'Physically looking over someone\'s shoulder while they type', 'correct_answer': 'B', 'explanation': 'Credential stuffing relies on the human tendency to reuse passwords across multiple websites. Attackers test leaked credentials from one breach on hundreds of other platforms.'},
-    {'topic_slug': 'password-security', 'question_text': 'What is the primary advantage of using a dedicated Password Manager?', 'option_a': 'It stores passwords on a public website for easy recovery', 'option_b': 'It allows using unique, random, high-complexity passwords for every service while remembering only one master key', 'option_c': 'It automatically disables two-factor authentication to speed up logins', 'option_d': 'It shares your passwords securely with your social media friends', 'correct_answer': 'B', 'explanation': 'Password managers solve the cognitive impossibility of remembering dozens of 20-character random passwords, allowing each service to have a completely unique key.'},
+    # ========================================================
+    # BASIC LEVEL QUESTIONS
+    # ========================================================
+    # Topic 1: Password Security (5 Questions)
+    {'topic_slug': 'password-security', 'question_text': 'Which of the following password patterns offers the greatest resistance against modern GPU brute-force attacks?', 'option_a': 'password2024!', 'option_b': 'Admin@1234', 'option_c': 'solar-bicycle-ocean-granite', 'option_d': 'P@ssw0rd', 'correct_answer': 'C', 'explanation': 'Multi-word passphrases (e.g. "solar-bicycle-ocean-granite") have high length and high character entropy, requiring millions of years to crack with brute-force tools.'},
+    {'topic_slug': 'password-security', 'question_text': 'What is the primary danger of reusing the same password across multiple online accounts?', 'option_a': 'It slows down your internet connection', 'option_b': 'If one website suffers a data breach, attackers use "Credential Stuffing" to compromise all your other accounts', 'option_c': 'Password managers refuse to save duplicate passwords', 'option_d': 'Web browsers automatically delete duplicate passwords', 'correct_answer': 'B', 'explanation': 'Credential stuffing attacks use stolen credentials from one breached website to automatically unlock accounts across hundreds of other popular platforms.'},
+    {'topic_slug': 'password-security', 'question_text': 'What is the minimum password length recommended by modern cybersecurity standards (such as NIST)?', 'option_a': '6 characters', 'option_b': '8 characters', 'option_c': '12 to 16 characters', 'option_d': '32 characters', 'correct_answer': 'C', 'explanation': 'Modern standards recommend at least 12 to 16 characters because each additional character exponentially increases the computational work required to brute-force.'},
+    {'topic_slug': 'password-security', 'question_text': 'Why is an open-source password manager (like Bitwarden or KeePassXC) safer than saving passwords in a browser?', 'option_a': 'Password managers encrypt the database with AES-256 and require zero knowledge master keys, protecting against local malware extraction', 'option_b': 'Password managers are managed by the government', 'option_c': 'Browsers do not encrypt passwords at all', 'option_d': 'Password managers only work on Linux operating systems', 'correct_answer': 'A', 'explanation': 'Audited password managers utilize client-side zero-knowledge AES-256 encryption with Argon2 or PBKDF2 key derivation, whereas browser vaults are frequently targeted by infostealers.'},
+    {'topic_slug': 'password-security', 'question_text': 'What is "Password Spraying"?', 'option_a': 'Typing passwords very quickly to confuse keyloggers', 'option_b': 'Trying a single commonly used password against thousands of different user accounts to avoid account lockout triggers', 'option_c': 'Printing out passwords on paper', 'option_d': 'Deleting passwords from memory caches', 'correct_answer': 'B', 'explanation': 'Password spraying circumvents account lockout thresholds by testing one or two common passwords (e.g. "Summer2024!") against thousands of usernames rather than brute-forcing one account.'},
 
-    # Topic 2: Phishing (3 Questions)
-    {'topic_slug': 'phishing', 'question_text': 'Which of the following is an example of "Spear Phishing"?', 'option_a': 'Sending 10 million generic fake Netflix renewal emails to random addresses', 'option_b': 'A tailored email to an accounting officer containing their real project name requesting urgent vendor invoice payment', 'option_c': 'Calling a random telephone number pretending to be Windows technical support', 'option_d': 'An automated popup ad claiming your computer has 5 viruses', 'correct_answer': 'B', 'explanation': 'Spear phishing is customized and targeted at a specific individual or organization using researched information to make the fraud appear authentic.'},
-    {'topic_slug': 'phishing', 'question_text': 'What is a "Homograph / Punycode" phishing attack?', 'option_a': 'Using a phone call combined with an email', 'option_b': 'Registering lookalike domains using foreign alphabet characters that visually resemble Latin letters', 'option_c': 'Sending an SMS message instead of an email', 'option_d': 'Hacking an official company Twitter account', 'correct_answer': 'B', 'explanation': 'Homograph attacks use internationalized domain names (IDNs) with characters from Cyrillic or Greek that appear identical to Latin characters (e.g. Cyrillic "а" instead of Latin "a").'},
-    {'topic_slug': 'phishing', 'question_text': 'What should you do immediately if you realize you entered credentials on a fraudulent phishing website?', 'option_a': 'Wait 24 hours to see if any charges appear on your credit card', 'option_b': 'Disconnect from the internet, change your passwords from another device, and alert your security team', 'option_c': 'Reply to the phishing email demanding they delete your information', 'option_d': 'Restart your computer and continue browsing', 'correct_answer': 'B', 'explanation': 'Fast incident response is vital: disconnect the compromised device, immediately reset passwords from a clean device, enable MFA, and report the compromise.'},
+    # Topic 2: Phishing (5 Questions)
+    {'topic_slug': 'phishing', 'question_text': 'You receive an email claiming to be from your bank stating: "URGENT: Your debit card is blocked. Click here within 1 hour." What is the primary red flag?', 'option_a': 'The email is formatted in HTML', 'option_b': 'Artificial urgency and fear tactics designed to bypass rational thinking', 'option_c': 'The email was delivered in the morning', 'option_d': 'The message includes the bank logo', 'correct_answer': 'B', 'explanation': 'Urgency, deadlines, and threats of financial loss are psychological coercion techniques used to induce panic so the victim acts before verifying.'},
+    {'topic_slug': 'phishing', 'question_text': 'How should you verify the true destination of a hyperlink in a suspicious email without clicking it?', 'option_a': 'Click the link on your mobile phone instead', 'option_b': 'Forward the email to all your colleagues', 'option_c': 'Hover your mouse cursor over the link to preview the actual destination URL in the status bar', 'option_d': 'Reply to the sender asking if the link is safe', 'correct_answer': 'C', 'explanation': 'Hovering reveals the real destination URL, which often exposes a deceptive or malicious third-party domain hidden behind friendly text.'},
+    {'topic_slug': 'phishing', 'question_text': 'What is "Whaling" in cybersecurity?', 'option_a': 'Catching large amounts of spam in a honeypot', 'option_b': 'A spear phishing attack specifically targeted at high-profile executives like CEOs or CFOs to execute fraudulent wire transfers', 'option_c': 'Attacking naval communication networks', 'option_d': 'Deleting large database tables', 'correct_answer': 'B', 'explanation': 'Whaling targets high-profile corporate or government executives with customized lures to authorize multi-million dollar transfers or disclose sensitive intellectual property.'},
+    {'topic_slug': 'phishing', 'question_text': 'What constitutes a "Smishing" attack?', 'option_a': 'A phishing attack executed via SMS text messages containing malicious links or phone numbers', 'option_b': 'Phishing through social media friend requests', 'option_c': 'Stealing hard drives from servers', 'option_d': 'Sending fraudulent physical postal mail', 'correct_answer': 'A', 'explanation': 'Smishing (SMS Phishing) delivers deceptive text messages pretending to be package deliveries, tax refunds, or banking alerts.'},
+    {'topic_slug': 'phishing', 'question_text': 'What is the safest immediate action to take if you realize you entered credentials on a fraudulent phishing page?', 'option_a': 'Shut down your computer and wait 24 hours', 'option_b': 'Immediately change your password from another clean device and enable Multi-Factor Authentication (MFA)', 'option_c': 'Email the attacker asking them not to use your password', 'option_d': 'Delete your web browser application', 'correct_answer': 'B', 'explanation': 'Changing credentials immediately from a known safe device and enabling MFA locks out the attacker before they can utilize the harvested password.'},
 
-    # Topic 3: Malware (3 Questions)
-    {'topic_slug': 'malware', 'question_text': 'What distinguishes a "Computer Worm" from a conventional "Computer Virus"?', 'option_a': 'Worms only infect mobile phones, while viruses only infect desktop PCs', 'option_b': 'A worm can self-replicate and spread autonomously across networks without human intervention or host file attachment', 'option_c': 'Viruses can never be detected by antivirus software', 'option_d': 'Worms only delete files, whereas viruses only display ads', 'correct_answer': 'B', 'explanation': 'Viruses require a host file and human action (e.g. executing an infected program) to propagate. Worms are standalone programs that replicate autonomously over networks.'},
-    {'topic_slug': 'malware', 'question_text': 'In the "3-2-1 Backup Strategy", what does the number "1" represent?', 'option_a': 'At least 1 backup must be kept offsite or in an immutable/disconnected cloud location', 'option_b': 'Only 1 person should know the backup password', 'option_c': 'Backups should only be created 1 time per year', 'option_d': 'All data must fit onto 1 USB thumb drive', 'correct_answer': 'A', 'explanation': 'The "1" in 3-2-1 requires at least one backup to be maintained off-site or disconnected from the local network, protecting it against fire, theft, or network-wide ransomware.'},
-    {'topic_slug': 'malware', 'question_text': 'What type of malware operates stealthily to record keystrokes and capture sensitive banking credentials?', 'option_a': 'Adware', 'option_b': 'Keylogger / Spyware', 'option_c': 'Defragmenter', 'option_d': 'Ransomware', 'correct_answer': 'B', 'explanation': 'Keyloggers and spyware run silently in the background, logging every keystroke (including passwords and credit card numbers) and exfiltrating them to an adversary.'},
+    # Topic 3: Safe Browsing (5 Questions)
+    {'topic_slug': 'safe-browsing', 'question_text': 'What does the padlock icon (HTTPS) in your browser address bar fundamentally guarantee?', 'option_a': 'The website is 100% legal, safe, and vetted by law enforcement', 'option_b': 'Data transmitted between your browser and that specific server is encrypted and protected from transit tampering', 'option_c': 'The website does not contain any malware or phishing forms', 'option_d': 'Your computer cannot be infected by any virus', 'correct_answer': 'B', 'explanation': 'HTTPS guarantees end-to-end transport encryption and integrity; it does NOT verify the intent of the website operator. Phishing sites frequently use HTTPS.'},
+    {'topic_slug': 'safe-browsing', 'question_text': 'What is a "Drive-by Download"?', 'option_a': 'Downloading files while connected to car Wi-Fi', 'option_b': 'Malware that downloads and executes automatically simply by visiting an infected web page without user clicking or consent', 'option_c': 'Downloading large torrent files overnight', 'option_d': 'Software installed through authorized operating system updates', 'correct_answer': 'B', 'explanation': 'Drive-by downloads exploit unpatched browser or plugin vulnerabilities (zero-days) to drop payloads silently upon page rendering.'},
+    {'topic_slug': 'safe-browsing', 'question_text': 'How does an open-source content blocker like uBlock Origin enhance your cybersecurity posture?', 'option_a': 'It blocks malvertising domains, tracking beacons, and coin-mining scripts before they execute in your browser', 'option_b': 'It cracks Wi-Fi passwords for you', 'option_c': 'It increases your internet bandwidth by 500%', 'option_d': 'It replaces your operating system firewall', 'correct_answer': 'A', 'explanation': 'Ad and tracker blockers neutralize malvertising vectors by preventing victim browsers from fetching untrusted JavaScript from malicious ad networks.'},
+    {'topic_slug': 'safe-browsing', 'question_text': 'What is "DNS over HTTPS" (DoH)?', 'option_a': 'A protocol that encrypts domain name lookup queries inside HTTPS traffic, preventing local ISPs and Wi-Fi operators from eavesdropping on visited websites', 'option_b': 'A method for hosting websites without domain names', 'option_c': 'A type of computer virus that attacks DNS servers', 'option_d': 'An email encryption standard', 'correct_answer': 'A', 'explanation': 'DoH prevents intermediaries (including public Wi-Fi providers and ISPs) from logging your DNS requests and executing DNS spoofing / redirection attacks.'},
+    {'topic_slug': 'safe-browsing', 'question_text': 'What is "Clickjacking"?', 'option_a': 'Stealing a physical mouse from an office', 'option_b': 'A deceptive technique where invisible or transparent UI layers trick users into clicking malicious buttons while intending to click something else', 'option_c': 'Clicking buttons very rapidly in a web form', 'option_d': 'Purchasing expired domain names', 'correct_answer': 'B', 'explanation': 'Clickjacking overlays an invisible iframe over a legitimate page, tricking users into performing actions (such as authorizing permissions or buying items) unintentionally.'},
 
-    # Topic 4: Social Engineering (3 Questions)
-    {'topic_slug': 'social-engineering', 'question_text': 'What is "Baiting" in the context of physical social engineering?', 'option_a': 'Holding a secure door open for someone who forgot their badge', 'option_b': 'Leaving an infected USB drive in a public area hoping an employee plugs it into a company computer', 'option_c': 'Sending an urgent email pretending to be the company CEO', 'option_d': 'Calling an employee pretending to perform an IT support audit', 'correct_answer': 'B', 'explanation': 'Baiting uses physical media (like an infected USB drive labeled "Confidential Payroll") to exploit human curiosity or greed, enticing victims into running malicious payloads.'},
-    {'topic_slug': 'social-engineering', 'question_text': 'What is "Tailgating" (or Piggybacking) in cybersecurity physical security?', 'option_a': 'Following an authorized person through a secured door without scanning a valid credential', 'option_b': 'Installing multiple antivirus scanners on the same computer', 'option_c': 'Copying someone\'s homework in a computer lab', 'option_d': 'Sending repeated phishing emails after the first one is ignored', 'correct_answer': 'A', 'explanation': 'Tailgating occurs when an unauthorized person closely follows an authorized employee into a restricted physical facility, often exploiting polite customs like holding doors.'},
-    {'topic_slug': 'social-engineering', 'question_text': 'Why do social engineering attacks rely heavily on creating artificial urgency?', 'option_a': 'Because network firewalls only operate during business hours', 'option_b': 'Because cognitive panic and rushed decisions suppress critical thinking and verification protocols', 'option_c': 'Because phishing emails expire after 10 minutes', 'option_d': 'Because banks shut down servers every evening', 'correct_answer': 'B', 'explanation': 'Urgency induces stress and panic, prompting victims to bypass standard verification procedures and comply before their rational skepticism can evaluate the situation.'},
+    # ========================================================
+    # INTERMEDIATE LEVEL QUESTIONS
+    # ========================================================
+    # Topic 4: Malware (5 Questions)
+    {'topic_slug': 'malware', 'question_text': 'What defines "Ransomware" compared to other classifications of malicious software?', 'option_a': 'It displays pop-up advertisements to generate ad revenue', 'option_b': 'It encrypts user files with strong cryptographic ciphers and demands payment in cryptocurrency in exchange for the decryption key', 'option_c': 'It logs keystrokes to steal bank accounts', 'option_d': 'It only attacks mobile smartphones', 'correct_answer': 'B', 'explanation': 'Ransomware holds user data hostage through uncrackable encryption algorithms (AES/RSA) and extorts victims for cryptocurrency.'},
+    {'topic_slug': 'malware', 'question_text': 'What is the "3-2-1 Backup Strategy" for total ransomware resilience?', 'option_a': 'Keep 3 files, backup every 2 days, for 1 year', 'option_b': '3 total copies of data, stored on 2 different media types, with at least 1 copy kept completely offsite or immutable/air-gapped', 'option_c': 'Save backups to 3 USB drives in the same room', 'option_d': 'Backup only the 3 largest folders on your computer', 'correct_answer': 'B', 'explanation': 'Having an immutable, offline copy guarantees you can restore your files without ever paying a criminal ransom if internal networks are encrypted.'},
+    {'topic_slug': 'malware', 'question_text': 'How does a computer "Worm" differ fundamentally from a traditional computer "Virus"?', 'option_a': 'Worms only infect Apple macOS computers', 'option_b': 'Worms can self-replicate and spread autonomously across networks without requiring user action or host file attachment', 'option_c': 'Viruses do not cause any harm to computer hardware', 'option_d': 'Worms are always benign educational programs', 'correct_answer': 'B', 'explanation': 'A virus requires a host file and human interaction (running an executable) to spread. A worm exploits network vulnerabilities to propagate automatically.'},
+    {'topic_slug': 'malware', 'question_text': 'What is a "Trojan Horse" in software security?', 'option_a': 'A hardware virus embedded in computer power cables', 'option_b': 'Malware disguised as legitimate or desirable software (such as a game or cracked utility) that hides malicious payloads', 'option_c': 'A secure operating system developed in Greece', 'option_d': 'An antivirus program that removes all files', 'correct_answer': 'B', 'explanation': 'Trojans mislead users regarding their true intent, delivering backdoors, spyware, or ransomware once installed under false pretenses.'},
+    {'topic_slug': 'malware', 'question_text': 'Why are "Rootkits" considered among the most dangerous malware infections?', 'option_a': 'They operate at the kernel or bootloader level, hiding themselves from the operating system and standard security tools', 'option_b': 'They automatically delete the computer monitor drivers', 'option_c': 'They cannot be detected even if the hard drive is physically destroyed', 'option_d': 'They require 100 GB of free disk space to run', 'correct_answer': 'A', 'explanation': 'Rootkits subvert the operating system kernel itself, intercepting system calls to conceal their processes, files, and network connections from task managers.'},
 
-    # Topic 5: Safe Browsing (3 Questions)
-    {'topic_slug': 'safe-browsing', 'question_text': 'Does the padlock icon (HTTPS) mean that a website is guaranteed to be safe and legitimate?', 'option_a': 'Yes, HTTPS certificates are only issued to verified non-profit organizations', 'option_b': 'No, HTTPS only encrypts communication in transit; cybercriminals can easily obtain SSL certificates for phishing sites', 'option_c': 'Yes, HTTPS automatically deletes all malware from your computer', 'option_d': 'No, HTTPS means the website is running without a firewall', 'correct_answer': 'B', 'explanation': 'HTTPS guarantees encryption between your browser and the target server, preventing eavesdropping. However, a phishing site can also use HTTPS encryption.'},
-    {'topic_slug': 'safe-browsing', 'question_text': 'What is a "Drive-by Download"?', 'option_a': 'Downloading software while connected to an automobile Wi-Fi hotspot', 'option_b': 'Unintended download and execution of malicious code that occurs automatically simply by visiting a compromised webpage', 'option_c': 'A software update downloaded while the user is away from their keyboard', 'option_d': 'Transferring files between two laptops via Bluetooth', 'correct_answer': 'B', 'explanation': 'Drive-by downloads exploit unpatched browser or plugin vulnerabilities to execute malware automatically without requiring the user to click or accept a download prompt.'},
-    {'topic_slug': 'safe-browsing', 'question_text': 'What is the security benefit of utilizing "DNS-over-HTTPS" (DoH)?', 'option_a': 'It increases your internet download speed by 500%', 'option_b': 'It encrypts your domain lookups, preventing local network eavesdroppers and ISPs from tracking the websites you visit', 'option_c': 'It eliminates the need for strong account passwords', 'option_d': 'It automatically cleans browser cookies every 5 seconds', 'correct_answer': 'B', 'explanation': 'Traditional DNS queries are unencrypted plain text. DNS-over-HTTPS (DoH) encrypts these requests, preserving privacy against ISP surveillance and local Wi-Fi eavesdroppers.'},
-
-    # Topic 6: 2FA / MFA (3 Questions)
+    # Topic 5: 2FA (5 Questions)
     {'topic_slug': '2fa', 'question_text': 'Which of the following represents an "Inherence" authentication factor?', 'option_a': 'A 6-digit numeric PIN', 'option_b': 'A hardware YubiKey token', 'option_c': 'A fingerprint or facial recognition scan', 'option_d': 'Your mother\'s maiden name', 'correct_answer': 'C', 'explanation': 'The three factors are: Something you know (Knowledge), Something you have (Possession), and Something you are (Inherence/Biometrics). Biometrics represent inherence.'},
     {'topic_slug': '2fa', 'question_text': 'Why are Hardware Security Keys (FIDO2/WebAuthn) superior to SMS-based 2FA codes?', 'option_a': 'Hardware keys never require an internet connection and are mathematically immune to phishing and SIM swapping', 'option_b': 'Hardware keys automatically guess your password if you forget it', 'option_c': 'SMS codes are limited to only 4 digits', 'option_d': 'Hardware keys can be shared with up to 10 family members simultaneously', 'correct_answer': 'A', 'explanation': 'Hardware keys use cryptographic origin binding that prevents credential harvesting on phishing sites, and they do not rely on cellular networks vulnerable to SIM swapping.'},
     {'topic_slug': '2fa', 'question_text': 'In a "SIM Swap" attack, what action does the cybercriminal take?', 'option_a': 'They steal your physical smartphone from your pocket', 'option_b': 'They deceive your mobile network carrier into transferring your telephone number to a SIM card they control', 'option_c': 'They physically replace your phone battery with a listening device', 'option_d': 'They install a fake SIM card reader on an ATM', 'correct_answer': 'B', 'explanation': 'SIM swapping is social engineering directed at telecom providers to hijack the victim\'s phone number, allowing the attacker to intercept all SMS verification codes.'},
+    {'topic_slug': '2fa', 'question_text': 'How do Time-Based One-Time Password (TOTP) apps (like Google Authenticator) work?', 'option_a': 'They send an SMS message to Google servers every 30 seconds', 'option_b': 'They compute a 6-digit code using a shared secret key and the current Unix timestamp via the HMAC-SHA1 algorithm', 'option_c': 'They take a screenshot of your screen and analyze it', 'option_d': 'They require continuous Bluetooth connection to your computer', 'correct_answer': 'B', 'explanation': 'TOTP algorithms (RFC 6238) combine the secret seed key with the current 30-second time window cryptographically without requiring any cellular network connectivity.'},
+    {'topic_slug': '2fa', 'question_text': 'What is "MFA Fatigue" (Push Bombing)?', 'option_a': 'Getting tired from typing passwords', 'option_b': 'An attacker spamming a victim with dozens of MFA push notification requests until the frustrated victim taps "Approve"', 'option_c': 'A mobile phone running out of battery due to MFA apps', 'option_d': 'Forgetting your MFA backup codes', 'correct_answer': 'B', 'explanation': 'MFA fatigue attacks exploit human exhaustion and confusion by repeatedly sending approval prompts until the target accidentally or desperately accepts.'},
 
-    # Topic 7: Public Wi-Fi (3 Questions)
+    # Topic 6: Public Wi-Fi (5 Questions)
     {'topic_slug': 'public-wifi', 'question_text': 'What is an "Evil Twin" Wi-Fi attack?', 'option_a': 'A duplicate Wi-Fi password written on a coffee shop chalkboard', 'option_b': 'A rogue wireless access point configured with the same SSID name as a legitimate venue to trick devices into connecting', 'option_c': 'Connecting two smartphones to the same Bluetooth speaker', 'option_d': 'A computer virus that duplicates itself onto two hard drives', 'correct_answer': 'B', 'explanation': 'An Evil Twin is a fraudulent Wi-Fi hotspot set up by an attacker mimicking a legitimate network name (e.g. "Airport_Free_WiFi") to intercept all connected user traffic.'},
     {'topic_slug': 'public-wifi', 'question_text': 'How does a Virtual Private Network (VPN) protect users connected to an untrusted public network?', 'option_a': 'It increases Wi-Fi signal strength through the walls', 'option_b': 'It encapsulates all device traffic inside an encrypted tunnel, rendering intercepted packets unreadable to local eavesdroppers', 'option_c': 'It prevents physical theft of your laptop computer', 'option_d': 'It blocks all incoming emails that contain attachments', 'correct_answer': 'B', 'explanation': 'A VPN creates an encrypted tunnel between your device and the VPN server, ensuring any packet sniffer on the local Wi-Fi network only sees unintelligible encrypted ciphertext.'},
     {'topic_slug': 'public-wifi', 'question_text': 'What is "SSL Stripping"?', 'option_a': 'Removing an SSL certificate from an expired domain', 'option_b': 'A Man-in-the-Middle attack that downgrades secure HTTPS connections to unencrypted HTTP to intercept credentials in plain text', 'option_c': 'Uninstalling antivirus software before running a game', 'option_d': 'Cleaning browser history and cache files', 'correct_answer': 'B', 'explanation': 'In an SSL stripping attack, an adversary intercepts HTTPS requests and serves unencrypted HTTP pages to the victim, capturing submitted passwords and cookies in plain text.'},
+    {'topic_slug': 'public-wifi', 'question_text': 'Why should device file sharing and AirDrop be disabled on public Wi-Fi networks?', 'option_a': 'To prevent malicious actors on the shared subnet from probing open ports, injecting files, or harvesting hostnames', 'option_b': 'Because open networks charge per megabyte of shared files', 'option_c': 'To prevent the router from overheating', 'option_d': 'It is required by municipal laws', 'correct_answer': 'A', 'explanation': 'Open file sharing protocols (such as SMB or NetBIOS) expose internal directories and host configurations to everyone on the untrusted subnet.'},
+    {'topic_slug': 'public-wifi', 'question_text': 'What security protocol is the modern standard for home and enterprise wireless network encryption?', 'option_a': 'WEP', 'option_b': 'WPA3', 'option_c': 'Telnet', 'option_d': 'FTP', 'correct_answer': 'B', 'explanation': 'WPA3 (Wi-Fi Protected Access 3) uses SAE (Simultaneous Authentication of Equals) to deliver robust encryption even when using simple passphrases.'},
 
-    # Topic 8: Mobile Security (3 Questions)
+    # Topic 7: Mobile Security (5 Questions)
     {'topic_slug': 'mobile-security', 'question_text': 'What is the primary cybersecurity danger of "sideloading" apps from third-party websites rather than official app stores?', 'option_a': 'Sideloaded apps always consume 100% of your device battery within 10 minutes', 'option_b': 'Third-party APK files bypass official malware screening and may contain embedded trojans, spyware, or adware', 'option_c': 'Sideloading requires purchasing a secondary SIM card', 'option_d': 'Sideloaded apps are permanently deleted every time the phone restarts', 'correct_answer': 'B', 'explanation': 'Official app stores screen apps for malicious code and policy violations. Downloading unofficial APKs from forums or websites exposes devices to trojanized payloads.'},
     {'topic_slug': 'mobile-security', 'question_text': 'What is "Juice Jacking"?', 'option_a': 'Drinking energy drinks while coding', 'option_b': 'A cyber attack where compromised public USB charging kiosks install malware or extract data through USB data pins', 'option_c': 'Overclocking a smartphone CPU to increase speed', 'option_d': 'Stealing a smartphone while it is plugged into a wall outlet', 'correct_answer': 'B', 'explanation': 'USB cables transfer both power and data. In a juice jacking attack, compromised charging ports abuse data pins to push malicious code or exfiltrate private files.'},
-    {'topic_slug': 'mobile-security', 'question_text': 'Why should smartphone users regularly review and audit app permissions?', 'option_a': 'To ensure apps are using the maximum amount of cellular data possible', 'option_b': 'To prevent over-privileged apps from silently recording audio, accessing locations, or harvesting contacts without a functional need', 'option_c': 'To make sure all apps have access to your bank account details', 'option_d': 'To change the color theme of the mobile operating system', 'correct_answer': 'B', 'explanation': 'Many rogue or monetized apps request permissions far beyond their functional scope (e.g. a flashlight app requesting contacts and microphone access) to harvest and sell user data.'}
+    {'topic_slug': 'mobile-security', 'question_text': 'Why should smartphone users regularly review and audit app permissions?', 'option_a': 'To ensure apps are using the maximum amount of cellular data possible', 'option_b': 'To prevent over-privileged apps from silently recording audio, accessing locations, or harvesting contacts without a functional need', 'option_c': 'To make sure all apps have access to your bank account details', 'option_d': 'To change the color theme of the mobile operating system', 'correct_answer': 'B', 'explanation': 'Many rogue or monetized apps request permissions far beyond their functional scope (e.g. a flashlight app requesting contacts and microphone access) to harvest and sell user data.'},
+    {'topic_slug': 'mobile-security', 'question_text': 'How does regular smartphone restarting (rebooting) defend against advanced mobile spyware (like Pegasus)?', 'option_a': 'It permanently deletes all installed applications', 'option_b': 'It flushes volatile RAM memory, terminating non-persistent zero-click payloads that do not have persistence mechanisms', 'option_c': 'It changes your IMEI number', 'option_d': 'It doubles device storage capacity', 'correct_answer': 'B', 'explanation': 'Many state-of-the-art mobile surveillance payloads operate exclusively in volatile memory to evade forensics; rebooting forces the attacker to reinfect the device.'},
+    {'topic_slug': 'mobile-security', 'question_text': 'What does "Remote Wipe" capability provide if a mobile device is physically stolen?', 'option_a': 'It causes the battery to short-circuit', 'option_b': 'It allows the owner to send a cloud command that cryptographically erases all personal data and factory resets the device', 'option_c': 'It records a video of the thief and posts it online', 'option_d': 'It calls emergency services automatically', 'correct_answer': 'B', 'explanation': 'Services like Apple Find My and Google Find My Device permit remote cryptographic wiping to prevent thieves from accessing sensitive banking and personal files.'},
+
+    # ========================================================
+    # ADVANCED LEVEL QUESTIONS
+    # ========================================================
+    # Topic 8: Social Engineering (5 Questions)
+    {'topic_slug': 'social-engineering', 'question_text': 'What is "Pretexting" in social engineering?', 'option_a': 'Sending an automatic out-of-office email response', 'option_b': 'Fabricating an elaborate fictional scenario or persona to manipulate a target into disclosing confidential data', 'option_c': 'Writing text messages before sending them', 'option_d': 'Testing software before deployment', 'correct_answer': 'B', 'explanation': 'Pretexting establishes an authentic-sounding backstory (e.g. pretending to be an external auditor or IT technician) to disarm suspicion.'},
+    {'topic_slug': 'social-engineering', 'question_text': 'What is "Baiting" in social engineering?', 'option_a': 'Posting provocative comments on social media forums', 'option_b': 'Leaving malware-infected USB drives in public locations hoping curious employees will plug them into work computers', 'option_c': 'Sending email newsletters', 'option_d': 'Conducting legal online interviews', 'correct_answer': 'B', 'explanation': 'Baiting leverages human curiosity or greed (e.g. a labeled USB drive promising payroll data or free software) to trick targets into executing malware.'},
+    {'topic_slug': 'social-engineering', 'question_text': 'In the STOP protocol for institutional defense against fraud, what does the "O" represent?', 'option_a': 'Open all email attachments immediately', 'option_b': 'Out-of-Band Verification: contacting the purported requester through a verified, independent communication channel', 'option_c': 'Overlook minor security errors', 'option_d': 'Operate without IT permissions', 'correct_answer': 'B', 'explanation': 'Out-of-band verification ensures you authenticate requests by calling known telephone numbers rather than replying via the medium where the request arrived.'},
+    {'topic_slug': 'social-engineering', 'question_text': 'What is "Tailgating" (or Piggybacking) in physical security?', 'option_a': 'Following an authorized person closely through a secure door or turnstile without scanning valid credentials', 'option_b': 'Hacking into someone\'s car computer', 'option_c': 'Installing spyware on laptop touchpads', 'option_d': 'Sitting behind someone in a cafe to read their screen', 'correct_answer': 'A', 'explanation': 'Tailgating exploits social politeness (such as holding open a door for someone carrying packages) to bypass badge readers and biometric physical locks.'},
+    {'topic_slug': 'social-engineering', 'question_text': 'What is Open Source Intelligence (OSINT) and how do social engineers utilize it?', 'option_a': 'Free open-source software like Linux', 'option_b': 'Gathering publicly available intelligence (LinkedIn, corporate bios, social media) to craft hyper-targeted pretexting scenarios', 'option_c': 'Stealing government classified satellite imagery', 'option_d': 'Encrypting open-source code', 'correct_answer': 'B', 'explanation': 'Adversaries harvest organizational charts, project names, and employee hobbies from public platforms to make their fraudulent communication seem completely genuine.'},
+
+    # Topic 9: Network Defense (5 Questions)
+    {'topic_slug': 'network-defense', 'question_text': 'What is the primary operational distinction between a Stateless packet filter and a Stateful inspection firewall?', 'option_a': 'Stateless firewalls only operate on Wi-Fi networks', 'option_b': 'Stateless evaluates packets individually in isolation, whereas Stateful tracks active connection tables to ensure incoming packets belong to established sessions', 'option_c': 'Stateful firewalls require physical keys to unlock', 'option_d': 'Stateless firewalls are illegal under international telecommunication standards', 'correct_answer': 'B', 'explanation': 'Stateful inspection maintains connection state tables, automatically blocking unsolicited inbound traffic while allowing legitimate return traffic from outbound requests.'},
+    {'topic_slug': 'network-defense', 'question_text': 'What is the key functional difference between an Intrusion Detection System (IDS) and an Intrusion Prevention System (IPS)?', 'option_a': 'An IDS monitors and alerts on suspicious traffic out-of-band, while an IPS sits in-line and actively blocks or drops malicious packets in real time', 'option_b': 'An IDS only detects viruses on USB flash drives', 'option_c': 'An IPS cannot block network traffic', 'option_d': 'An IDS is purely hardware while an IPS is purely software', 'correct_answer': 'A', 'explanation': 'An IDS is passive and alerts security teams (SPAN port), whereas an IPS sits directly in the traffic flow to terminate malicious TCP sessions and drop exploit packets.'},
+    {'topic_slug': 'network-defense', 'question_text': 'What is the purpose of a Demilitarized Zone (DMZ) in enterprise network architecture?', 'option_a': 'To store decommissioned server hardware', 'option_b': 'To isolate public-facing internet servers (Web, Mail) from the internal private LAN, preventing lateral pivoting in case of breach', 'option_c': 'To bypass all firewall rules for faster gaming connections', 'option_d': 'To provide free Wi-Fi to campus visitors', 'correct_answer': 'B', 'explanation': 'A DMZ creates a segmented buffer zone; if an external web server is compromised, internal firewall policies block the attacker from reaching core databases and employee machines.'},
+    {'topic_slug': 'network-defense', 'question_text': 'Which widely used open-source command-line tool allows network security professionals to perform port scanning and service discovery?', 'option_a': 'Wireshark', 'option_b': 'Nmap (Network Mapper)', 'option_c': 'VLC Media Player', 'option_d': 'Hashcat', 'correct_answer': 'B', 'explanation': 'Nmap is the definitive tool for discovering hosts, open listening ports, operating system fingerprints, and running services across a network.'},
+    {'topic_slug': 'network-defense', 'question_text': 'What type of network attack floods a target server with millions of synchronized spoofed packets to exhaust its bandwidth and memory resources?', 'option_a': 'Man-in-the-Middle (MitM)', 'option_b': 'Distributed Denial of Service (DDoS)', 'option_c': 'Cross-Site Scripting (XSS)', 'option_d': 'Buffer Overflow', 'correct_answer': 'B', 'explanation': 'DDoS attacks weaponize botnets to saturate network bandwidth or server connection tables, rendering legitimate services inaccessible to valid users.'},
+
+    # Topic 10: Web Application Security (5 Questions)
+    {'topic_slug': 'web-security', 'question_text': 'What is the fundamental root cause of SQL Injection (SQLi) vulnerabilities in web applications?', 'option_a': 'Using PostgreSQL instead of MongoDB', 'option_b': 'Concatenating untrusted user input directly into dynamic database query strings without parameterized statements or ORMs', 'option_c': 'Hosting websites without SSL certificates', 'option_d': 'Using CSS styles that are outdated', 'correct_answer': 'B', 'explanation': 'SQLi occurs when user inputs are interpreted as SQL commands by the database engine. Using parameterized queries ensures user input is strictly treated as data.'},
+    {'topic_slug': 'web-security', 'question_text': 'In Cross-Site Scripting (XSS), what does an attacker inject into a vulnerable web application?', 'option_a': 'A malicious SQL drop database command', 'option_b': 'Malicious client-side scripts (usually JavaScript) that execute in the browser of another unsuspecting user', 'option_c': 'Physical Trojan horse files into server RAM', 'option_d': 'Corrupted image files that crash the monitor', 'correct_answer': 'B', 'explanation': 'XSS allows attackers to execute arbitrary JavaScript in victim browsers, allowing them to steal session cookies, hijack accounts, or redirect to malicious domains.'},
+    {'topic_slug': 'web-security', 'question_text': 'What is Cross-Site Request Forgery (CSRF)?', 'option_a': 'Cracking an SSL certificate key', 'option_b': 'An attack that tricks an authenticated user into submitting unwanted state-changing HTTP requests to a trusted application without their knowledge', 'option_c': 'Injecting malicious fonts into HTML pages', 'option_d': 'Flooding an email inbox with spam', 'correct_answer': 'B', 'explanation': 'CSRF abuses the browser\'s automatic transmission of authenticated session cookies to forge actions (e.g. changing passwords or transferring funds) on behalf of the victim.'},
+    {'topic_slug': 'web-security', 'question_text': 'What defense mechanism prevents Cross-Site Scripting (XSS) in modern template engines like Jinja2?', 'option_a': 'Compiling Python into C binaries', 'option_b': 'Automated context-aware HTML output escaping, converting characters like < and > into harmless HTML entities (&lt; and &gt;)', 'option_c': 'Encrypting all database passwords with MD5', 'option_d': 'Disabling JavaScript in all client browsers', 'correct_answer': 'B', 'explanation': 'Context-aware auto-escaping ensures user-submitted HTML/JS tags are rendered as plain text entities rather than executed as active scripts by the browser.'},
+    {'topic_slug': 'web-security', 'question_text': 'What does the HTTP security header "Strict-Transport-Security" (HSTS) instruct web browsers to do?', 'option_a': 'Strictly block all incoming images', 'option_b': 'Refuse all unencrypted HTTP connections and exclusively communicate with the domain over secure HTTPS', 'option_c': 'Delete cookies when the browser closes', 'option_d': 'Require a 20-character password to access the website', 'correct_answer': 'B', 'explanation': 'HSTS prevents SSL stripping and downgrade attacks by instructing browsers to automatically convert all HTTP links to HTTPS before sending network requests.'}
 ]
 
 def seed():
@@ -364,32 +548,44 @@ def seed():
                 db.session.add(topic)
                 db.session.flush()
                 topic_map[t['slug']] = topic
-                print(f'✅ Created Topic: {t["title"]}')
+                print(f'✅ Created Topic: [{t["level"]}] {t["title"]}')
             else:
                 existing.title = t['title']
                 existing.description = t['description']
                 existing.content = t['content']
                 existing.icon = t['icon']
                 existing.order = t['order']
+                existing.level = t.get('level', 'Basic')
                 topic_map[t['slug']] = existing
-                print(f'🔄 Updated Topic: {t["title"]}')
+                print(f'🔄 Updated Topic: [{t.get("level", "Basic")}] {t["title"]}')
 
         db.session.commit()
 
-        # Create questions
+        # Create or update questions
         questions_added = 0
         for q in QUESTIONS:
             slug = q.pop('topic_slug')
             topic = topic_map.get(slug)
-            if topic and not Question.query.filter_by(question_text=q['question_text']).first():
-                question = Question(topic_id=topic.id, **q)
-                db.session.add(question)
-                questions_added += 1
+            if topic:
+                existing_q = Question.query.filter_by(question_text=q['question_text']).first()
+                if not existing_q:
+                    question = Question(topic_id=topic.id, **q)
+                    db.session.add(question)
+                    questions_added += 1
+                else:
+                    existing_q.topic_id = topic.id
+                    existing_q.option_a = q['option_a']
+                    existing_q.option_b = q['option_b']
+                    existing_q.option_c = q['option_c']
+                    existing_q.option_d = q['option_d']
+                    existing_q.correct_answer = q['correct_answer']
+                    existing_q.explanation = q['explanation']
             q['topic_slug'] = slug  # restore
 
         db.session.commit()
-        print(f'✅ Added {questions_added} new questions. Total questions: {Question.query.count()}')
-        print('\n🎉 Database enriched and seeded successfully!')
+        print(f'✅ Added {questions_added} new questions. Total questions in database: {Question.query.count()}')
+        print(f'✅ Total topics in database: {Topic.query.count()}')
+        print('\n🎉 Database enriched with Basic, Intermediate & Advanced tiers successfully!')
 
 if __name__ == '__main__':
     seed()

@@ -42,3 +42,14 @@ desktop.ini
 
 # Logs
 *.log
+
+# Binaries and tools
+*.exe
+
+# User confidential / logos
+parul_*
+*.base64.txt
+parul_logo_base64.txt
+
+# Migration scripts
+migrate_*.py

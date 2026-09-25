@@ -1,25 +1,221 @@
 {% extends 'base.html' %}
-{% block title %}Learn Cybersecurity{% endblock %}
+{% block title %}Cybersecurity Learning Curriculum - Basic, Intermediate & Advanced{% endblock %}
 {% block content %}
-<h2 class="mb-2 fw-bold">📚 Cybersecurity Topics</h2>
-<p class="text-muted mb-4">Click any topic to read and mark it as completed.</p>
-<div class="row">
-  {% for topic in topics %}
-  <div class="col-md-4 col-sm-6 mb-4">
-    <div class="card h-100 border-0 shadow-sm topic-card">
-      <div class="card-body text-center p-4">
-        <div style="font-size:52px">{{ topic.icon }}</div>
-        <h5 class="fw-bold mt-2">{{ topic.title }}</h5>
-        <p class="text-muted small">{{ topic.description }}</p>
-        <div class="d-flex justify-content-center gap-2 mt-3">
-          <a href="{{ url_for('main.topic_detail', slug=topic.slug) }}" class="btn btn-primary btn-sm">📖 Read</a>
-          {% if topic.questions %}
-          <a href="{{ url_for('quiz.start_quiz', topic_id=topic.id) }}" class="btn btn-success btn-sm">🧩 Quiz ({{ topic.questions|length }}Q)</a>
-          {% endif %}
+
+<!-- Macro to render cards consistently -->
+{% macro render_topic_card(topic, color_class, icon_badge) %}
+<div class="col-lg-4 col-md-6">
+  <div class="card h-100 border-0 shadow-sm topic-card position-relative overflow-hidden" style="border-top: 4px solid var(--bs-{{ color_class }}) !important;">
+    <div class="card-body p-4 d-flex flex-column">
+      <div class="d-flex justify-content-between align-items-start mb-2">
+        <span class="badge bg-{{ color_class }} {{ 'text-dark' if color_class == 'warning' else '' }} px-2 py-1">
+          {{ icon_badge }} {{ topic.level or 'Basic' }}
+        </span>
+        <span class="badge bg-light text-secondary border">
+          <i class="fa fa-question-circle me-1"></i> {{ topic.questions|length }} Questions
+        </span>
+      </div>
+      
+      <div class="text-center my-3">
+        <div style="font-size: 52px; line-height: 1;">{{ topic.icon }}</div>
+        <h5 class="fw-bold mt-3 mb-2 text-dark">{{ topic.title }}</h5>
+      </div>
+
+      <p class="text-muted small flex-grow-1 text-center mb-4" style="line-height: 1.5;">
+        {{ topic.description }}
+      </p>
+
+      <div class="d-grid gap-2">
+        <a href="{{ url_for('main.topic_detail', slug=topic.slug) }}" class="btn btn-outline-primary btn-sm fw-bold">
+          <i class="fa fa-book-open me-1"></i> Read Study Guide
+        </a>
+        {% if topic.questions %}
+        <a href="{{ url_for('quiz.start_quiz', topic_id=topic.id) }}" class="btn btn-{{ color_class }} btn-sm fw-bold {{ 'text-dark' if color_class == 'warning' else '' }}">
+          <i class="fa fa-circle-question me-1"></i> Take {{ topic.level }} Quiz ({{ topic.questions|length }}Q)
+        </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endmacro %}
+
+<!-- Header Banner -->
+<div class="p-4 mb-4 rounded-4 text-white" style="background: linear-gradient(135deg, #0d233a 0%, #1a365d 50%, #2b6cb0 100%);">
+  <div class="row align-items-center">
+    <div class="col-lg-8">
+      <span class="badge bg-warning text-dark px-3 py-2 mb-2 fw-bold text-uppercase tracking-wider">
+        <i class="fa fa-graduation-cap me-1"></i> Structured Learning Path
+      </span>
+      <h2 class="display-6 fw-bold mb-2">Cybersecurity Knowledge Framework</h2>
+      <p class="lead mb-0 text-light opacity-90" style="font-size: 1.05rem;">
+        Master cyber defense progressively across <strong>Basic</strong>, <strong>Intermediate</strong>, and <strong>Advanced</strong> tiers. Each module contains verified educational guides and tailored assessment quizzes.
+      </p>
+    </div>
+    <div class="col-lg-4 text-center d-none d-lg-block">
+      <div style="font-size: 80px;">🛡️</div>
+    </div>
+  </div>
+</div>
+
+<!-- Tier Overview Stats -->
+<div class="row g-3 mb-4">
+  <div class="col-md-4">
+    <div class="card border-0 shadow-sm border-start border-4 border-success h-100 p-3 bg-white">
+      <div class="d-flex align-items-center">
+        <div class="rounded-circle bg-success bg-opacity-10 p-3 me-3 text-success fs-3">🌱</div>
+        <div>
+          <span class="badge bg-success mb-1">Level 1 &bull; Beginner</span>
+          <h5 class="fw-bold mb-0">Basic Security</h5>
+          <small class="text-muted">{{ basic_topics|length }} Modules &bull; Essential Digital Hygiene</small>
         </div>
       </div>
     </div>
   </div>
-  {% endfor %}
+  <div class="col-md-4">
+    <div class="card border-0 shadow-sm border-start border-4 border-warning h-100 p-3 bg-white">
+      <div class="d-flex align-items-center">
+        <div class="rounded-circle bg-warning bg-opacity-10 p-3 me-3 text-warning fs-3">🛡️</div>
+        <div>
+          <span class="badge bg-warning text-dark mb-1">Level 2 &bull; Practitioner</span>
+          <h5 class="fw-bold mb-0">Intermediate Defense</h5>
+          <small class="text-muted">{{ intermediate_topics|length }} Modules &bull; Systems &amp; Network Controls</small>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card border-0 shadow-sm border-start border-4 border-danger h-100 p-3 bg-white">
+      <div class="d-flex align-items-center">
+        <div class="rounded-circle bg-danger bg-opacity-10 p-3 me-3 text-danger fs-3">⚡</div>
+        <div>
+          <span class="badge bg-danger mb-1">Level 3 &bull; Specialist</span>
+          <h5 class="fw-bold mb-0">Advanced Security</h5>
+          <small class="text-muted">{{ advanced_topics|length }} Modules &bull; Infrastructure &amp; OWASP</small>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
+<!-- Level Filter Navigation -->
+<ul class="nav nav-pills justify-content-center gap-2 mb-4 p-2 bg-white rounded-3 shadow-sm" id="levelTabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <button class="nav-link active px-4 fw-bold" id="all-tab" data-bs-toggle="pill" data-bs-target="#tab-all" type="button" role="tab">
+      🌐 All Modules ({{ topics|length }})
+    </button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link px-4 fw-bold text-success" id="basic-tab" data-bs-toggle="pill" data-bs-target="#tab-basic" type="button" role="tab">
+      🌱 Basic Level ({{ basic_topics|length }})
+    </button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link px-4 fw-bold text-warning" id="intermediate-tab" data-bs-toggle="pill" data-bs-target="#tab-intermediate" type="button" role="tab">
+      🛡️ Intermediate Level ({{ intermediate_topics|length }})
+    </button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link px-4 fw-bold text-danger" id="advanced-tab" data-bs-toggle="pill" data-bs-target="#tab-advanced" type="button" role="tab">
+      ⚡ Advanced Level ({{ advanced_topics|length }})
+    </button>
+  </li>
+</ul>
+
+<!-- Tab Content -->
+<div class="tab-content" id="levelTabsContent">
+
+  <!-- ==================== TAB: ALL MODULES ==================== -->
+  <div class="tab-pane fade show active" id="tab-all" role="tabpanel">
+    
+    <!-- Basic Section -->
+    <div class="d-flex align-items-center justify-content-between mb-3 mt-2 border-bottom pb-2">
+      <div class="d-flex align-items-center gap-2">
+        <span class="badge bg-success fs-6 px-3 py-2">🟢 BASIC LEVEL</span>
+        <h4 class="fw-bold mb-0">Foundational Security Hygiene</h4>
+      </div>
+      <small class="text-muted">Recommended for all internet users</small>
+    </div>
+    <div class="row g-4 mb-5">
+      {% for topic in basic_topics %}
+        {{ render_topic_card(topic, 'success', '🌱') }}
+      {% endfor %}
+    </div>
+
+    <!-- Intermediate Section -->
+    <div class="d-flex align-items-center justify-content-between mb-3 border-bottom pb-2">
+      <div class="d-flex align-items-center gap-2">
+        <span class="badge bg-warning text-dark fs-6 px-3 py-2">🟡 INTERMEDIATE LEVEL</span>
+        <h4 class="fw-bold mb-0">Systems, Networks &amp; Mobile Defense</h4>
+      </div>
+      <small class="text-muted">Technical defense controls &amp; authentication</small>
+    </div>
+    <div class="row g-4 mb-5">
+      {% for topic in intermediate_topics %}
+        {{ render_topic_card(topic, 'warning', '🛡️') }}
+      {% endfor %}
+    </div>
+
+    <!-- Advanced Section -->
+    <div class="d-flex align-items-center justify-content-between mb-3 border-bottom pb-2">
+      <div class="d-flex align-items-center gap-2">
+        <span class="badge bg-danger fs-6 px-3 py-2">🔴 ADVANCED LEVEL</span>
+        <h4 class="fw-bold mb-0">Enterprise Security, Firewalls &amp; OWASP</h4>
+      </div>
+      <small class="text-muted">Infrastructure, psychological exploitation &amp; web vulnerabilities</small>
+    </div>
+    <div class="row g-4 mb-4">
+      {% for topic in advanced_topics %}
+        {{ render_topic_card(topic, 'danger', '⚡') }}
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- ==================== TAB: BASIC ONLY ==================== -->
+  <div class="tab-pane fade" id="tab-basic" role="tabpanel">
+    <div class="alert alert-success d-flex align-items-center mb-4">
+      <span class="fs-4 me-3">🌱</span>
+      <div>
+        <strong>Basic Level:</strong> Focuses on personal cyber hygiene, password generation, credential reuse risks, phishing detection red flags, and safe browser encryption.
+      </div>
+    </div>
+    <div class="row g-4">
+      {% for topic in basic_topics %}
+        {{ render_topic_card(topic, 'success', '🌱') }}
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- ==================== TAB: INTERMEDIATE ONLY ==================== -->
+  <div class="tab-pane fade" id="tab-intermediate" role="tabpanel">
+    <div class="alert alert-warning d-flex align-items-center mb-4">
+      <span class="fs-4 me-3">🛡️</span>
+      <div>
+        <strong>Intermediate Level:</strong> Delves into ransomware execution lifecycles, TOTP authentication algorithms, public Wi-Fi eavesdropping prevention via VPNs, and mobile endpoint hardening.
+      </div>
+    </div>
+    <div class="row g-4">
+      {% for topic in intermediate_topics %}
+        {{ render_topic_card(topic, 'warning', '🛡️') }}
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- ==================== TAB: ADVANCED ONLY ==================== -->
+  <div class="tab-pane fade" id="tab-advanced" role="tabpanel">
+    <div class="alert alert-danger d-flex align-items-center mb-4">
+      <span class="fs-4 me-3">⚡</span>
+      <div>
+        <strong>Advanced Level:</strong> Comprehensive deep-dives into psychological pretexting / OSINT, packet filtering vs. stateful firewalls vs. IPS, and the OWASP Top 10 web vulnerabilities (SQLi, XSS, CSRF).
+      </div>
+    </div>
+    <div class="row g-4">
+      {% for topic in advanced_topics %}
+        {{ render_topic_card(topic, 'danger', '⚡') }}
+      {% endfor %}
+    </div>
+  </div>
+
+</div>
+
 {% endblock %}

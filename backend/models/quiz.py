@@ -10,6 +10,7 @@ class Topic(db.Model):
     description = db.Column(db.Text, nullable=False)
     content = db.Column(db.Text, nullable=False)
     order = db.Column(db.Integer, default=0)
+    level = db.Column(db.String(20), default='Basic')
     questions = db.relationship('Question', backref='topic', lazy=True)
     progress_records = db.relationship('TopicProgress', backref='topic', lazy=True)
 

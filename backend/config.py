@@ -15,3 +15,7 @@ class Config:
     DB_PATH = os.path.join(ROOT_DIR, 'database', 'cybersecurity.db')
     SQLALCHEMY_DATABASE_URI = DATABASE_URL if DATABASE_URL else f'sqlite:///{DB_PATH}'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SQLALCHEMY_ENGINE_OPTIONS = {
+        'pool_pre_ping': True,
+        'pool_recycle': 280,
+    }

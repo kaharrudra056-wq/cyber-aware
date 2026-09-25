@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, url_for
+from flask import Blueprint, render_template, redirect, url_for, request
 from flask_login import login_required, current_user
 from models.quiz import Topic, TopicProgress
 from models.score import Score
@@ -12,8 +12,18 @@ def index():
 
 @main_bp.route('/topics')
 def topics():
+    level_filter = request.args.get('level', '').strip().capitalize()
     all_topics = Topic.query.order_by(Topic.order).all()
-    return render_template('topics.html', topics=all_topics)
+    basic_topics = [t for t in all_topics if (t.level or 'Basic') == 'Basic']
+    intermediate_topics = [t for t in all_topics if t.level == 'Intermediate']
+    advanced_topics = [t for t in all_topics if t.level == 'Advanced']
+    
+    return render_template('topics.html', 
+                           topics=all_topics,
+                           basic_topics=basic_topics,
+                           intermediate_topics=intermediate_topics,
+                           advanced_topics=advanced_topics,
+                           active_level=level_filter)
 
 @main_bp.route('/topics/<slug>')
 @login_required
