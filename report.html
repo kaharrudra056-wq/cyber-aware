@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Formal Project Report - Cybersecurity Awareness</title>
+  <style>
+    /* Reset and Base Styles */
+    body {
+        font-family: "Times New Roman", Times, serif;
+        line-height: 1.5;
+        color: #000;
+        background: #f0f0f0;
+        margin: 0;
+        padding: 20px;
+    }
+
+    /* Page Setup */
+    .page {
+        width: 21cm;
+        min-height: 29.7cm;
+        background: white;
+        margin: 0 auto 20px auto;
+        box-sizing: border-box;
+        position: relative;
+        padding: 1.5cm;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    
+    /* Double Border Effect */
+    .page::before {
+        content: "";
+        position: absolute;
+        top: 1cm; bottom: 1cm; left: 1cm; right: 1cm;
+        border: 3px solid black;
+        pointer-events: none;
+    }
+    .page::after {
+        content: "";
+        position: absolute;
+        top: 1.1cm; bottom: 1.1cm; left: 1.1cm; right: 1.1cm;
+        border: 1px solid black;
+        pointer-events: none;
+    }
+
+    /* Print Styles */
+    @media print {
+        @page {
+            size: A4 portrait;
+            margin: 0;
+        }
+        body { background: white; padding: 0; margin: 0; }
+        .page { 
+            margin: 0; 
+            box-shadow: none; 
+            page-break-after: always;
+            min-height: 29.7cm;
+            height: 29.7cm;
+            box-sizing: border-box;
+        }
+        .print-btn { display: none; }
+        .mermaid { page-break-inside: avoid; }
+    }
+
+    /* Typography */
+    h1, h2, h3, h4 { font-weight: bold; margin-bottom: 0.5em; }
+    h1 { font-size: 24px; text-align: center; }
+    h2 { font-size: 20px; }
+    h3 { font-size: 16px; }
+    p, li, td, th { font-size: 14px; text-align: justify; }
+    
+    .text-center { text-align: center; }
+    .mt-1 { margin-top: 1em; }
+    .mt-2 { margin-top: 2em; }
+    .mt-3 { margin-top: 3em; }
+    .mt-4 { margin-top: 4em; }
+    .mb-1 { margin-bottom: 1em; }
+    
+    .flex-between { display: flex; justify-content: space-between; }
+    
+    /* Tables */
+    table { width: 100%; border-collapse: collapse; margin: 1em 0; page-break-inside: avoid; }
+    th, td { border: 1px solid black; padding: 8px; text-align: left; }
+    th { font-weight: bold; }
+    
+    /* Part Divider */
+    .part-divider {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 22cm;
+    }
+    .part-title { font-size: 32px; font-weight: bold; margin-bottom: 20px; }
+    .part-subtitle { font-size: 24px; font-weight: bold; }
+
+    /* TOC */
+    .toc-item { display: flex; justify-content: space-between; margin-bottom: 5px; }
+    .toc-item span.dots { flex-grow: 1; border-bottom: 1px dotted black; margin: 0 10px; position: relative; top: -5px; }
+
+    .print-btn {
+        display: block; width: 21cm; margin: 0 auto 20px auto; padding: 15px;
+        background-color: #2c3e50; color: white; text-align: center; font-size: 18px;
+        font-family: Arial, sans-serif; font-weight: bold; border-radius: 5px;
+        cursor: pointer; border: none; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    .print-btn:hover { background-color: #1a252f; }
+
+    /* Mermaid */
+    .mermaid { text-align: center; margin: 2em 0; }
+  </style>
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: true, theme: 'default' });
+  </script>
+</head>
+<body>
+
+  <button class="print-btn" onclick="window.print()">Print / Save as PDF</button>
+
+  <!-- PAGE 1: TITLE PAGE -->
+  <div class="page text-center">
+    <div style="padding: 2cm 1cm;">
+        <h3 class="mt-2">A Minor Project Report</h3>
+        <p>On</p>
+        
+        <h1 style="font-size: 28px; margin-top: 1.5em; text-transform: uppercase;">CYBERSECURITY AWARENESS<br>TRAINING WEBSITE</h1>
+        <p style="font-style: italic; font-weight: bold;">(Interactive Web-Based Cybersecurity Education Platform)</p>
+
+        <h3 style="margin-top: 3em;">Developed By</h3>
+        <div class="flex-between mt-2" style="text-align: left; max-width: 500px; margin-left: auto; margin-right: auto; font-weight: bold;">
+            <div>
+                <p>Dhairya Kahar</p>
+            </div>
+            <div>
+                <p>[Enrollment No. – 2405101020009]</p>
+            </div>
+        </div>
+
+        <p class="mt-4">as<br><b>Partial Fulfillment of Semester V of</b><br><b>Bachelor of Science (Information Technology) Honours</b><br>Division D</p>
+        <p class="mt-2"><b>For A.Y. 2026 – 2027</b></p>
+
+        <p class="mt-3">Under the Guidance of<br><b style="font-size: 18px;">Prof. Sohil Parmar</b></p>
+
+        <p class="mt-4">Submitted To<br>Department of B.Sc. IT<br>Faculty of IT & Computer Science<br><b style="font-size: 18px;">Parul University</b></p>
+        
+        <p style="margin-top: 3em; font-style: italic;">(Parul University, Vadodara)</p>
+    </div>
+  </div>
+
+  <!-- PAGE 2: CERTIFICATE -->
+  <div class="page">
+    <div style="padding: 2cm 1cm;">
+        <h1 style="font-size: 28px; text-align: left; margin-bottom: 2em;">Certificate</h1>
+        
+        <p style="line-height: 2;">
+            This is to certify that <b>Dhairya Kahar</b> (2405101020009), student of B.Sc. (Information Technology) Honours, Division D, has satisfactorily completed the Minor Project titled <b>"Cybersecurity Awareness Training Website"</b> as partial fulfillment of Semester V, Faculty of IT & Computer Science, Parul University.
+        </p>
+
+        <div class="flex-between mt-3" style="font-weight: bold;">
+            <div>
+                <p>Enrollment No.: 2405101020009</p>
+            </div>
+            <div>
+                <p>Date of Submission:</p>
+                <p>___________________</p>
+            </div>
+        </div>
+
+        <div class="flex-between mt-4" style="text-align: center; font-weight: bold; margin-top: 6em;">
+            <div>
+                <p>_______________________</p>
+                <p>Prof. Sohil Parmar<br><span style="font-weight: normal; font-size: 12px;">(Internal Guide)</span></p>
+            </div>
+            <div>
+                <p>_______________________</p>
+                <p>Project Coordinator</p>
+            </div>
+            <div>
+                <p>_______________________</p>
+                <p>Head of Department</p>
+            </div>
+        </div>
+
+        <div class="mt-4" style="margin-top: 5em; font-weight: bold;">
+            <p>Department of B.Sc. IT<br>Faculty of IT & Computer Science<br>Parul University, Vadodara</p>
+        </div>
+    </div>
+  </div>
+
+  <!-- PAGE 3: ACKNOWLEDGEMENT -->
+  <div class="page">
+    <div style="padding: 2cm 1cm;">
+        <h1 style="font-size: 28px; text-align: left; margin-bottom: 2em;">Acknowledgement</h1>
+        
+        <p style="line-height: 2;">
+            We express our sincere gratitude to the Faculty of IT & Computer Science, Parul University, for the opportunity to undertake this Minor Project as part of our B.Sc. (IT) Honours Semester V curriculum.
+        </p>
+        <p style="line-height: 2; margin-top: 1.5em;">
+            We are especially thankful to our project guide, <b>Prof. Sohil Parmar</b>, for continuous guidance, valuable feedback, and encouragement throughout the design and development of this project. His insightful technical critique and direction were invaluable in shaping the architecture and implementation of the Cybersecurity Awareness Training Website.
+        </p>
+        <p style="line-height: 2; margin-top: 1.5em;">
+            We also thank the faculty members of the B.Sc. IT department and the laboratory staff for their support, and our families and peers for their constant motivation and understanding during the course of this work.
+        </p>
+
+        <div style="text-align: right; font-weight: bold; margin-top: 6em; line-height: 2;">
+            <p>Dhairya Kahar</p>
+        </div>
+    </div>
+  </div>
+
+  <!-- PAGE 4: CONTENTS -->
+  <div class="page">
+    <div style="padding: 2cm 1cm;">
+        <h1 style="font-size: 28px; text-align: left; margin-bottom: 2em;">Contents</h1>
+        
+        <div class="toc-item font-weight-bold"><b>List of Figures</b><span class="dots"></span><b>v</b></div>
+        <div class="toc-item font-weight-bold mb-1"><b>List of Tables</b><span class="dots"></span><b>vi</b></div>
+        
+        <div class="toc-item font-weight-bold mt-2"><b>I Introduction & Project Profile</b><span class="dots"></span><b>1</b></div>
+        <div class="toc-item mt-1"><b>1 About the Institution</b><span class="dots"></span>2</div>
+        <div class="toc-item pl-2"><span style="margin-left: 20px;">1.1 Parul University</span><span class="dots"></span>2</div>
+        <div class="toc-item pl-2"><span style="margin-left: 20px;">1.2 Faculty of IT & Computer Science</span><span class="dots"></span>2</div>
+        <div class="toc-item pl-2"><span style="margin-left: 20px;">1.3 Department of B.Sc. Information Technology</span><span class="dots"></span>2</div>
+        
+        <div class="toc-item mt-1"><b>2 Project Profile</b><span class="dots"></span>3</div>
+        <div class="toc-item pl-2"><span style="margin-left: 20px;">2.1 Project Definition</span><span class="dots"></span>3</div>
+        <div class="toc-item pl-2"><span style="margin-left: 20px;">2.2 Project Description</span><span class="dots"></span>3</div>
+        <div class="toc-item pl-2"><span style="margin-left: 20px;">2.3 Existing System</span><span class="dots"></span>3</div>
+        <div class="toc-item pl-2"><span style="margin-left: 20px;">2.4 Problem Statement</span><span class="dots"></span>3</div>
+        <div class="toc-item pl-2"><span style="margin-left: 20px;">2.5 Need for the New System</span><span class="dots"></span>4</div>
+        <div class="toc-item pl-2"><span style="margin-left: 20px;">2.6 Proposed System & Key Features</span><span class="dots"></span>4</div>
+        <div class="toc-item pl-2"><span style="margin-left: 20px;">2.7 Scope</span><span class="dots"></span>4</div>
+        <div class="toc-item pl-2"><span style="margin-left: 20px;">2.8 Expected Outcomes</span><span class="dots"></span>4</div>
+        <div class="toc-item pl-2"><span style="margin-left: 20px;">2.9 Tools & Technology Used</span><span class="dots"></span>4</div>
+
+        <div class="toc-item font-weight-bold mt-2"><b>II Analysis & Design</b><span class="dots"></span><b>5</b></div>
+        <div class="toc-item mt-1"><b>3 Requirement Analysis</b><span class="dots"></span>6</div>
+        <div class="toc-item pl-2"><span style="margin-left: 20px;">3.1 Feasibility Study</span><span class="dots"></span>6</div>
+        <div class="toc-item pl-2"><span style="margin-left: 20px;">3.2 Users of the System</span><span class="dots"></span>6</div>
+        <div class="toc-item pl-2"><span style="margin-left: 20px;">3.3 Functional Requirements</span><span class="dots"></span>6</div>
+        <div class="toc-item pl-2"><span style="margin-left: 20px;">3.4 Non-Functional Requirements</span><span class="dots"></span>7</div>
+        <div class="toc-item pl-2"><span style="margin-left: 20px;">3.5 Hardware & Software Requirements</span><span class="dots"></span>7</div>
+
+        <div class="toc-item mt-1"><b>4 System Design</b><span class="dots"></span>8</div>
+        <div class="toc-item pl-2"><span style="margin-left: 20px;">4.1 Use Case Diagram</span><span class="dots"></span>8</div>
+        <div class="toc-item pl-2"><span style="margin-left: 20px;">4.2 System Architecture</span><span class="dots"></span>9</div>
+        <div class="toc-item pl-2"><span style="margin-left: 20px;">4.3 Data Flow Diagram (Level 0 – Context Diagram)</span><span class="dots"></span>9</div>
+        <div class="toc-item pl-2"><span style="margin-left: 20px;">4.4 Data Flow Diagram (Level 1 – Subsystems)</span><span class="dots"></span>10</div>
+        <div class="toc-item pl-2"><span style="margin-left: 20px;">4.5 UML Class Diagram</span><span class="dots"></span>11</div>
+        <div class="toc-item pl-2"><span style="margin-left: 20px;">4.6 Entity-Relationship Diagram</span><span class="dots"></span>12</div>
+        <div class="toc-item pl-2"><span style="margin-left: 20px;">4.7 Data Dictionary</span><span class="dots"></span>12</div>
+        
+        <div class="toc-item font-weight-bold mt-2"><b>III Implementation & Testing</b><span class="dots"></span><b>13</b></div>
+        <div class="toc-item mt-1"><b>5 Implementation</b><span class="dots"></span>14</div>
+        <div class="toc-item pl-2"><span style="margin-left: 20px;">5.1 Coding Convention</span><span class="dots"></span>14</div>
+        <div class="toc-item pl-2"><span style="margin-left: 20px;">5.2 Security Measures</span><span class="dots"></span>14</div>
+        <div class="toc-item mt-1"><b>6 Testing</b><span class="dots"></span>15</div>
+        <div class="toc-item pl-2"><span style="margin-left: 20px;">6.1 Test Strategy</span><span class="dots"></span>15</div>
+        <div class="toc-item pl-2"><span style="margin-left: 20px;">6.2 Test Cases</span><span class="dots"></span>15</div>
+
+        <div class="toc-item font-weight-bold mt-2"><b>IV Conclusion</b><span class="dots"></span><b>16</b></div>
+        <div class="toc-item mt-1"><b>7 Future Enhancement</b><span class="dots"></span>17</div>
+        <div class="toc-item mt-1"><b>8 Conclusion</b><span class="dots"></span>18</div>
+        <div class="toc-item mt-1"><b>Bibliography</b><span class="dots"></span>19</div>
+    </div>
+  </div>
+
+  <!-- PART I TITLE -->
+  <div class="page">
+    <div class="part-divider">
+        <div class="part-title">Part I</div>
+        <div class="part-subtitle">Introduction & Project Profile</div>
+    </div>
+  </div>
+
+  <!-- CHAPTER 1 & 2 -->
+  <div class="page">
+    <div style="padding: 2cm 1cm;">
+        <h2 style="border-bottom: 1px solid #ccc; padding-bottom: 5px;">1 About the Institution</h2>
+        
+        <h3 class="mt-2">1.1 Parul University</h3>
+        <p>Parul University is established under the Gujarat Private University Act, 2009, following legislation passed by the Government of Gujarat on 26th March 2015, granting university status to the Parul Group of Institutes functioning under Parul Arogya Seva Mandal Trust. The University has emerged as a premier multidisciplinary institution in western India, imparting world-class technical education, fostering entrepreneurial ecosystems, and driving impactful technological innovations across engineering, applied sciences, and computer applications.</p>
+
+        <h3 class="mt-2">1.2 Faculty of IT & Computer Science</h3>
+        <p>The Faculty of IT & Computer Science (FITCS) is one of the leading IT education providers in the region, preparing industry-ready professionals through a strong blend of technical and practical learning across its B.Sc. IT, B.Sc. IT Honours, BCA, IMCA and MCA programs. The faculty emphasizes modern curricula aligned with contemporary software engineering paradigms, full-stack application development, distributed architectures, and agile engineering practices.</p>
+
+        <h3 class="mt-2">1.3 Department of B.Sc. Information Technology</h3>
+        <p>The B.Sc. IT department focuses on building strong programming, systems, and database fundamentals, encouraging students to apply classroom learning to real, deployable software through semester-wise minor and major projects. Through project-centric pedagogy, students engineer robust digital solutions addressing authentic societal and industrial requirements, embodying modern frameworks, robust security postures, and scalable database architectures.</p>
+
+        <h2 class="mt-4" style="border-bottom: 1px solid #ccc; padding-bottom: 5px;">2 Project Profile</h2>
+        
+        <h3 class="mt-2">2.1 Project Definition</h3>
+        <p>The Cybersecurity Awareness Training Website is an interactive, full-stack web application designed to educate users on critical cybersecurity threats. It provides a structured learning environment with comprehensive topics, progress tracking, knowledge assessments via quizzes, and a practical phishing simulator to ensure users can identify and mitigate real-world cyber risks.</p>
+
+        <h3 class="mt-2">2.2 Project Description</h3>
+        <p>The system is built on a robust Python Flask backend using a modular Blueprint architecture, integrated with a relational database (PostgreSQL/SQLite) via SQLAlchemy ORM. The frontend utilizes HTML5, Jinja2 templating, and Bootstrap 5 for a responsive and intuitive user experience. The platform supports role-based access control, allowing learners to track their quiz scores and topic progress, while administrators can manage the curriculum, questions, and view platform-wide analytics.</p>
+
+        <h3 class="mt-2">2.3 Existing System</h3>
+        <p>The conventional approach to cybersecurity awareness relies on static documents, generic video seminars, or disorganized online articles that suffer from:</p>
+        <ul>
+            <li><b>Lack of Interactivity:</b> Users passively consume information without practical assessment.</li>
+            <li><b>No Progress Tracking:</b> Organizations cannot measure if a user has actually learned the material.</li>
+            <li><b>Absence of Practical Simulation:</b> Users read about phishing but are rarely tested on simulated examples in a safe environment.</li>
+            <li><b>Fragmented Management:</b> Difficult to update content and track scores without a centralized dashboard.</li>
+        </ul>
+    </div>
+  </div>
+
+  <div class="page">
+    <div style="padding: 2cm 1cm;">
+        <h3 class="mt-2">2.4 Problem Statement</h3>
+        <p>With the rapid increase in social engineering, phishing, and data breaches, average internet users and employees lack a unified, engaging platform to learn and test their cybersecurity hygiene. There is a critical need for an accessible training ecosystem that bridges the gap between theoretical security concepts and practical threat identification.</p>
+
+        <h3 class="mt-2">2.5 Need for the New System</h3>
+        <ul>
+            <li><b>Unified Educational Platform:</b> Replaces scattered resources with a structured, step-by-step curriculum.</li>
+            <li><b>Measurable Knowledge:</b> Enforces learning through dynamic quizzes and retains score histories.</li>
+            <li><b>Practical Phishing Simulation:</b> Trains users to visually identify malicious links and emails.</li>
+            <li><b>Admin Governance:</b> Allows instructors/admins to continually update question banks and monitor user performance.</li>
+        </ul>
+
+        <h3 class="mt-2">2.6 Proposed System & Key Features</h3>
+        <ul>
+            <li><b>Multi-Role Portals:</b> Tailored dashboards for standard Users (Learners) and Administrators.</li>
+            <li><b>Curriculum & Progress Engine:</b> 8 structured cybersecurity topics with completion tracking.</li>
+            <li><b>Dynamic Quiz System:</b> Automated scoring, answer explanations, and percentage calculations across 40 questions.</li>
+            <li><b>Phishing Awareness Simulator:</b> Interactive module to test users against common phishing tactics.</li>
+            <li><b>Password Strength Analyzer:</b> Client-side entropy calculator and crack time estimator.</li>
+            <li><b>Admin Control Panel:</b> Interface to add/edit quiz questions and monitor platform metrics.</li>
+            <li><b>Secure Authentication:</b> Password hashing (Werkzeug) and session management (Flask-Login).</li>
+        </ul>
+
+        <h3 class="mt-2">2.7 Scope</h3>
+        <p>The project provides an end-to-end full-stack web application with responsive layouts, supporting user registration, learning modules, assessments, and an administrative backend, engineered for both local SQLite execution and cloud-native PostgreSQL deployment.</p>
+
+        <h3 class="mt-2">2.8 Expected Outcomes</h3>
+        <p>A highly accessible training platform that curtails user vulnerability to cyber threats, provides measurable metrics on security awareness, and offers a scalable foundation for organizational security training.</p>
+
+        <h3 class="mt-2">2.9 Tools & Technology Used</h3>
+        <ul>
+            <li><b>Frontend:</b> HTML5, CSS3, Bootstrap 5, Jinja2 Templates, JavaScript (ES6+)</li>
+            <li><b>Backend:</b> Python 3.11/3.12, Flask, Flask-Login, Werkzeug</li>
+            <li><b>Database & ORM:</b> PostgreSQL 16 (Neon Serverless) / SQLite 3, SQLAlchemy, Flask-SQLAlchemy</li>
+            <li><b>Environment & Hosting:</b> python-dotenv, Gunicorn, Render Cloud Platform</li>
+        </ul>
+    </div>
+  </div>
+
+  <!-- PART II TITLE -->
+  <div class="page">
+    <div class="part-divider">
+        <div class="part-title">Part II</div>
+        <div class="part-subtitle">Analysis & Design</div>
+    </div>
+  </div>
+
+  <!-- CHAPTER 3 -->
+  <div class="page">
+    <div style="padding: 2cm 1cm;">
+        <h2 style="border-bottom: 1px solid #ccc; padding-bottom: 5px;">3 Requirement Analysis</h2>
+        
+        <h3 class="mt-2">3.1 Feasibility Study</h3>
+        <p><b>Technical Feasibility:</b> The architecture utilizes proven, lightweight frameworks. Flask provides high flexibility for web routing, while SQLAlchemy ensures database abstraction (easily switching between SQLite for dev and PostgreSQL for prod). Bootstrap guarantees UI responsiveness without heavy frontend frameworks.</p>
+        <p><b>Operational Feasibility:</b> The platform addresses the clear need for security training. The intuitive dashboard ensures that non-technical users can navigate topics and quizzes with zero friction.</p>
+        <p><b>Economic Feasibility:</b> The system is built entirely on open-source technologies (Python, Flask, PostgreSQL, Bootstrap), requiring zero licensing fees, making it highly cost-effective to deploy on platforms like Render or Railway.</p>
+
+        <h3 class="mt-2">3.2 Users of the System</h3>
+        <ul>
+            <li><b>Learner (User):</b> Registers, reads topic content, attempts quizzes, participates in phishing simulations, and tracks personal scores.</li>
+            <li><b>Administrator:</b> Manages the question bank, oversees topic content, and monitors user engagement and scores.</li>
+        </ul>
+
+        <h3 class="mt-2">3.3 Functional Requirements</h3>
+        <ol>
+            <li><b>User Authentication & RBAC:</b> Secure registration and login using hashed passwords and session management.</li>
+            <li><b>Topic Navigation:</b> Users must be able to view a list of topics and read detailed content for each.</li>
+            <li><b>Quiz Engine:</b> The system must present multiple-choice questions linked to specific topics and calculate scores instantly.</li>
+            <li><b>Progress Tracking:</b> The system must record when a user completes a topic and log their quiz scores permanently.</li>
+            <li><b>Admin Dashboard:</b> Admins must have the ability to create, read, update, and delete (CRUD) quiz questions.</li>
+            <li><b>Phishing Simulator:</b> An interactive module demonstrating safe vs. unsafe digital interactions.</li>
+        </ol>
+
+        <h3 class="mt-2">3.4 Non-Functional Requirements</h3>
+        <ul>
+            <li><b>Security:</b> Passwords must be hashed. Routes must be protected by session guards. Admin routes must check for boolean flags.</li>
+            <li><b>Usability:</b> The interface must be mobile-responsive and visually engaging to encourage learning.</li>
+            <li><b>Reliability:</b> Relational ACID guarantees provided by the underlying SQL database.</li>
+        </ul>
+
+        <h3 class="mt-2">3.5 Hardware & Software Requirements</h3>
+        <table>
+            <tr><th>System Category</th><th>Specification & Details</th></tr>
+            <tr><td>Client Hardware</td><td>Standard PC, Laptop, or Mobile Device with internet access</td></tr>
+            <tr><td>Client Software</td><td>Modern Web Browser (Chrome, Firefox, Edge, Safari)</td></tr>
+            <tr><td>Server Hardware</td><td>Python 3.11+ Runtime, 512MB RAM minimum (e.g. Render Free Tier)</td></tr>
+            <tr><td>Backend Environment</td><td>Python 3.11/3.12, Flask, Flask-Login, Werkzeug</td></tr>
+            <tr><td>Database</td><td>SQLite 3 (built-in local) or PostgreSQL 16 (Neon Serverless Cloud)</td></tr>
+        </table>
+    </div>
+  </div>
+
+  <!-- CHAPTER 4 SYSTEM DESIGN -->
+  <div class="page">
+    <div style="padding: 2cm 1cm;">
+        <h2 style="border-bottom: 1px solid #ccc; padding-bottom: 5px;">4 System Design</h2>
+        
+        <h3 class="mt-2">4.1 Use Case Diagram</h3>
+        <p>Figure 4.1 shows the primary actors (Learner User and Administrator) and their operational interactions within the application boundary.</p>
+        <div class="mermaid">
+        flowchart LR
+            User([Learner User])
+            Admin([Administrator])
+
+            subgraph CyberSec Application Boundary
+                UC1(Register & Login)
+                UC2(Read Topics & Progress)
+                UC3(Take Quizzes)
+                UC4(Phishing Simulator)
+                UC5(Manage Questions)
+                UC6(View Platform Analytics)
+            end
+
+            User --> UC1
+            User --> UC2
+            User --> UC3
+            User --> UC4
+            
+            Admin --> UC1
+            Admin --> UC5
+            Admin --> UC6
+        </div>
+        <p class="text-center"><b>Figure 4.1:</b> Use Case Diagram</p>
+    </div>
+  </div>
+
+  <div class="page">
+    <div style="padding: 2cm 1cm;">
+        <h3 class="mt-2">4.2 System Architecture</h3>
+        <p>Figure 4.2 illustrates the Model-View-Controller (MVC) deployment topology of the Flask application.</p>
+        <div class="mermaid">
+        flowchart TD
+            Client[Client Browser \n HTML5, CSS3, Bootstrap]
+            
+            subgraph Server [Flask Backend]
+                Router[Blueprints / Routes]
+                Views[Jinja2 Templates]
+                Models[SQLAlchemy Models]
+            end
+            
+            DB[(Database \n SQLite / PostgreSQL)]
+
+            Client <-->|HTTP GET/POST| Router
+            Router -->|Renders| Views
+            Views -->|HTML| Client
+            Router <-->|ORM Queries| Models
+            Models <-->|SQL| DB
+        </div>
+        <p class="text-center"><b>Figure 4.2:</b> System Architecture</p>
+
+        <h3 class="mt-4">4.3 Data Flow Diagram (Level 0 – Context Diagram)</h3>
+        <div class="mermaid">
+        flowchart LR
+            User([Learner])
+            Admin([Administrator])
+            System((Cybersecurity \n Awareness \n Platform))
+
+            User -->|Login, Quiz Answers, \n Topic Completion| System
+            System -->|Topics, Quiz Results, \n Progress Dashboard| User
+
+            Admin -->|Login, Question Updates| System
+            System -->|Analytics, Users list| Admin
+        </div>
+        <p class="text-center"><b>Figure 4.3:</b> DFD Level 0</p>
+    </div>
+  </div>
+
+  <div class="page">
+    <div style="padding: 2cm 1cm;">
+        <h3 class="mt-2">4.4 Data Flow Diagram (Level 1 – Subsystems)</h3>
+        <div class="mermaid">
+        flowchart TD
+            User([User / Learner])
+            Admin([Administrator])
+            
+            Sub1((1.0 Auth \n Engine))
+            Sub2((2.0 Learning \n Module))
+            Sub3((3.0 Assessment \n Engine))
+            Sub4((4.0 Admin \n Portal))
+
+            DB1[(users_db)]
+            DB2[(content_db)]
+            DB3[(scores_db)]
+
+            User -->|Credentials| Sub1
+            Sub1 -->|Token/Session| User
+            Sub1 <--> DB1
+
+            User -->|Request Topics| Sub2
+            Sub2 <--> DB2
+            Sub2 -->|Content| User
+
+            User -->|Submit Answers| Sub3
+            Sub3 <--> DB3
+            Sub3 -->|Calculate Score| User
+
+            Admin -->|Manage Questions| Sub4
+            Sub4 <--> DB2
+            Sub4 <--> DB3
+        </div>
+        <p class="text-center"><b>Figure 4.4:</b> DFD Level 1</p>
+    </div>
+  </div>
+
+  <div class="page">
+    <div style="padding: 2cm 1cm;">
+        <h3 class="mt-2">4.5 UML Class Diagram</h3>
+        <div class="mermaid">
+        classDiagram
+            class User {
+                +Integer id
+                +String username
+                +String email
+                +String password_hash
+                +Boolean is_admin
+                +set_password()
+                +check_password()
+            }
+            
+            class Topic {
+                +Integer id
+                +String title
+                +String slug
+                +Text content
+            }
+            
+            class Question {
+                +Integer id
+                +Integer topic_id
+                +Text question_text
+                +String correct_answer
+            }
+
+            class Score {
+                +Integer id
+                +Integer user_id
+                +Integer topic_id
+                +Float percentage
+            }
+
+            class TopicProgress {
+                +Integer id
+                +Integer user_id
+                +Integer topic_id
+                +Boolean completed
+            }
+
+            User "1" --> "*" Score : achieves
+            User "1" --> "*" TopicProgress : tracks
+            Topic "1" --> "*" Question : contains
+            Topic "1" --> "*" TopicProgress : has
+            Topic "1" --> "*" Score : associated with
+        </div>
+        <p class="text-center"><b>Figure 4.5:</b> UML Class Diagram</p>
+    </div>
+  </div>
+
+  <div class="page">
+    <div style="padding: 2cm 1cm;">
+        <h3 class="mt-2">4.6 Entity-Relationship Diagram</h3>
+        <div class="mermaid">
+        erDiagram
+            USERS ||--o{ SCORES : "has"
+            USERS ||--o{ TOPIC_PROGRESS : "tracks"
+            TOPICS ||--o{ QUESTIONS : "contains"
+            TOPICS ||--o{ TOPIC_PROGRESS : "monitored_by"
+            TOPICS ||--o{ SCORES : "yields"
+
+            USERS {
+                int id PK
+                string username
+                string email
+            }
+            TOPICS {
+                int id PK
+                string title
+                string slug
+            }
+            QUESTIONS {
+                int id PK
+                int topic_id FK
+                text question_text
+            }
+            SCORES {
+                int id PK
+                int user_id FK
+                int topic_id FK
+            }
+        </div>
+        <p class="text-center"><b>Figure 4.6:</b> ER Diagram</p>
+
+        <h3 class="mt-4">4.7 Data Dictionary</h3>
+        <table>
+            <tr><th>Table</th><th>Key Fields</th><th>Description</th></tr>
+            <tr><td><b>users</b></td><td>id, username, email, password_hash, is_admin</td><td>Stores registered users and administrators.</td></tr>
+            <tr><td><b>topics</b></td><td>id, title, slug, description, content</td><td>Stores educational cybersecurity modules.</td></tr>
+            <tr><td><b>questions</b></td><td>id, topic_id, question_text, option_a...d, correct_answer</td><td>Stores multiple-choice questions linked to topics.</td></tr>
+            <tr><td><b>scores</b></td><td>id, user_id, topic_id, score, total, percentage</td><td>Tracks a user's quiz results and metrics.</td></tr>
+            <tr><td><b>topic_progress</b></td><td>id, user_id, topic_id, completed</td><td>Logs whether a user has read a specific topic.</td></tr>
+        </table>
+    </div>
+  </div>
+
+  <!-- PART III TITLE -->
+  <div class="page">
+    <div class="part-divider">
+        <div class="part-title">Part III</div>
+        <div class="part-subtitle">Implementation & Testing</div>
+    </div>
+  </div>
+
+  <!-- CHAPTER 5 & 6 -->
+  <div class="page">
+    <div style="padding: 2cm 1cm;">
+        <h2 style="border-bottom: 1px solid #ccc; padding-bottom: 5px;">5 Implementation</h2>
+        
+        <h3 class="mt-2">5.1 Coding Convention</h3>
+        <ul>
+            <li><b>Modular Blueprints:</b> The application is divided into logical modules (<code>auth.py</code>, <code>main.py</code>, <code>quiz.py</code>, <code>admin.py</code>) using Flask Blueprints to keep routing clean and maintainable.</li>
+            <li><b>Environment Configuration:</b> Sensitive credentials and database URIs are loaded via <code>.env</code> files using <code>python-dotenv</code>, adhering to 12-Factor App principles.</li>
+            <li><b>ORM Data Management:</b> Direct SQL queries are avoided. All database interactions utilize SQLAlchemy objects for security and cross-database compatibility.</li>
+        </ul>
+
+        <h3 class="mt-2">5.2 Security Measures</h3>
+        <ul>
+            <li><b>Authentication:</b> Sessions are managed securely using <code>Flask-Login</code>.</li>
+            <li><b>Password Storage:</b> Passwords are cryptographically hashed using <code>werkzeug.security.generate_password_hash</code> (pbkdf2:sha256). Plaintext passwords are never stored.</li>
+            <li><b>Access Control:</b> <code>is_admin</code> boolean flags ensure standard users cannot access the <code>/admin</code> routes.</li>
+            <li><b>Injection Prevention:</b> SQLAlchemy ORM inherently parameterizes queries, preventing SQL Injection attacks.</li>
+        </ul>
+
+        <h2 class="mt-4" style="border-bottom: 1px solid #ccc; padding-bottom: 5px;">6 Testing</h2>
+        
+        <h3 class="mt-2">6.1 Test Strategy</h3>
+        <p>Testing focuses on route authorization, database relational integrity (e.g., ensuring a score is tied to the correct user and topic), and accurate calculation of quiz percentages.</p>
+
+        <h3 class="mt-2">6.2 Test Cases</h3>
+        <table>
+            <tr><th>ID</th><th>Test Case</th><th>Expected Result</th></tr>
+            <tr><td>TC01</td><td>Login with valid credentials</td><td>Access granted to dashboard; session initiated.</td></tr>
+            <tr><td>TC02</td><td>Attempt admin route as normal user</td><td>403 Forbidden or redirect to home.</td></tr>
+            <tr><td>TC03</td><td>Submit quiz with 3/4 correct answers</td><td>Score saved as 75%; progress marked as complete.</td></tr>
+            <tr><td>TC04</td><td>Add new question via Admin panel</td><td>Question persists in DB and appears in quiz.</td></tr>
+            <tr><td>TC05</td><td>Register with existing email</td><td>Registration rejected; unique constraint enforced.</td></tr>
+        </table>
+    </div>
+  </div>
+
+  <!-- PART IV TITLE -->
+  <div class="page">
+    <div class="part-divider">
+        <div class="part-title">Part IV</div>
+        <div class="part-subtitle">Conclusion</div>
+    </div>
+  </div>
+
+  <!-- CHAPTER 7 & 8 -->
+  <div class="page">
+    <div style="padding: 2cm 1cm;">
+        <h2 style="border-bottom: 1px solid #ccc; padding-bottom: 5px;">7 Future Enhancement</h2>
+        <ul>
+            <li><b>Certificate Generation:</b> Automatically generate and email a PDF certificate upon completing all topics with a score above 80%.</li>
+            <li><b>Gamification:</b> Introduce leaderboards and achievement badges to increase user engagement.</li>
+            <li><b>Active Directory/SSO Integration:</b> Allow corporate users to log in using Google Workspace or Microsoft Azure AD.</li>
+            <li><b>Advanced Phishing Sandbox:</b> Interactive email inbox simulator where users must flag suspicious emails within a time limit.</li>
+        </ul>
+
+        <h2 class="mt-4" style="border-bottom: 1px solid #ccc; padding-bottom: 5px;">8 Conclusion</h2>
+        <p>The Cybersecurity Awareness Training Website successfully replaces static security guidelines with a dynamic, measurable, and engaging learning ecosystem. By utilizing a robust Python Flask backend and an intuitive Bootstrap frontend, the platform delivers critical security education efficiently. The integration of role-based access, automated quiz grading, and a relational database ensures that the application is highly scalable, secure, and ready to be deployed as an organizational training asset. This project demonstrates a practical application of full-stack web development principles in solving real-world digital security challenges.</p>
+
+        <h2 class="mt-4" style="border-bottom: 1px solid #ccc; padding-bottom: 5px;">Bibliography</h2>
+        <ol>
+            <li>Flask Documentation – https://flask.palletsprojects.com/</li>
+            <li>SQLAlchemy ORM Documentation – https://docs.sqlalchemy.org/</li>
+            <li>Bootstrap 5 Documentation – https://getbootstrap.com/docs/5.0/</li>
+            <li>Flask-Login Documentation – https://flask-login.readthedocs.io/</li>
+            <li>Werkzeug Security Library – https://werkzeug.palletsprojects.com/</li>
+            <li>Jinja2 Templating Engine – https://jinja.palletsprojects.com/</li>
+        </ol>
+    </div>
+  </div>
+
+</body>
+</html>
