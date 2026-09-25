@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>A Minor Project Report - Cybersecurity Awareness Training Website</title>
+  <style>
+    /* Reset and Base Styles */
+    * { box-sizing: border-box; }
+    body {
+        font-family: "Times New Roman", Times, serif;
+        line-height: 1.5;
+        color: #000;
+        background: #e9ecef;
+        margin: 0;
+        padding: 20px;
+    }
+
+    /* Page Setup */
+    .page {
+        width: 21cm;
+        height: 29.7cm;
+        background: white;
+        margin: 0 auto 20px auto;
+        position: relative;
+        padding: 1.8cm 1.8cm;
+        box-shadow: 0 0 10px rgba(0,0,0,0.15);
+        overflow: hidden;
+    }
+    
+    /* Double Border Effect matching Parul University Format */
+    .page::before {
+        content: "";
+        position: absolute;
+        top: 0.9cm; bottom: 0.9cm; left: 0.9cm; right: 0.9cm;
+        border: 2.5px solid black;
+        pointer-events: none;
+    }
+    .page::after {
+        content: "";
+        position: absolute;
+        top: 1.05cm; bottom: 1.05cm; left: 1.05cm; right: 1.05cm;
+        border: 1px solid black;
+        pointer-events: none;
+    }
+
+    /* Print Styles */
+    @media print {
+        @page {
+            size: A4 portrait;
+            margin: 0;
+        }
+        body { background: white; padding: 0; margin: 0; }
+        .page { 
+            margin: 0; 
+            box-shadow: none; 
+            page-break-after: always;
+            page-break-inside: avoid;
+            height: 29.7cm;
+            min-height: 29.7cm;
+            max-height: 29.7cm;
+        }
+        .print-btn { display: none; }
+    }
+
+    /* Typography */
+    h1, h2, h3, h4 { font-weight: bold; margin-bottom: 0.4em; margin-top: 0.4em; }
+    h1 { font-size: 23px; text-align: center; }
+    h2 { font-size: 19px; border-bottom: 1px solid #aaa; padding-bottom: 3px; margin-top: 0.6em; }
+    h3 { font-size: 15px; margin-top: 0.6em; }
+    p, li, td, th { font-size: 13.5px; text-align: justify; }
+    p { margin-bottom: 0.6em; margin-top: 0.2em; }
+    ul, ol { margin-top: 0.2em; margin-bottom: 0.6em; padding-left: 1.4em; }
+    li { margin-bottom: 0.25em; }
+    
+    .text-center { text-align: center; }
+    .text-right { text-align: right; }
+    .mt-1 { margin-top: 0.8em; }
+    .mt-2 { margin-top: 1.5em; }
+    .mt-3 { margin-top: 2.5em; }
+    .mt-4 { margin-top: 3.5em; }
+    .mb-1 { margin-bottom: 0.8em; }
+    
+    .flex-between { display: flex; justify-content: space-between; align-items: flex-start; }
+    
+    /* Tables */
+    table { width: 100%; border-collapse: collapse; margin: 0.8em 0; }
+    th, td { border: 1px solid black; padding: 6px 8px; font-size: 12.5px; }
+    th { background-color: #f2f2f2; font-weight: bold; text-align: left; }
+    
+    /* Part Divider */
+    .part-divider {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 24cm;
+        text-align: center;
+    }
+    .part-title { font-size: 34px; font-weight: bold; margin-bottom: 15px; }
+    .part-subtitle { font-size: 24px; font-weight: bold; color: #222; }
+
+    /* TOC */
+    .toc-item { display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 13.5px; }
+    .toc-item span.dots { flex-grow: 1; border-bottom: 1px dotted black; margin: 0 8px; position: relative; top: -4px; }
+
+    .print-btn {
+        display: block; width: 21cm; margin: 0 auto 20px auto; padding: 14px;
+        background-color: #1a252f; color: white; text-align: center; font-size: 17px;
+        font-family: Arial, sans-serif; font-weight: bold; border-radius: 6px;
+        cursor: pointer; border: none; box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    .print-btn:hover { background-color: #0d1318; }
+
+    /* Diagram Containers */
+    .diagram-container {
+        text-align: center;
+        margin: 10px 0;
+        background: #fff;
+        padding: 5px;
+    }
+    .diagram-container svg {
+        max-width: 100%;
+        height: auto;
+    }
+    .fig-caption {
+        font-size: 12.5px;
+        font-weight: bold;
+        text-align: center;
+        margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <button class="print-btn" onclick="window.print()">🖨️ Print / Save as PDF (Formal Parul University Format)</button>
+
+  <!-- PAGE 1: TITLE PAGE -->
+  <div class="page text-center">
+    <div style="padding-top: 1.5cm;">
+        <h3 style="font-size: 18px; letter-spacing: 0.5px;">A Minor Project Report</h3>
+        <p style="font-size: 15px; margin: 5px 0;">On</p>
+        
+        <h1 style="font-size: 26px; line-height: 1.3; margin-top: 1.2em; text-transform: uppercase;">
+            CYBERSECURITY AWARENESS<br>TRAINING WEBSITE
+        </h1>
+        <p style="font-style: italic; font-weight: bold; font-size: 15px; margin-top: 8px;">
+            (Interactive Web-Based Cybersecurity Education & Phishing Defense Platform)
+        </p>
+
+        <h3 style="margin-top: 2.8em; font-size: 16px;">Developed By</h3>
+        <div style="margin: 15px auto; max-width: 480px; text-align: left; font-size: 15px; font-weight: bold;">
+            <div class="flex-between">
+                <span>Dhairya Kahar</span>
+                <span>[Enrollment No. – 2405101020009]</span>
+            </div>
+        </div>
+
+        <p class="mt-3" style="font-size: 14.5px; line-height: 1.6;">
+            as<br>
+            <b>Partial Fulfillment of Semester V of</b><br>
+            <b>Bachelor of Science (Information Technology) Honours</b><br>
+            <b>B.Sc. IT (R) – Division D</b>
+        </p>
+        <p class="mt-1" style="font-size: 15px;"><b>For A.Y. 2026 – 2027</b></p>
+
+        <p class="mt-2" style="font-size: 14.5px;">
+            Under the Guidance of<br>
+            <b style="font-size: 17px;">Prof. Sohil Parmar</b>
+        </p>
+
+        <p class="mt-3" style="font-size: 14.5px; line-height: 1.5;">
+            Submitted To<br>
+            Department of B.Sc. IT<br>
+            Faculty of IT & Computer Science<br>
+            <b style="font-size: 18px;">Parul University</b>
+        </p>
+        
+        <p style="margin-top: 2em; font-style: italic; font-size: 13.5px;">(Parul University, Vadodara)</p>
+    </div>
+  </div>
+
+  <!-- PAGE 2: BLANK SPACER -->
+  <div class="page">
+    <div style="height: 100%; display: flex; align-items: center; justify-content: center;">
+      <p style="color: #999; font-style: italic; font-size: 13px;">[This page intentionally left blank]</p>
+    </div>
+  </div>
+
+  <!-- PAGE 3: CERTIFICATE -->
+  <div class="page">
+    <div style="padding-top: 1cm;">
+        <h1 style="font-size: 26px; text-align: left; margin-bottom: 1.8em;">Certificate</h1>
+        
+        <p style="line-height: 2; font-size: 15px;">
+            This is to certify that <b>Dhairya Kahar</b> (Enrollment No. <b>2405101020009</b>), student of <b>B.Sc. (Information Technology) Honours / B.Sc. IT (R)</b>, Division D, has satisfactorily completed the Minor Project titled <b>“Cybersecurity Awareness Training Website”</b> as partial fulfillment of Semester V, Faculty of IT & Computer Science, Parul University, Vadodara for the academic year 2026 – 2027.
+        </p>
+
+        <div class="flex-between mt-4" style="font-weight: bold; font-size: 14.5px;">
+            <div>
+                <p>Enrollment No.: 2405101020009</p>
+            </div>
+            <div>
+                <p>Date of Submission: ___________________</p>
+            </div>
+        </div>
+
+        <div class="flex-between" style="text-align: center; font-weight: bold; margin-top: 7em; font-size: 14px;">
+            <div>
+                <p>_______________________</p>
+                <p>Prof. Sohil Parmar<br><span style="font-weight: normal; font-size: 12px;">(Internal Guide)</span></p>
+            </div>
+            <div>
+                <p>_______________________</p>
+                <p>Project Coordinator<br><span style="font-weight: normal; font-size: 12px;">(B.Sc. IT Department)</span></p>
+            </div>
+            <div>
+                <p>_______________________</p>
+                <p>Head of Department<br><span style="font-weight: normal; font-size: 12px;">(Faculty of IT & CS)</span></p>
+            </div>
+        </div>
+
+        <div style="margin-top: 6em; font-weight: bold; font-size: 14px; line-height: 1.6;">
+            <p>Department of B.Sc. IT<br>Faculty of IT & Computer Science<br>Parul University, Vadodara</p>
+        </div>
+    </div>
+  </div>
+
+  <!-- PAGE 4: ACKNOWLEDGEMENT -->
+  <div class="page">
+    <div style="padding-top: 1cm;">
+        <h1 style="font-size: 26px; text-align: left; margin-bottom: 1.8em;">Acknowledgement</h1>
+        
+        <p style="line-height: 2; font-size: 15px;">
+            I express my sincere gratitude to the Faculty of IT & Computer Science, Parul University, for providing the institutional infrastructure and learning atmosphere to undertake this Minor Project as part of our B.Sc. (IT) Honours Semester V curriculum.
+        </p>
+        <p style="line-height: 2; font-size: 15px; margin-top: 1.5em;">
+            I am especially thankful to my project guide, <b>Prof. Sohil Parmar</b>, for his continuous guidance, constructive suggestions, and technical critique throughout the design, development, and deployment of this project. His insights into secure software architectures, cloud database persistence, and modern web application security were invaluable in completing this platform.
+        </p>
+        <p style="line-height: 2; font-size: 15px; margin-top: 1.5em;">
+            I also express my heartfelt appreciation to the faculty members of the Department of B.Sc. IT, the computer laboratory technical staff, and my family and friends for their constant encouragement and support throughout the duration of this work.
+        </p>
+
+        <div style="text-align: right; font-weight: bold; margin-top: 8em; font-size: 15px; line-height: 1.8;">
+            <p>Dhairya Kahar<br>Enrollment No.: 2405101020009<br>B.Sc. IT (R) – Division D</p>
+        </div>
+    </div>
+  </div>
+
+  <!-- PAGE 5: CONTENTS -->
+  <div class="page">
+    <div style="padding-top: 0.8cm;">
+        <h1 style="font-size: 26px; text-align: left; margin-bottom: 1.4em;">Contents</h1>
+        
+        <div class="toc-item font-weight-bold"><b>List of Figures</b><span class="dots"></span><b>vii</b></div>
+        <div class="toc-item font-weight-bold mb-1"><b>List of Tables</b><span class="dots"></span><b>viii</b></div>
+        
+        <div class="toc-item font-weight-bold mt-2"><b>I Introduction & Project Profile</b><span class="dots"></span><b>1</b></div>
+        <div class="toc-item mt-1"><b>1 About the Institution</b><span class="dots"></span>2</div>
+        <div class="toc-item" style="padding-left: 20px;">1.1 Parul University<span class="dots"></span>2</div>
+        <div class="toc-item" style="padding-left: 20px;">1.2 Faculty of IT & Computer Science<span class="dots"></span>2</div>
+        <div class="toc-item" style="padding-left: 20px;">1.3 Department of B.Sc. Information Technology<span class="dots"></span>2</div>
+        
+        <div class="toc-item mt-1"><b>2 Project Profile</b><span class="dots"></span>3</div>
+        <div class="toc-item" style="padding-left: 20px;">2.1 Project Definition<span class="dots"></span>3</div>
+        <div class="toc-item" style="padding-left: 20px;">2.2 Project Description<span class="dots"></span>3</div>
+        <div class="toc-item" style="padding-left: 20px;">2.3 Existing System<span class="dots"></span>3</div>
+        <div class="toc-item" style="padding-left: 20px;">2.4 Problem Statement<span class="dots"></span>3</div>
+        <div class="toc-item" style="padding-left: 20px;">2.5 Need for the New System<span class="dots"></span>4</div>
+        <div class="toc-item" style="padding-left: 20px;">2.6 Proposed System & Key Features<span class="dots"></span>4</div>
+        <div class="toc-item" style="padding-left: 20px;">2.7 Scope<span class="dots"></span>4</div>
+        <div class="toc-item" style="padding-left: 20px;">2.8 Expected Outcomes<span class="dots"></span>4</div>
+        <div class="toc-item" style="padding-left: 20px;">2.9 Tools & Technology Used<span class="dots"></span>4</div>
+
+        <div class="toc-item font-weight-bold mt-2"><b>II Analysis & Design</b><span class="dots"></span><b>5</b></div>
+        <div class="toc-item mt-1"><b>3 Requirement Analysis</b><span class="dots"></span>6</div>
+        <div class="toc-item" style="padding-left: 20px;">3.1 Feasibility Study<span class="dots"></span>6</div>
+        <div class="toc-item" style="padding-left: 20px;">3.2 Users of the System<span class="dots"></span>6</div>
+        <div class="toc-item" style="padding-left: 20px;">3.3 Functional Requirements<span class="dots"></span>6</div>
+        <div class="toc-item" style="padding-left: 20px;">3.4 Non-Functional Requirements<span class="dots"></span>7</div>
+        <div class="toc-item" style="padding-left: 20px;">3.5 Hardware & Software Requirements<span class="dots"></span>7</div>
+
+        <div class="toc-item mt-1"><b>4 System Design</b><span class="dots"></span>8</div>
+        <div class="toc-item" style="padding-left: 20px;">4.1 Use Case Diagram<span class="dots"></span>8</div>
+        <div class="toc-item" style="padding-left: 20px;">4.2 System Architecture<span class="dots"></span>9</div>
+        <div class="toc-item" style="padding-left: 20px;">4.3 Data Flow Diagram (Level 0 – Context Diagram)<span class="dots"></span>9</div>
+        <div class="toc-item" style="padding-left: 20px;">4.4 Data Flow Diagram (Level 1 – Subsystems)<span class="dots"></span>10</div>
+        <div class="toc-item" style="padding-left: 20px;">4.5 Data Flow Diagram (Level 2 – Phishing Simulator)<span class="dots"></span>11</div>
+        <div class="toc-item" style="padding-left: 20px;">4.6 Data Flow Diagram (Level 3 – Quiz Engine)<span class="dots"></span>12</div>
+        <div class="toc-item" style="padding-left: 20px;">4.7 UML Class Diagram<span class="dots"></span>13</div>
+        <div class="toc-item" style="padding-left: 20px;">4.8 Entity-Relationship Diagram<span class="dots"></span>14</div>
+        <div class="toc-item" style="padding-left: 20px;">4.9 Data Dictionary<span class="dots"></span>14</div>
+    </div>
+  </div>
+
+  <!-- PAGE 6: CONTENTS CONT. -->
+  <div class="page">
+    <div style="padding-top: 0.8cm;">
+        <div class="toc-item font-weight-bold mt-2"><b>III Implementation & Testing</b><span class="dots"></span><b>15</b></div>
+        <div class="toc-item mt-1"><b>5 Implementation</b><span class="dots"></span>16</div>
+        <div class="toc-item" style="padding-left: 20px;">5.1 Coding Convention & Architecture<span class="dots"></span>16</div>
+        <div class="toc-item" style="padding-left: 20px;">5.2 Security Measures & Defensive Hardening<span class="dots"></span>16</div>
+        <div class="toc-item mt-1"><b>6 Testing</b><span class="dots"></span>17</div>
+        <div class="toc-item" style="padding-left: 20px;">6.1 Test Strategy<span class="dots"></span>17</div>
+        <div class="toc-item" style="padding-left: 20px;">6.2 Sample Test Cases<span class="dots"></span>17</div>
+
+        <div class="toc-item font-weight-bold mt-3"><b>IV Conclusion</b><span class="dots"></span><b>18</b></div>
+        <div class="toc-item mt-1"><b>7 Future Enhancement</b><span class="dots"></span>19</div>
+        <div class="toc-item mt-1"><b>8 Conclusion</b><span class="dots"></span>20</div>
+        <div class="toc-item mt-1"><b>Bibliography</b><span class="dots"></span>21</div>
+    </div>
+  </div>
+
+  <!-- PAGE 7: LIST OF FIGURES -->
+  <div class="page">
+    <div style="padding-top: 0.8cm;">
+        <h1 style="font-size: 26px; text-align: left; margin-bottom: 1.5em;">List of Figures</h1>
+        
+        <div class="toc-item"><span>4.1 Use Case Diagram – Student Learner, Admin & Evaluator</span><span class="dots"></span>8</div>
+        <div class="toc-item"><span>4.2 Three-Tier Web Application Architecture</span><span class="dots"></span>9</div>
+        <div class="toc-item"><span>4.3 DFD Level 0 – Context Diagram</span><span class="dots"></span>9</div>
+        <div class="toc-item"><span>4.4 DFD Level 1 – Subsystem Functional Decomposition</span><span class="dots"></span>10</div>
+        <div class="toc-item"><span>4.5 DFD Level 2 – Phishing Simulation & Analysis Subsystem</span><span class="dots"></span>11</div>
+        <div class="toc-item"><span>4.6 DFD Level 3 – Quiz Evaluation & Scoring Pipeline</span><span class="dots"></span>12</div>
+        <div class="toc-item"><span>4.7 UML Class Diagram – Data Entities & Method Signatures</span><span class="dots"></span>13</div>
+        <div class="toc-item"><span>4.8 Entity-Relationship Diagram (Normalized 3NF Schema)</span><span class="dots"></span>14</div>
+    </div>
+  </div>
+
+  <!-- PAGE 8: LIST OF TABLES -->
+  <div class="page">
+    <div style="padding-top: 0.8cm;">
+        <h1 style="font-size: 26px; text-align: left; margin-bottom: 1.5em;">List of Tables</h1>
+        
+        <div class="toc-item"><span>3.1 Hardware and Software Requirements</span><span class="dots"></span>7</div>
+        <div class="toc-item"><span>4.1 Key Database Tables and Relational Structure</span><span class="dots"></span>14</div>
+        <div class="toc-item"><span>6.1 Sample Test Cases and Validation Matrix</span><span class="dots"></span>17</div>
+    </div>
+  </div>
+
+  <!-- PAGE 9: PART I DIVIDER -->
+  <div class="page">
+    <div class="part-divider">
+        <div class="part-title">Part I</div>
+        <div class="part-subtitle">Introduction & Project Profile</div>
+    </div>
+  </div>
+
+  <!-- PAGE 10: CHAPTER 1 -->
+  <div class="page">
+    <div style="padding-top: 0.5cm;">
+        <h2>1 About the Institution</h2>
+        
+        <h3>1.1 Parul University</h3>
+        <p>Parul University is established under the Gujarat Private University Act, 2009, following legislation passed by the Government of Gujarat on 26th March 2015, granting university status to the Parul Group of Institutes functioning under Parul Arogya Seva Mandal Trust. The University has emerged as a premier multidisciplinary institution in western India, imparting world-class technical education, fostering entrepreneurial ecosystems, and driving impactful technological innovations across engineering, applied sciences, and computer applications.</p>
+
+        <h3>1.2 Faculty of IT & Computer Science</h3>
+        <p>The Faculty of IT & Computer Science (FITCS) is one of the leading IT education providers in the region, preparing industry-ready professionals through a strong blend of technical and practical learning across its B.Sc. IT, B.Sc. IT Honours, BCA, IMCA and MCA programs. The faculty emphasizes modern curricula aligned with contemporary software engineering paradigms, full-stack application development, distributed architectures, and agile engineering practices.</p>
+
+        <h3>1.3 Department of B.Sc. Information Technology</h3>
+        <p>The B.Sc. IT department focuses on building strong programming, systems, and database fundamentals, encouraging students to apply classroom learning to real, deployable software through semester-wise minor and major projects. Through project-centric pedagogy, students engineer robust digital solutions addressing authentic societal and industrial requirements, embodying modern frameworks, robust security postures, and scalable database architectures.</p>
+    </div>
+  </div>
+
+  <!-- PAGE 11: CHAPTER 2 -->
+  <div class="page">
+    <div style="padding-top: 0.5cm;">
+        <h2>2 Project Profile</h2>
+        
+        <h3>2.1 Project Definition</h3>
+        <p>The Cybersecurity Awareness Training Website is an interactive, full-stack educational web platform engineered to educate users on critical cyber hygiene practices. It provides a structured curriculum across 8 primary domains, an interactive client-side password entropy evaluator, an experiential phishing simulation engine, dynamic multiple-choice assessments with immediate feedback, and an administrative panel for curriculum management.</p>
+
+        <h3>2.2 Project Description</h3>
+        <p>The platform is architected on a high-efficiency Python Flask backend utilizing a modular Blueprint design pattern, powered by an external cloud-hosted Neon Serverless PostgreSQL database with automated local SQLite fallback via SQLAlchemy ORM. The presentation layer employs HTML5, CSS3, JavaScript, and Bootstrap 5, delivering a fully responsive interface. The application enforces role-based access control, allowing student learners to complete modules and track quiz scores while granting administrators full control over questions and analytics.</p>
+
+        <h3>2.3 Existing System</h3>
+        <p>Conventional approaches to cybersecurity awareness rely on static documentation, lengthy video lectures, or scattered web articles that suffer from:</p>
+        <ul>
+            <li><b>Absence of Interactivity:</b> Users passively consume content without verifying real-world threat recognition.</li>
+            <li><b>No Measurable Competence:</b> Inability to track whether users truly understand password entropy or social engineering flags.</li>
+            <li><b>Lack of Threat Simulation:</b> Users read about phishing attacks but are rarely challenged to distinguish realistic fraudulent communications in a safe sandbox.</li>
+            <li><b>Unorganized Curricula:</b> Security recommendations are dispersed across disparate blogs without centralized progress tracking.</li>
+        </ul>
+
+        <h3>2.4 Problem Statement</h3>
+        <p>With human error accounting for over 90% of successful cyberattacks, internet users lack an engaging, unified platform to acquire actionable digital hygiene skills, test password resilience, and experience phishing detection firsthand.</p>
+    </div>
+  </div>
+
+  <!-- PAGE 12: CHAPTER 2 CONT. -->
+  <div class="page">
+    <div style="padding-top: 0.5cm;">
+        <h3>2.5 Need for the New System</h3>
+        <ul>
+            <li><b>Unified Knowledge Hub:</b> Consolidates 8 core cybersecurity domains into digestible micro-learning lessons.</li>
+            <li><b>Real-Time Interactive Tools:</b> Provides hands-on password entropy calculation and instant crack time estimations.</li>
+            <li><b>Simulated Attack Sandboxing:</b> Allows users to identify red flags in simulated phishing scenarios without risking real credentials.</li>
+            <li><b>Quantifiable Progress:</b> Retains student quiz histories and renders dynamic visual completion percentages on a personal dashboard.</li>
+        </ul>
+
+        <h3>2.6 Proposed System & Key Features</h3>
+        <ul>
+            <li><b>Role-Based Portals:</b> Distinct operational flows for student learners and administrative educators.</li>
+            <li><b>8 Core Learning Domains:</b> Covers Passwords, Phishing, Malware, Social Engineering, Safe Browsing, 2FA, Public Wi-Fi, and Mobile Security.</li>
+            <li><b>Password Strength Analyzer:</b> Client-side mathematical entropy calculator and GPU brute-force crack time estimator.</li>
+            <li><b>Phishing Awareness Simulator:</b> Interactive decision engine evaluating email headers, urgency cues, and domain spoofs.</li>
+            <li><b>Dynamic 40-Question Quiz Bank:</b> Topic-linked assessment engine with detailed answer rationales.</li>
+            <li><b>Admin Management Console:</b> Comprehensive CRUD operations for questions, topics, and student score logs.</li>
+        </ul>
+
+        <h3>2.7 Scope</h3>
+        <p>The system provides a production-grade full-stack web application with responsive layouts, accessible across desktops and mobile browsers, deployed on Render cloud infrastructure and connected to serverless PostgreSQL.</p>
+
+        <h3>2.8 Expected Outcomes</h3>
+        <p>A deployable, resilient, and engaging cybersecurity portal that minimizes user vulnerability to online fraud, establishes measurable security hygiene, and provides verifiable assessment metrics.</p>
+
+        <h3>2.9 Tools & Technology Used</h3>
+        <ul>
+            <li><b>Frontend:</b> HTML5, CSS3, Bootstrap 5.3, JavaScript (ES6+), Jinja2</li>
+            <li><b>Backend:</b> Python 3.11/3.12, Flask 3.0, Flask-Login, Werkzeug</li>
+            <li><b>Database & ORM:</b> PostgreSQL 16 (Neon Serverless Cloud) / SQLite 3, SQLAlchemy 2.0 ORM</li>
+            <li><b>Server & Deployment:</b> Gunicorn WSGI Server, Render Cloud Platform, Git / GitHub</li>
+        </ul>
+    </div>
+  </div>
+
+  <!-- PAGE 13: PART II DIVIDER -->
+  <div class="page">
+    <div class="part-divider">
+        <div class="part-title">Part II</div>
+        <div class="part-subtitle">Analysis & Design</div>
+    </div>
+  </div>
+
+  <!-- PAGE 14: CHAPTER 3 -->
+  <div class="page">
+    <div style="padding-top: 0.5cm;">
+        <h2>3 Requirement Analysis</h2>
+        
+        <h3>3.1 Feasibility Study</h3>
+        <p><b>Technical Feasibility:</b> The system utilizes proven, modular technologies. Flask provides lightweight, high-performance WSGI routing. SQLAlchemy ORM guarantees complete database abstraction, allowing seamless switching between local SQLite development and cloud PostgreSQL production. Bootstrap 5 guarantees high mobile responsiveness without complex client build pipelines.</p>
+        <p><b>Operational Feasibility:</b> The platform addresses critical real-world operational security gaps. The intuitive user interface requires zero prior technical training, allowing non-technical students and corporate staff to navigate modules with ease.</p>
+        <p><b>Economic Feasibility:</b> The entire technology stack consists of open-source libraries (Python, Flask, PostgreSQL, Bootstrap). Cloud hosting on Render and serverless database storage on Neon provide zero-cost operational tiers, making the system highly economical to deploy and scale.</p>
+
+        <h3>3.2 Users of the System</h3>
+        <ul>
+            <li><b>Learner (User):</b> Registers, studies cybersecurity modules, tests passwords, attempts phishing simulations, and completes graded quizzes.</li>
+            <li><b>Administrator:</b> Manages the question repository, creates curriculum topics, and monitors user scores and platform analytics.</li>
+        </ul>
+
+        <h3>3.3 Functional Requirements</h3>
+        <ol>
+            <li><b>Authentication & Access Guard:</b> Secure registration and login with salted password hashing and role-based session guards.</li>
+            <li><b>Curriculum Navigation:</b> Structured viewing of 8 core cybersecurity topics with automated completion tracking.</li>
+            <li><b>Assessment Engine:</b> Dynamic delivery of multiple-choice questions with automated score computation and answer explanations.</li>
+            <li><b>Phishing Simulator:</b> Interactive decision engine evaluating fraudulent vs. safe communications with real-time feedback.</li>
+            <li><b>Password Analyzer:</b> Client-side calculation of entropy (in bits) and crack time estimation.</li>
+            <li><b>Admin Management:</b> Complete CRUD interface for questions and topics, and student score auditing.</li>
+        </ol>
+    </div>
+  </div>
+
+  <!-- PAGE 15: CHAPTER 3 CONT. -->
+  <div class="page">
+    <div style="padding-top: 0.5cm;">
+        <h3>3.4 Non-Functional Requirements</h3>
+        <ul>
+            <li><b>Performance & Latency:</b> Sub-150ms page generation times; instant client-side password entropy analysis; optimized SQL connection pooling.</li>
+            <li><b>Security & Confidentiality:</b> Cryptographic password hashing using PBKDF2/SHA-256; parameterized SQL queries eliminating SQL injection; automated Jinja2 XSS escaping.</li>
+            <li><b>Reliability & Availability:</b> ACID-compliant transaction integrity via PostgreSQL; automatic failover to local SQLite storage during offline development.</li>
+            <li><b>Usability & Accessibility:</b> Responsive mobile-first design; clear typography; high-contrast warning alerts for phishing red flags.</li>
+        </ul>
+
+        <h3>3.5 Hardware & Software Requirements</h3>
+        <p class="fig-caption" style="text-align: left;">Table 3.1: Hardware and Software Requirements</p>
+        <table>
+            <tr><th style="width: 32%;">System Category</th><th>Specification & Details</th></tr>
+            <tr><td><b>Client Hardware</b></td><td>Dual-Core 1.6 GHz+ CPU, 2 GB RAM, standard display, broadband internet (≥ 1 Mbps)</td></tr>
+            <tr><td><b>Client Software</b></td><td>Modern Web Browser (Google Chrome, Microsoft Edge, Mozilla Firefox, Safari)</td></tr>
+            <tr><td><b>Server / Dev Hardware</b></td><td>Intel Core i3/i5 or AMD Ryzen, 4 GB RAM, 500 MB free storage space</td></tr>
+            <tr><td><b>Server Operating System</b></td><td>Windows 10/11 / Ubuntu Linux 22.04 LTS</td></tr>
+            <tr><td><b>Backend Runtime</b></td><td>Python 3.11 / 3.12, Flask 3.0.3, Flask-Login 0.6.3, Werkzeug 3.0.3</td></tr>
+            <tr><td><b>Database & ORM</b></td><td>PostgreSQL 16 (Neon Serverless Cloud) / SQLite 3, SQLAlchemy 2.0.31</td></tr>
+            <tr><td><b>Production WSGI</b></td><td>Gunicorn 22.0.0 (Production HTTP server)</td></tr>
+            <tr><td><b>Frontend Framework</b></td><td>HTML5, CSS3, JavaScript (ES6+), Bootstrap 5.3.2, FontAwesome 6.5</td></tr>
+            <tr><td><b>Cloud Infrastructure</b></td><td>Render Cloud Platform (Web Service), Neon Cloud (Database Tier)</td></tr>
+        </table>
+    </div>
+  </div>
+
+  <!-- PAGE 16: CHAPTER 4 SYSTEM DESIGN -->
+  <div class="page">
+    <div style="padding-top: 0.5cm;">
+        <h2>4 System Design</h2>
+        
+        <h3>4.1 Use Case Diagram</h3>
+        <p>Figure 4.1 depicts the primary actors (Learner Student and Administrator) and their operational interactions within the Cybersecurity Awareness platform boundary.</p>
+        
+        <div class="diagram-container">
+            <svg viewBox="0 0 650 360" width="620" height="340" xmlns="http://www.w3.org/2000/svg">
+                <!-- Outer System Boundary -->
+                <rect x="170" y="20" width="310" height="320" rx="15" fill="#f8f9fa" stroke="#333" stroke-width="2" stroke-dasharray="6,4"/>
+                <text x="325" y="42" font-family="Times New Roman" font-size="14" font-weight="bold" text-anchor="middle">CyberSec Awareness Platform</text>
+                
+                <!-- Actor Learner -->
+                <circle cx="80" cy="120" r="16" fill="#fff" stroke="#000" stroke-width="2"/>
+                <line x1="80" y1="136" x2="80" y2="185" stroke="#000" stroke-width="2"/>
+                <line x1="50" y1="150" x2="110" y2="150" stroke="#000" stroke-width="2"/>
+                <line x1="80" y1="185" x2="60" y2="230" stroke="#000" stroke-width="2"/>
+                <line x1="80" y1="185" x2="100" y2="230" stroke="#000" stroke-width="2"/>
+                <text x="80" y="250" font-family="Times New Roman" font-size="13" font-weight="bold" text-anchor="middle">Learner (Student)</text>
+
+                <!-- Actor Admin -->
+                <circle cx="570" cy="180" r="16" fill="#fff" stroke="#000" stroke-width="2"/>
+                <line x1="570" y1="196" x2="570" y2="245" stroke="#000" stroke-width="2"/>
+                <line x1="540" y1="210" x2="600" y2="210" stroke="#000" stroke-width="2"/>
+                <line x1="570" y1="245" x2="550" y2="290" stroke="#000" stroke-width="2"/>
+                <line x1="570" y1="245" x2="590" y2="290" stroke="#000" stroke-width="2"/>
+                <text x="570" y="310" font-family="Times New Roman" font-size="13" font-weight="bold" text-anchor="middle">Administrator</text>
+
+                <!-- Use Cases (Ellipses) -->
+                <ellipse cx="325" cy="75" rx="80" ry="18" fill="#fff" stroke="#0d6efd" stroke-width="1.8"/>
+                <text x="325" y="80" font-family="Times New Roman" font-size="12" text-anchor="middle">Register & Login</text>
+
+                <ellipse cx="325" cy="125" rx="80" ry="18" fill="#fff" stroke="#0d6efd" stroke-width="1.8"/>
+                <text x="325" y="130" font-family="Times New Roman" font-size="12" text-anchor="middle">Read Topic Modules</text>
+
+                <ellipse cx="325" cy="175" rx="80" ry="18" fill="#fff" stroke="#0d6efd" stroke-width="1.8"/>
+                <text x="325" y="180" font-family="Times New Roman" font-size="12" text-anchor="middle">Simulate Phishing</text>
+
+                <ellipse cx="325" cy="225" rx="80" ry="18" fill="#fff" stroke="#0d6efd" stroke-width="1.8"/>
+                <text x="325" y="230" font-family="Times New Roman" font-size="12" text-anchor="middle">Take Graded Quizzes</text>
+
+                <ellipse cx="325" cy="275" rx="80" ry="18" fill="#fff" stroke="#0d6efd" stroke-width="1.8"/>
+                <text x="325" y="280" font-family="Times New Roman" font-size="12" text-anchor="middle">Manage Question Bank</text>
+
+                <ellipse cx="325" cy="320" rx="80" ry="16" fill="#fff" stroke="#0d6efd" stroke-width="1.8"/>
+                <text x="325" y="324" font-family="Times New Roman" font-size="11.5" text-anchor="middle">View Score Analytics</text>
+
+                <!-- Connections -->
+                <line x1="110" y1="140" x2="248" y2="82" stroke="#555" stroke-width="1.2"/>
+                <line x1="110" y1="150" x2="245" y2="128" stroke="#555" stroke-width="1.2"/>
+                <line x1="110" y1="165" x2="245" y2="175" stroke="#555" stroke-width="1.2"/>
+                <line x1="110" y1="180" x2="248" y2="222" stroke="#555" stroke-width="1.2"/>
+
+                <line x1="535" y1="200" x2="405" y2="82" stroke="#555" stroke-width="1.2"/>
+                <line x1="535" y1="220" x2="405" y2="275" stroke="#555" stroke-width="1.2"/>
+                <line x1="535" y1="235" x2="405" y2="315" stroke="#555" stroke-width="1.2"/>
+            </svg>
+        </div>
+        <p class="fig-caption">Figure 4.1: Use Case Diagram – Student Learner, Admin & Evaluator</p>
+    </div>
+  </div>
+
+  <!-- PAGE 17: SYSTEM ARCHITECTURE & DFD LEVEL 0 -->
+  <div class="page">
+    <div style="padding-top: 0.5cm;">
+        <h3>4.2 System Architecture</h3>
+        <p>Figure 4.2 illustrates the Three-Tier Web Application Architecture decoupling the user client, application engine, and cloud database tier.</p>
+        
+        <div class="diagram-container">
+            <svg viewBox="0 0 650 170" width="600" height="150" xmlns="http://www.w3.org/2000/svg">
+                <!-- Tier 1 -->
+                <rect x="20" y="45" width="160" height="80" rx="8" fill="#e7f1ff" stroke="#0d6efd" stroke-width="2"/>
+                <text x="100" y="75" font-family="Times New Roman" font-size="13" font-weight="bold" text-anchor="middle">Presentation Tier</text>
+                <text x="100" y="95" font-family="Times New Roman" font-size="11" text-anchor="middle">HTML5 / Bootstrap 5 / JS</text>
+                <text x="100" y="110" font-family="Times New Roman" font-size="10.5" fill="#555" text-anchor="middle">(Client Web Browser)</text>
+
+                <!-- Arrow 1 -->
+                <line x1="180" y1="85" x2="240" y2="85" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+                <text x="210" y="78" font-family="Times New Roman" font-size="9" text-anchor="middle">HTTPS</text>
+
+                <!-- Tier 2 -->
+                <rect x="245" y="30" width="180" height="110" rx="8" fill="#e8f5e9" stroke="#198754" stroke-width="2"/>
+                <text x="335" y="55" font-family="Times New Roman" font-size="13" font-weight="bold" text-anchor="middle">Application Tier</text>
+                <text x="335" y="75" font-family="Times New Roman" font-size="11" text-anchor="middle">Python Flask 3.0 / Gunicorn</text>
+                <text x="335" y="92" font-family="Times New Roman" font-size="10.5" text-anchor="middle">Flask-Login & Blueprints</text>
+                <text x="335" y="110" font-family="Times New Roman" font-size="10" fill="#555" text-anchor="middle">(Render Cloud Web Service)</text>
+
+                <!-- Arrow 2 -->
+                <line x1="425" y1="85" x2="480" y2="85" stroke="#333" stroke-width="2"/>
+                <text x="452" y="78" font-family="Times New Roman" font-size="9" text-anchor="middle">SQLAlchemy</text>
+
+                <!-- Tier 3 -->
+                <rect x="485" y="35" width="150" height="100" rx="8" fill="#fff3cd" stroke="#ffc107" stroke-width="2"/>
+                <text x="560" y="65" font-family="Times New Roman" font-size="13" font-weight="bold" text-anchor="middle">Database Tier</text>
+                <text x="560" y="85" font-family="Times New Roman" font-size="11" text-anchor="middle">Neon PostgreSQL 16</text>
+                <text x="560" y="103" font-family="Times New Roman" font-size="10" text-anchor="middle">(Serverless Cloud)</text>
+                <text x="560" y="118" font-family="Times New Roman" font-size="9.5" fill="#666" text-anchor="middle">+ Local SQLite fallback</text>
+            </svg>
+        </div>
+        <p class="fig-caption">Figure 4.2: Three-Tier Web Application Architecture</p>
+
+        <h3 class="mt-3">4.3 Data Flow Diagram (Level 0 – Context Diagram)</h3>
+        <p>Figure 4.3 models the high-level boundary of the platform and information flows with external entities.</p>
+        
+        <div class="diagram-container">
+            <svg viewBox="0 0 650 145" width="600" height="135" xmlns="http://www.w3.org/2000/svg">
+                <!-- Entity Learner -->
+                <rect x="20" y="40" width="130" height="65" rx="5" fill="#fff" stroke="#000" stroke-width="1.8"/>
+                <text x="85" y="67" font-family="Times New Roman" font-size="13" font-weight="bold" text-anchor="middle">Student Learner</text>
+                <text x="85" y="85" font-family="Times New Roman" font-size="10.5" fill="#555" text-anchor="middle">(End User)</text>
+
+                <!-- Process 0 -->
+                <circle cx="325" cy="72" r="58" fill="#f8f9fa" stroke="#000" stroke-width="2"/>
+                <text x="325" y="65" font-family="Times New Roman" font-size="12" font-weight="bold" text-anchor="middle">0.0 CyberSec</text>
+                <text x="325" y="80" font-family="Times New Roman" font-size="12" font-weight="bold" text-anchor="middle">Awareness</text>
+                <text x="325" y="95" font-family="Times New Roman" font-size="11" text-anchor="middle">Platform</text>
+
+                <!-- Entity Admin -->
+                <rect x="500" y="40" width="130" height="65" rx="5" fill="#fff" stroke="#000" stroke-width="1.8"/>
+                <text x="565" y="67" font-family="Times New Roman" font-size="13" font-weight="bold" text-anchor="middle">Administrator</text>
+                <text x="565" y="85" font-family="Times New Roman" font-size="10.5" fill="#555" text-anchor="middle">(Educator / IT)</text>
+
+                <!-- Arrows -->
+                <line x1="150" y1="55" x2="267" y2="55" stroke="#333" stroke-width="1.5"/>
+                <text x="205" y="48" font-family="Times New Roman" font-size="9.5" text-anchor="middle">Credentials, Answers</text>
+
+                <line x1="267" y1="88" x2="150" y2="88" stroke="#333" stroke-width="1.5"/>
+                <text x="205" y="103" font-family="Times New Roman" font-size="9.5" text-anchor="middle">Topics, Scores, Feedback</text>
+
+                <line x1="500" y1="55" x2="383" y2="55" stroke="#333" stroke-width="1.5"/>
+                <text x="442" y="48" font-family="Times New Roman" font-size="9.5" text-anchor="middle">Questions, Updates</text>
+
+                <line x1="383" y1="88" x2="500" y2="88" stroke="#333" stroke-width="1.5"/>
+                <text x="442" y="103" font-family="Times New Roman" font-size="9.5" text-anchor="middle">Reports, Student Logs</text>
+            </svg>
+        </div>
+        <p class="fig-caption">Figure 4.3: DFD Level 0 – Context Diagram</p>
+    </div>
+  </div>
+
+  <!-- PAGE 18: DFD LEVEL 1 -->
+  <div class="page">
+    <div style="padding-top: 0.5cm;">
+        <h3>4.4 Data Flow Diagram (Level 1 – Subsystems)</h3>
+        <p>Figure 4.4 details the functional decomposition of the platform into four primary operational processes and persistent database tables.</p>
+        
+        <div class="diagram-container">
+            <svg viewBox="0 0 650 360" width="620" height="340" xmlns="http://www.w3.org/2000/svg">
+                <!-- External Entities -->
+                <rect x="20" y="60" width="100" height="40" fill="#fff" stroke="#000" stroke-width="1.5"/>
+                <text x="70" y="84" font-family="Times New Roman" font-size="12" font-weight="bold" text-anchor="middle">Learner</text>
+
+                <rect x="20" y="270" width="100" height="40" fill="#fff" stroke="#000" stroke-width="1.5"/>
+                <text x="70" y="294" font-family="Times New Roman" font-size="12" font-weight="bold" text-anchor="middle">Admin</text>
+
+                <!-- Process Bubbles -->
+                <circle cx="240" cy="50" r="35" fill="#f8f9fa" stroke="#0d6efd" stroke-width="1.8"/>
+                <text x="240" y="47" font-family="Times New Roman" font-size="11" font-weight="bold" text-anchor="middle">1.0 Auth</text>
+                <text x="240" y="61" font-family="Times New Roman" font-size="10" text-anchor="middle">Module</text>
+
+                <circle cx="240" cy="140" r="35" fill="#f8f9fa" stroke="#0d6efd" stroke-width="1.8"/>
+                <text x="240" y="137" font-family="Times New Roman" font-size="11" font-weight="bold" text-anchor="middle">2.0 Topic</text>
+                <text x="240" y="151" font-family="Times New Roman" font-size="10" text-anchor="middle">Delivery</text>
+
+                <circle cx="240" cy="230" r="35" fill="#f8f9fa" stroke="#0d6efd" stroke-width="1.8"/>
+                <text x="240" y="227" font-family="Times New Roman" font-size="11" font-weight="bold" text-anchor="middle">3.0 Quiz</text>
+                <text x="240" y="241" font-family="Times New Roman" font-size="10" text-anchor="middle">Engine</text>
+
+                <circle cx="240" cy="315" r="33" fill="#f8f9fa" stroke="#0d6efd" stroke-width="1.8"/>
+                <text x="240" y="312" font-family="Times New Roman" font-size="10.5" font-weight="bold" text-anchor="middle">4.0 Admin</text>
+                <text x="240" y="325" font-family="Times New Roman" font-size="9.5" text-anchor="middle">Control</text>
+
+                <!-- Data Stores -->
+                <path d="M 450,35 L 590,35 M 450,65 L 590,65" stroke="#000" stroke-width="2"/>
+                <text x="520" y="54" font-family="Times New Roman" font-size="12" font-weight="bold" text-anchor="middle">D1: users</text>
+
+                <path d="M 450,125 L 590,125 M 450,155 L 590,155" stroke="#000" stroke-width="2"/>
+                <text x="520" y="144" font-family="Times New Roman" font-size="12" font-weight="bold" text-anchor="middle">D2: topics</text>
+
+                <path d="M 450,215 L 590,215 M 450,245 L 590,245" stroke="#000" stroke-width="2"/>
+                <text x="520" y="234" font-family="Times New Roman" font-size="12" font-weight="bold" text-anchor="middle">D3: questions</text>
+
+                <path d="M 450,300 L 590,300 M 450,330 L 590,330" stroke="#000" stroke-width="2"/>
+                <text x="520" y="319" font-family="Times New Roman" font-size="12" font-weight="bold" text-anchor="middle">D4: scores</text>
+
+                <!-- Flow lines -->
+                <line x1="120" y1="70" x2="205" y2="55" stroke="#333" stroke-width="1.2"/>
+                <line x1="275" y1="50" x2="450" y2="50" stroke="#333" stroke-width="1.2"/>
+
+                <line x1="120" y1="85" x2="206" y2="135" stroke="#333" stroke-width="1.2"/>
+                <line x1="275" y1="140" x2="450" y2="140" stroke="#333" stroke-width="1.2"/>
+
+                <line x1="120" y1="95" x2="208" y2="218" stroke="#333" stroke-width="1.2"/>
+                <line x1="275" y1="230" x2="450" y2="230" stroke="#333" stroke-width="1.2"/>
+                <line x1="265" y1="255" x2="450" y2="310" stroke="#333" stroke-width="1.2"/>
+
+                <line x1="120" y1="290" x2="207" y2="315" stroke="#333" stroke-width="1.2"/>
+                <line x1="273" y1="315" x2="450" y2="240" stroke="#333" stroke-width="1.2"/>
+                <line x1="273" y1="325" x2="450" y2="325" stroke="#333" stroke-width="1.2"/>
+            </svg>
+        </div>
+        <p class="fig-caption">Figure 4.4: DFD Level 1 – Subsystem Functional Decomposition</p>
+    </div>
+  </div>
+
+  <!-- PAGE 19: DFD LEVEL 2 (PHISHING) & LEVEL 3 (QUIZ) -->
+  <div class="page">
+    <div style="padding-top: 0.5cm;">
+        <h3>4.5 Data Flow Diagram (Level 2 – Phishing Simulator)</h3>
+        <p>Figure 4.5 details the operational workflow of the Phishing Simulator, verifying user responses against deceptive cues.</p>
+        
+        <div class="diagram-container">
+            <svg viewBox="0 0 650 145" width="600" height="135" xmlns="http://www.w3.org/2000/svg">
+                <!-- User -->
+                <rect x="20" y="45" width="90" height="50" fill="#fff" stroke="#000" stroke-width="1.5"/>
+                <text x="65" y="74" font-family="Times New Roman" font-size="12" font-weight="bold" text-anchor="middle">Student</text>
+
+                <!-- Process 2.1 -->
+                <circle cx="190" cy="70" r="32" fill="#f8f9fa" stroke="#0d6efd" stroke-width="1.5"/>
+                <text x="190" y="67" font-family="Times New Roman" font-size="10" font-weight="bold" text-anchor="middle">2.1 Render</text>
+                <text x="190" y="79" font-family="Times New Roman" font-size="9" text-anchor="middle">Email Item</text>
+
+                <!-- Process 2.2 -->
+                <circle cx="340" cy="70" r="32" fill="#f8f9fa" stroke="#0d6efd" stroke-width="1.5"/>
+                <text x="340" y="67" font-family="Times New Roman" font-size="10" font-weight="bold" text-anchor="middle">2.2 Evaluate</text>
+                <text x="340" y="79" font-family="Times New Roman" font-size="9" text-anchor="middle">User Choice</text>
+
+                <!-- Process 2.3 -->
+                <circle cx="490" cy="70" r="32" fill="#f8f9fa" stroke="#0d6efd" stroke-width="1.5"/>
+                <text x="490" y="67" font-family="Times New Roman" font-size="10" font-weight="bold" text-anchor="middle">2.3 Explain</text>
+                <text x="490" y="79" font-family="Times New Roman" font-size="9" text-anchor="middle">Red Flags</text>
+
+                <!-- Lines -->
+                <line x1="110" y1="70" x2="158" y2="70" stroke="#333" stroke-width="1.5"/>
+                <line x1="222" y1="70" x2="308" y2="70" stroke="#333" stroke-width="1.5"/>
+                <line x1="372" y1="70" x2="458" y2="70" stroke="#333" stroke-width="1.5"/>
+                <path d="M 490,102 C 490,135 65,135 65,95" fill="none" stroke="#333" stroke-width="1.5"/>
+                <text x="280" y="130" font-family="Times New Roman" font-size="9.5" text-anchor="middle">Feedback & Explanatory Rationale</text>
+            </svg>
+        </div>
+        <p class="fig-caption">Figure 4.5: DFD Level 2 – Phishing Simulation & Analysis Subsystem</p>
+
+        <h3 class="mt-3">4.6 Data Flow Diagram (Level 3 – Quiz Engine)</h3>
+        <p>Figure 4.6 illustrates the automated grading pipeline calculating raw scores, percentages, and database persistence.</p>
+        
+        <div class="diagram-container">
+            <svg viewBox="0 0 650 145" width="600" height="135" xmlns="http://www.w3.org/2000/svg">
+                <!-- User -->
+                <rect x="20" y="45" width="90" height="50" fill="#fff" stroke="#000" stroke-width="1.5"/>
+                <text x="65" y="74" font-family="Times New Roman" font-size="12" font-weight="bold" text-anchor="middle">Student</text>
+
+                <!-- Process 3.1 -->
+                <circle cx="180" cy="70" r="32" fill="#f8f9fa" stroke="#198754" stroke-width="1.5"/>
+                <text x="180" y="67" font-family="Times New Roman" font-size="10" font-weight="bold" text-anchor="middle">3.1 Receive</text>
+                <text x="180" y="79" font-family="Times New Roman" font-size="9" text-anchor="middle">Form Radios</text>
+
+                <!-- Process 3.2 -->
+                <circle cx="320" cy="70" r="32" fill="#f8f9fa" stroke="#198754" stroke-width="1.5"/>
+                <text x="320" y="67" font-family="Times New Roman" font-size="10" font-weight="bold" text-anchor="middle">3.2 Grade</text>
+                <text x="320" y="79" font-family="Times New Roman" font-size="9" text-anchor="middle">& Compute %</text>
+
+                <!-- Process 3.3 -->
+                <circle cx="460" cy="70" r="32" fill="#f8f9fa" stroke="#198754" stroke-width="1.5"/>
+                <text x="460" y="67" font-family="Times New Roman" font-size="10" font-weight="bold" text-anchor="middle">3.3 Persist</text>
+                <text x="460" y="79" font-family="Times New Roman" font-size="9" text-anchor="middle">Score Record</text>
+
+                <!-- Table Store -->
+                <path d="M 535,50 L 635,50 M 535,85 L 635,85" stroke="#000" stroke-width="2"/>
+                <text x="585" y="72" font-family="Times New Roman" font-size="11" font-weight="bold" text-anchor="middle">scores_db</text>
+
+                <line x1="110" y1="70" x2="148" y2="70" stroke="#333" stroke-width="1.5"/>
+                <line x1="212" y1="70" x2="288" y2="70" stroke="#333" stroke-width="1.5"/>
+                <line x1="352" y1="70" x2="428" y2="70" stroke="#333" stroke-width="1.5"/>
+                <line x1="492" y1="70" x2="535" y2="70" stroke="#333" stroke-width="1.5"/>
+            </svg>
+        </div>
+        <p class="fig-caption">Figure 4.6: DFD Level 3 – Quiz Evaluation & Scoring Pipeline</p>
+    </div>
+  </div>
+
+  <!-- PAGE 20: UML CLASS DIAGRAM -->
+  <div class="page">
+    <div style="padding-top: 0.5cm;">
+        <h3>4.7 UML Class Diagram</h3>
+        <p>Figure 4.7 details the object-oriented domain model, entity attributes, and associations implemented via SQLAlchemy.</p>
+        
+        <div class="diagram-container">
+            <svg viewBox="0 0 650 330" width="610" height="310" xmlns="http://www.w3.org/2000/svg">
+                <!-- User Class -->
+                <rect x="230" y="10" width="190" height="100" fill="#fff" stroke="#000" stroke-width="1.5"/>
+                <text x="325" y="28" font-family="Times New Roman" font-size="13" font-weight="bold" text-anchor="middle">User</text>
+                <line x1="230" y1="35" x2="420" y2="35" stroke="#000" stroke-width="1"/>
+                <text x="238" y="50" font-family="Times New Roman" font-size="10.5">+ id: Integer (PK)</text>
+                <text x="238" y="64" font-family="Times New Roman" font-size="10.5">+ username: String</text>
+                <text x="238" y="78" font-family="Times New Roman" font-size="10.5">+ email: String</text>
+                <text x="238" y="92" font-family="Times New Roman" font-size="10.5">+ is_admin: Boolean</text>
+                <line x1="230" y1="96" x2="420" y2="96" stroke="#000" stroke-width="1"/>
+                <text x="238" y="106" font-family="Times New Roman" font-size="9.5">+ check_password(): Boolean</text>
+
+                <!-- Topic Class -->
+                <rect x="30" y="170" width="170" height="95" fill="#fff" stroke="#000" stroke-width="1.5"/>
+                <text x="115" y="188" font-family="Times New Roman" font-size="13" font-weight="bold" text-anchor="middle">Topic</text>
+                <line x1="30" y1="195" x2="200" y2="195" stroke="#000" stroke-width="1"/>
+                <text x="38" y="210" font-family="Times New Roman" font-size="10.5">+ id: Integer (PK)</text>
+                <text x="38" y="224" font-family="Times New Roman" font-size="10.5">+ title: String</text>
+                <text x="38" y="238" font-family="Times New Roman" font-size="10.5">+ slug: String</text>
+                <text x="38" y="252" font-family="Times New Roman" font-size="10.5">+ content: Text</text>
+
+                <!-- Question Class -->
+                <rect x="30" y="280" width="170" height="45" fill="#fff" stroke="#000" stroke-width="1.5"/>
+                <text x="115" y="298" font-family="Times New Roman" font-size="12" font-weight="bold" text-anchor="middle">Question</text>
+                <line x1="30" y1="304" x2="200" y2="304" stroke="#000" stroke-width="1"/>
+                <text x="38" y="318" font-family="Times New Roman" font-size="10">+ topic_id: Integer (FK)</text>
+
+                <!-- Score Class -->
+                <rect x="450" y="170" width="170" height="95" fill="#fff" stroke="#000" stroke-width="1.5"/>
+                <text x="535" y="188" font-family="Times New Roman" font-size="13" font-weight="bold" text-anchor="middle">Score</text>
+                <line x1="450" y1="195" x2="620" y2="195" stroke="#000" stroke-width="1"/>
+                <text x="458" y="210" font-family="Times New Roman" font-size="10.5">+ id: Integer (PK)</text>
+                <text x="458" y="224" font-family="Times New Roman" font-size="10.5">+ user_id: Integer (FK)</text>
+                <text x="458" y="238" font-family="Times New Roman" font-size="10.5">+ topic_id: Integer (FK)</text>
+                <text x="458" y="252" font-family="Times New Roman" font-size="10.5">+ percentage: Float</text>
+
+                <!-- TopicProgress Class -->
+                <rect x="240" y="200" width="170" height="75" fill="#fff" stroke="#000" stroke-width="1.5"/>
+                <text x="325" y="218" font-family="Times New Roman" font-size="12" font-weight="bold" text-anchor="middle">TopicProgress</text>
+                <line x1="240" y1="225" x2="410" y2="225" stroke="#000" stroke-width="1"/>
+                <text x="248" y="240" font-family="Times New Roman" font-size="10.5">+ user_id: Integer (FK)</text>
+                <text x="248" y="254" font-family="Times New Roman" font-size="10.5">+ topic_id: Integer (FK)</text>
+                <text x="248" y="268" font-family="Times New Roman" font-size="10.5">+ completed: Boolean</text>
+
+                <!-- Associations -->
+                <line x1="270" y1="110" x2="140" y2="170" stroke="#333" stroke-width="1.5"/>
+                <text x="210" y="135" font-family="Times New Roman" font-size="10">1..*</text>
+
+                <line x1="380" y1="110" x2="510" y2="170" stroke="#333" stroke-width="1.5"/>
+                <text x="440" y="135" font-family="Times New Roman" font-size="10">1..*</text>
+
+                <line x1="325" y1="110" x2="325" y2="200" stroke="#333" stroke-width="1.5"/>
+                <text x="330" y="150" font-family="Times New Roman" font-size="10">1..*</text>
+
+                <line x1="115" y1="265" x2="115" y2="280" stroke="#333" stroke-width="1.5"/>
+                <text x="120" y="275" font-family="Times New Roman" font-size="10">1..*</text>
+            </svg>
+        </div>
+        <p class="fig-caption">Figure 4.7: UML Class Diagram – Data Entities & Method Signatures</p>
+    </div>
+  </div>
+
+  <!-- PAGE 21: ER DIAGRAM & DATA DICTIONARY -->
+  <div class="page">
+    <div style="padding-top: 0.5cm;">
+        <h3>4.8 Entity-Relationship Diagram</h3>
+        <p>Figure 4.8 depicts the normalized relational schema capturing key entities governing users, topics, questions, progress, and scores.</p>
+        
+        <div class="diagram-container">
+            <svg viewBox="0 0 650 180" width="600" height="160" xmlns="http://www.w3.org/2000/svg">
+                <!-- Entity USERS -->
+                <rect x="30" y="25" width="130" height="60" fill="#fff" stroke="#000" stroke-width="1.8"/>
+                <text x="95" y="50" font-family="Times New Roman" font-size="13" font-weight="bold" text-anchor="middle">USERS</text>
+                <text x="95" y="68" font-family="Times New Roman" font-size="10" fill="#666" text-anchor="middle">id, username, email</text>
+
+                <!-- Entity TOPICS -->
+                <rect x="260" y="25" width="130" height="60" fill="#fff" stroke="#000" stroke-width="1.8"/>
+                <text x="325" y="50" font-family="Times New Roman" font-size="13" font-weight="bold" text-anchor="middle">TOPICS</text>
+                <text x="325" y="68" font-family="Times New Roman" font-size="10" fill="#666" text-anchor="middle">id, title, slug, content</text>
+
+                <!-- Entity QUESTIONS -->
+                <rect x="490" y="25" width="130" height="60" fill="#fff" stroke="#000" stroke-width="1.8"/>
+                <text x="555" y="50" font-family="Times New Roman" font-size="13" font-weight="bold" text-anchor="middle">QUESTIONS</text>
+                <text x="555" y="68" font-family="Times New Roman" font-size="10" fill="#666" text-anchor="middle">id, topic_id, options</text>
+
+                <!-- Entity SCORES -->
+                <rect x="145" y="115" width="130" height="55" fill="#fff" stroke="#000" stroke-width="1.8"/>
+                <text x="210" y="140" font-family="Times New Roman" font-size="13" font-weight="bold" text-anchor="middle">SCORES</text>
+                <text x="210" y="157" font-family="Times New Roman" font-size="10" fill="#666" text-anchor="middle">id, user_id, score, %</text>
+
+                <!-- Entity TOPIC_PROGRESS -->
+                <rect x="375" y="115" width="145" height="55" fill="#fff" stroke="#000" stroke-width="1.8"/>
+                <text x="447" y="140" font-family="Times New Roman" font-size="12" font-weight="bold" text-anchor="middle">TOPIC_PROGRESS</text>
+                <text x="447" y="157" font-family="Times New Roman" font-size="10" fill="#666" text-anchor="middle">id, user_id, topic_id</text>
+
+                <!-- Relational Lines -->
+                <line x1="390" y1="55" x2="490" y2="55" stroke="#333" stroke-width="1.5"/>
+                <text x="440" y="48" font-family="Times New Roman" font-size="10" text-anchor="middle">1 : N</text>
+
+                <line x1="95" y1="85" x2="160" y2="115" stroke="#333" stroke-width="1.5"/>
+                <line x1="290" y1="85" x2="230" y2="115" stroke="#333" stroke-width="1.5"/>
+
+                <line x1="140" y1="85" x2="385" y2="115" stroke="#333" stroke-width="1.5"/>
+                <line x1="340" y1="85" x2="420" y2="115" stroke="#333" stroke-width="1.5"/>
+            </svg>
+        </div>
+        <p class="fig-caption">Figure 4.8: Entity-Relationship Diagram (Normalized 3NF Schema)</p>
+
+        <h3 class="mt-3">4.9 Data Dictionary</h3>
+        <p class="fig-caption" style="text-align: left;">Table 4.1: Key Database Tables and Relational Structure</p>
+        <table>
+            <tr><th style="width: 20%;">Table</th><th style="width: 40%;">Key Columns</th><th>Functional Purpose</th></tr>
+            <tr><td><b>users</b></td><td>id (PK), username, email, password_hash, is_admin</td><td>Stores credentials, roles, and administrative permissions.</td></tr>
+            <tr><td><b>topics</b></td><td>id (PK), title, slug, icon, description, content</td><td>Contains structured cybersecurity lesson modules.</td></tr>
+            <tr><td><b>questions</b></td><td>id (PK), topic_id (FK), question_text, options, correct</td><td>Bank of 40 multiple-choice assessment questions.</td></tr>
+            <tr><td><b>scores</b></td><td>id (PK), user_id (FK), topic_id (FK), score, total, percentage</td><td>Maintains timestamped historical quiz attempts.</td></tr>
+            <tr><td><b>topic_progress</b></td><td>id (PK), user_id (FK), topic_id (FK), completed</td><td>Logs student reading and module completion events.</td></tr>
+        </table>
+    </div>
+  </div>
+
+  <!-- PAGE 22: PART III DIVIDER -->
+  <div class="page">
+    <div class="part-divider">
+        <div class="part-title">Part III</div>
+        <div class="part-subtitle">Implementation & Testing</div>
+    </div>
+  </div>
+
+  <!-- PAGE 23: CHAPTER 5 -->
+  <div class="page">
+    <div style="padding-top: 0.5cm;">
+        <h2>5 Implementation</h2>
+        
+        <h3>5.1 Coding Convention & Architecture</h3>
+        <ul>
+            <li><b>Separated Tier Layout:</b> The application separates static assets and Jinja2 templates into a clean <code>frontend/</code> tree while isolating routing, models, and initialization logic into <code>backend/</code>.</li>
+            <li><b>Blueprint Modularization:</b> Application routes are compartmentalized into dedicated blueprints: <code>auth_bp</code> (login, registration), <code>main_bp</code> (home, dashboard, topics), <code>quiz_bp</code> (grading engine), and <code>admin_bp</code> (management console).</li>
+            <li><b>12-Factor Environment Management:</b> Secrets, secret keys, and database endpoints are injected via <code>.env</code> and loaded using <code>python-dotenv</code>, strictly preventing hardcoded credentials in source control.</li>
+            <li><b>ORM Abstraction:</b> All queries utilize SQLAlchemy 2.0 sessions with declarative models, eliminating raw SQL string concatenation.</li>
+        </ul>
+
+        <h3>5.2 Security Measures & Defensive Hardening</h3>
+        <ul>
+            <li><b>Salted Password Hashing:</b> Passwords undergo cryptographically secure hashing via <code>werkzeug.security.generate_password_hash</code> utilizing PBKDF2 with SHA-256 and unique per-user salts. Plaintext credentials are never stored.</li>
+            <li><b>Session Guards & RBAC:</b> Routes are strictly guarded using <code>@login_required</code>. Administrative endpoints are locked down with a custom <code>@admin_required</code> decorator validating the user's <code>is_admin</code> database flag.</li>
+            <li><b>SQL Injection Immunity:</b> Parameterized queries enforced by SQLAlchemy ORM neutralize SQL injection vectors.</li>
+            <li><b>Cross-Site Scripting (XSS) Prevention:</b> Jinja2 template auto-escaping neutralizes untrusted user inputs before rendering into the DOM.</li>
+            <li><b>Secure Transport:</b> The production deployment on Render enforces HTTPS with TLS 1.3 encryption and mandatory SSL connections to Neon PostgreSQL.</li>
+        </ul>
+    </div>
+  </div>
+
+  <!-- PAGE 24: CHAPTER 6 TESTING -->
+  <div class="page">
+    <div style="padding-top: 0.5cm;">
+        <h2>6 Testing</h2>
+        
+        <h3>6.1 Test Strategy</h3>
+        <p>A multi-layered test strategy was implemented, covering unit testing of password hashing algorithms, integration testing of database ORM cascades, functional testing of quiz percentage calculations, and authorization boundary verification across student and admin portals.</p>
+
+        <h3>6.2 Sample Test Cases</h3>
+        <p class="fig-caption" style="text-align: left;">Table 6.1: Sample Test Cases and Validation Matrix</p>
+        <table>
+            <tr><th style="width: 10%;">ID</th><th style="width: 32%;">Test Scenario</th><th>Expected Result</th><th style="width: 12%;">Status</th></tr>
+            <tr><td><b>TC01</b></td><td>User registration with valid email & 8+ char password</td><td>Account created successfully; redirected to login with flash notice.</td><td style="color: green; font-weight: bold;">PASS ✅</td></tr>
+            <tr><td><b>TC02</b></td><td>Registration attempt with duplicate email address</td><td>System rejects registration; displays "Email already registered".</td><td style="color: green; font-weight: bold;">PASS ✅</td></tr>
+            <tr><td><b>TC03</b></td><td>Login authentication with incorrect password</td><td>Login rejected; flash alert "Invalid email or password" displayed.</td><td style="color: green; font-weight: bold;">PASS ✅</td></tr>
+            <tr><td><b>TC04</b></td><td>Non-admin user attempts direct access to <code>/admin</code></td><td>Route guard intercepts request; 302 redirect with "Admin access required".</td><td style="color: green; font-weight: bold;">PASS ✅</td></tr>
+            <tr><td><b>TC05</b></td><td>Quiz submission with 3 out of 4 correct answers</td><td>Raw score (3/4) and percentage (75%) recorded in PostgreSQL; result view shown.</td><td style="color: green; font-weight: bold;">PASS ✅</td></tr>
+            <tr><td><b>TC06</b></td><td>Phishing simulator "Phishing" button clicked on fake email</td><td>Score increments; system displays educational rationale highlighting red flags.</td><td style="color: green; font-weight: bold;">PASS ✅</td></tr>
+            <tr><td><b>TC07</b></td><td>Password Entropy Analyzer input with <code>Tr@7#kL92!xQ</code></td><td>Calculates entropy (85+ bits); displays ~3,000 years crack time with green bar.</td><td style="color: green; font-weight: bold;">PASS ✅</td></tr>
+            <tr><td><b>TC08</b></td><td>Neon Cloud PostgreSQL connectivity check</td><td>Application connects via SSL; initializes tables and queries data smoothly.</td><td style="color: green; font-weight: bold;">PASS ✅</td></tr>
+        </table>
+    </div>
+  </div>
+
+  <!-- PAGE 25: PART IV DIVIDER -->
+  <div class="page">
+    <div class="part-divider">
+        <div class="part-title">Part IV</div>
+        <div class="part-subtitle">Conclusion</div>
+    </div>
+  </div>
+
+  <!-- PAGE 26: CHAPTER 7 & 8 -->
+  <div class="page">
+    <div style="padding-top: 0.5cm;">
+        <h2>7 Future Enhancement</h2>
+        <ul>
+            <li><b>Automated Certificate Generation:</b> Dynamic generation of digitally signed, downloadable PDF certificates upon achieving a score above 80% across all modules.</li>
+            <li><b>Gamified Competitive Leaderboard:</b> Real-time student ranking board to foster positive engagement and continuous knowledge retention.</li>
+            <li><b>Simulated Phishing Email Dispatcher:</b> Administrative utility allowing instructors to send benign, simulated phishing emails to registered student inboxes to test real-world vigilance.</li>
+            <li><b>Two-Factor Authentication (TOTP):</b> Integrating time-based one-time password (TOTP) verification for student and admin account security.</li>
+            <li><b>AI-Powered Phishing Analyzer:</b> Integrating a natural language model to evaluate real user-submitted emails and highlight suspicious semantic markers.</li>
+        </ul>
+
+        <h2 class="mt-3">8 Conclusion</h2>
+        <p>The <b>Cybersecurity Awareness Training Website</b> successfully bridges the critical divide between theoretical security guidelines and practical threat identification. By consolidating 8 essential cybersecurity domains, embedding a live mathematical password entropy analyzer, providing an interactive phishing simulation sandbox, and maintaining an expanded 40-question assessment engine, the platform transforms passive reading into active, measurable learning.</p>
+        <p>Architecturally, the project exemplifies modern software engineering standards: a decoupled frontend and backend, secure salted credential storage, serverless PostgreSQL cloud persistence via Neon, and production deployment on Render. The system fulfills all requirements specified for a Semester V Minor Project in Bachelor of Science (Information Technology) Honours at Parul University, establishing a strong, scalable foundation for organizational security training.</p>
+    </div>
+  </div>
+
+  <!-- PAGE 27: BIBLIOGRAPHY -->
+  <div class="page">
+    <div style="padding-top: 0.5cm;">
+        <h2>Bibliography</h2>
+        <ol style="line-height: 1.8; font-size: 13.5px; margin-top: 1.5em;">
+            <li>Flask Documentation – Pallets Projects (2024). <i>Flask Web Development</i>. Available at: https://flask.palletsprojects.com/</li>
+            <li>SQLAlchemy Documentation – SQLAlchemy Authors (2024). <i>SQLAlchemy 2.0 Unified Tutorial</i>. Available at: https://docs.sqlalchemy.org/</li>
+            <li>PostgreSQL Global Development Group (2024). <i>PostgreSQL 16.0 Documentation</i>. Available at: https://www.postgresql.org/docs/16/</li>
+            <li>Bootstrap 5 Documentation – Mark Otto, Jacob Thornton (2024). Available at: https://getbootstrap.com/docs/5.3/</li>
+            <li>Werkzeug Security Module – Pallets Projects. Available at: https://werkzeug.palletsprojects.com/en/3.0.x/utils/#module-werkzeug.security</li>
+            <li>Flask-Login Documentation – Max Countryman (2024). Available at: https://flask-login.readthedocs.io/</li>
+            <li>National Institute of Standards and Technology (NIST) (2020). <i>Digital Identity Guidelines: Authentication and Lifecycle Management</i> (NIST SP 800-63B).</li>
+            <li>Ministry of Electronics and Information Technology (MeitY), Government of India (2000). <i>The Information Technology Act, 2000</i>. New Delhi.</li>
+            <li>OWASP Foundation (2021). <i>OWASP Top 10 Web Application Security Risks</i>. Available at: https://owasp.org/www-project-top-ten/</li>
+        </ol>
+    </div>
+  </div>
+
+</body>
+</html>
