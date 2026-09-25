@@ -1,4 +1,8 @@
 """Run this once to populate the database with initial data."""
+import sys
+import os
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
 from app import create_app
 from models import db
 from models.user import User
