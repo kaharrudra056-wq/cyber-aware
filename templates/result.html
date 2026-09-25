@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}Quiz Result{% endblock %}
+{% block content %}
+<div class="text-center mb-5">
+  <div style="font-size:80px">{{ '🏆' if percentage >= 80 else '👍' if percentage >= 60 else '📖' }}</div>
+  <h2 class="fw-bold">Quiz Complete!</h2>
+  <h1 class="display-4 fw-bold text-{{ 'success' if percentage >= 70 else 'warning' if percentage >= 50 else 'danger' }}">{{ percentage }}%</h1>
+  <p class="lead">You scored <strong>{{ score }} out of {{ total }}</strong> on <em>{{ topic.title }}</em></p>
+  <div class="d-flex justify-content-center gap-3 mt-3">
+    <a href="{{ url_for('quiz.start_quiz', topic_id=topic.id) }}" class="btn btn-outline-primary">🔁 Retry Quiz</a>
+    <a href="{{ url_for('main.dashboard') }}" class="btn btn-primary">📊 My Dashboard</a>
+    <a href="{{ url_for('main.topics') }}" class="btn btn-success">📚 More Topics</a>
+  </div>
+</div>
+<h4 class="fw-bold mb-3">📋 Answer Review</h4>
+{% for r in results %}
+<div class="card mb-3 border-0 shadow-sm border-start border-4 {{ 'border-success' if r.is_correct else 'border-danger' }}">
+  <div class="card-body">
+    <div class="d-flex justify-content-between">
+      <h6 class="fw-bold">{{ loop.index }}. {{ r.question }}</h6>
+      <span class="badge bg-{{ 'success' if r.is_correct else 'danger' }}">{{ '✅ Correct' if r.is_correct else '❌ Wrong' }}</span>
+    </div>
+    {% for letter, text in r.options.items() %}
+    <div class="p-1 rounded {% if letter == r.correct_answer %}text-success fw-bold{% elif letter == r.user_answer and not r.is_correct %}text-danger text-decoration-line-through{% endif %}">
+      {{ letter }}. {{ text }}
+      {% if letter == r.correct_answer %} ✅{% endif %}
+      {% if letter == r.user_answer and not r.is_correct %} ← Your answer{% endif %}
+    </div>
+    {% endfor %}
+    {% if r.explanation %}
+    <div class="alert alert-info mt-2 mb-0 p-2"><small>💡 {{ r.explanation }}</small></div>
+    {% endif %}
+  </div>
+</div>
+{% endfor %}
+{% endblock %}

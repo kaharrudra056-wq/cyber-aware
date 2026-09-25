@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}Add Question{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-8">
+    <h2 class="fw-bold mb-4">➕ Add Quiz Question</h2>
+    <div class="card shadow border-0">
+      <div class="card-body p-4">
+        <form method="POST">
+          <div class="mb-3">
+            <label class="form-label fw-bold">Topic</label>
+            <select name="topic_id" class="form-select" required>
+              <option value="">-- Select Topic --</option>
+              {% for t in topics %}
+              <option value="{{ t.id }}">{{ t.icon }} {{ t.title }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-bold">Question Text</label>
+            <textarea name="question_text" class="form-control" rows="3" required></textarea>
+          </div>
+          {% for letter in ['A','B','C','D'] %}
+          <div class="mb-3">
+            <label class="form-label">Option {{ letter }}</label>
+            <input type="text" name="option_{{ letter|lower }}" class="form-control" required>
+          </div>
+          {% endfor %}
+          <div class="mb-3">
+            <label class="form-label fw-bold">Correct Answer</label>
+            <select name="correct_answer" class="form-select" required>
+              <option value="A">A</option>
+              <option value="B">B</option>
+              <option value="C">C</option>
+              <option value="D">D</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Explanation (optional)</label>
+            <textarea name="explanation" class="form-control" rows="2"></textarea>
+          </div>
+          <button type="submit" class="btn btn-success w-100 btn-lg">Add Question</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

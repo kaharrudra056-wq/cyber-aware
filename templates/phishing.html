@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% block title %}Phishing Simulator{% endblock %}
+{% block content %}
+<h2 class="mb-2 fw-bold">🎣 Phishing Awareness Simulator</h2>
+<p class="text-muted mb-4">Read each message and decide: Is it Phishing or Safe?</p>
+<div id="phishing-game">
+  <div class="mb-3">
+    <span class="badge bg-secondary" id="progress-badge">Question 1 of 5</span>
+  </div>
+  <div id="scenario-card" class="card shadow-sm border-0 mb-4">
+    <div class="card-header bg-light d-flex align-items-center gap-2">
+      <span>📧</span><strong id="email-sender">loading...</strong>
+    </div>
+    <div class="card-body p-4">
+      <h6 class="fw-bold" id="email-subject">Subject:</h6>
+      <div class="border rounded p-3 bg-white" id="email-body">Loading...</div>
+    </div>
+  </div>
+  <div class="d-flex gap-3 justify-content-center mb-4">
+    <button class="btn btn-danger btn-lg px-5" onclick="answer('phishing')">🚨 Phishing</button>
+    <button class="btn btn-success btn-lg px-5" onclick="answer('safe')">✅ Safe</button>
+  </div>
+  <div id="feedback" class="alert d-none"></div>
+  <div id="score-display" class="d-none text-center">
+    <h3 class="fw-bold" id="final-score"></h3>
+    <button class="btn btn-primary" onclick="restartGame()">🔄 Play Again</button>
+  </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+const scenarios = [
+  {sender:'security@paypa1.com',subject:'Urgent: Verify Your Account Now!',body:'Dear Customer,<br>Your PayPal account has been limited. Please <a href="#">click here</a> to verify immediately or your account will be closed within 24 hours.',type:'phishing',reason:'The sender domain is "paypa1.com" (fake). Urgency and account closure threats are phishing tactics.'},
+  {sender:'noreply@google.com',subject:'Your Google Account sign-in',body:'Hi,<br>We noticed a sign-in to your Google Account from a new device. If this was you, you can safely ignore this email.',type:'safe',reason:'This is a standard Google security notification. No urgent action, no suspicious links.'},
+  {sender:'hr@yourcompany-payroll.net',subject:'Salary Update - Action Required',body:'Dear Employee,<br>Please log in to update your bank details for this month salary transfer. Click here immediately.',type:'phishing',reason:'Unknown domain, urgent request for bank details, suspicious link — classic phishing.'},
+  {sender:'noreply@amazon.com',subject:'Your Amazon order has shipped',body:'Hello,<br>Your order #112-4567890 has shipped and is expected to arrive by Friday. Track your package in the app.',type:'safe',reason:'Normal shipping notification with no suspicious links or urgency.'},
+  {sender:'admin@bank-secure-login.info',subject:'ALERT: Unusual Activity on Your Account',body:'Dear Valued Customer,<br>We have detected suspicious login attempts. Click the secure link below to verify your identity and prevent account suspension.',type:'phishing',reason:'The domain is not from a real bank. Threats of suspension and vague "secure link" are major red flags.'}
+];
+let current = 0, score = 0;
+function loadScenario(){
+  if(current>=scenarios.length){showFinal();return;}
+  const s=scenarios[current];
+  document.getElementById('email-sender').textContent=s.sender;
+  document.getElementById('email-subject').textContent='Subject: '+s.subject;
+  document.getElementById('email-body').innerHTML=s.body;
+  document.getElementById('progress-badge').textContent=`Question ${current+1} of ${scenarios.length}`;
+  document.getElementById('feedback').classList.add('d-none');
+}
+function answer(choice){
+  const s=scenarios[current];
+  const fb=document.getElementById('feedback');
+  fb.classList.remove('d-none','alert-success','alert-danger');
+  if(choice===s.type){
+    score++;
+    fb.classList.add('alert-success');
+    fb.innerHTML=`✅ Correct! ${s.reason}`;
+  } else {
+    fb.classList.add('alert-danger');
+    fb.innerHTML=`❌ Wrong! ${s.reason}`;
+  }
+  current++;
+  setTimeout(()=>loadScenario(),2500);
+}
+function showFinal(){
+  document.getElementById('scenario-card').classList.add('d-none');
+  document.querySelector('.d-flex.gap-3').classList.add('d-none');
+  document.getElementById('feedback').classList.add('d-none');
+  const disp=document.getElementById('score-display');
+  disp.classList.remove('d-none');
+  const pct=Math.round(score/scenarios.length*100);
+  document.getElementById('final-score').innerHTML=`🏆 You scored ${score}/${scenarios.length} (${pct}%)<br><small class="text-muted">${pct>=80?'Excellent phishing awareness!':pct>=60?'Good, but keep practicing!':'Review phishing awareness topics.'}</small>`;
+}
+function restartGame(){
+  current=0;score=0;
+  document.getElementById('scenario-card').classList.remove('d-none');
+  document.querySelector('.d-flex.gap-3').classList.remove('d-none');
+  document.getElementById('score-display').classList.add('d-none');
+  loadScenario();
+}
+loadScenario();
+</script>
+{% endblock %}

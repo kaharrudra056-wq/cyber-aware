@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<h2 class="mb-1 fw-bold">Welcome, {{ current_user.username }} 👋</h2>
+<p class="text-muted mb-4">Track your cybersecurity learning progress.</p>
+
+<div class="row mb-4">
+  <div class="col-md-3 mb-3">
+    <div class="card border-0 shadow-sm text-center p-3">
+      <div style="font-size:36px">📚</div>
+      <h4 class="fw-bold text-primary">{{ completed_topics }}/{{ total_topics }}</h4>
+      <small class="text-muted">Topics Completed</small>
+    </div>
+  </div>
+  <div class="col-md-3 mb-3">
+    <div class="card border-0 shadow-sm text-center p-3">
+      <div style="font-size:36px">🧩</div>
+      <h4 class="fw-bold text-success">{{ scores|length }}</h4>
+      <small class="text-muted">Quizzes Taken</small>
+    </div>
+  </div>
+  <div class="col-md-3 mb-3">
+    <div class="card border-0 shadow-sm text-center p-3">
+      <div style="font-size:36px">📈</div>
+      <h4 class="fw-bold text-warning">{{ avg_score }}%</h4>
+      <small class="text-muted">Average Score</small>
+    </div>
+  </div>
+  <div class="col-md-3 mb-3">
+    <div class="card border-0 shadow-sm text-center p-3">
+      <div style="font-size:36px">🏆</div>
+      <h4 class="fw-bold text-danger">{{ latest_score.percentage if latest_score else 'N/A' }}{% if latest_score %}%{% endif %}</h4>
+      <small class="text-muted">Latest Quiz Score</small>
+    </div>
+  </div>
+</div>
+
+<div class="card border-0 shadow-sm mb-4">
+  <div class="card-body">
+    <h5 class="fw-bold">Cybersecurity Learning Progress</h5>
+    <div class="progress" style="height:25px">
+      <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" style="width:{{ progress_pct }}%">{{ progress_pct }}%</div>
+    </div>
+    <small class="text-muted">{{ completed_topics }} of {{ total_topics }} topics completed</small>
+  </div>
+</div>
+
+<h5 class="fw-bold mb-3">📋 Recent Quiz Scores</h5>
+{% if scores %}
+<div class="table-responsive">
+  <table class="table table-hover">
+    <thead class="table-dark">
+      <tr><th>Topic</th><th>Score</th><th>Percentage</th><th>Date</th></tr>
+    </thead>
+    <tbody>
+      {% for s in scores[:10] %}
+      <tr>
+        <td>{{ s.topic.icon }} {{ s.topic.title }}</td>
+        <td>{{ s.score }}/{{ s.total }}</td>
+        <td>
+          <span class="badge bg-{{ 'success' if s.percentage >= 70 else 'warning' if s.percentage >= 50 else 'danger' }}">
+            {{ s.percentage }}%
+          </span>
+        </td>
+        <td>{{ s.taken_at.strftime('%d %b %Y') }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% else %}
+<div class="alert alert-info">No quiz scores yet. <a href="{{ url_for('main.topics') }}">Take a quiz!</a></div>
+{% endif %}
+{% endblock %}

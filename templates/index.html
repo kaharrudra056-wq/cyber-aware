@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% block title %}Home - CyberSec Awareness{% endblock %}
+{% block content %}
+<!-- Hero -->
+<div class="hero-section text-white rounded-4 p-5 mb-5">
+  <div class="row align-items-center">
+    <div class="col-lg-7">
+      <h1 class="display-4 fw-bold">🛡️ Cybersecurity Awareness</h1>
+      <p class="lead mb-4">Learn how to protect yourself online. Take quizzes, complete topics, and track your cybersecurity knowledge.</p>
+      {% if current_user.is_authenticated %}
+        <a href="{{ url_for('main.topics') }}" class="btn btn-light btn-lg me-2">📚 Start Learning</a>
+        <a href="{{ url_for('main.dashboard') }}" class="btn btn-outline-light btn-lg">📊 My Dashboard</a>
+      {% else %}
+        <a href="{{ url_for('auth.register') }}" class="btn btn-light btn-lg me-2">Get Started Free</a>
+        <a href="{{ url_for('main.topics') }}" class="btn btn-outline-light btn-lg">Explore Topics</a>
+      {% endif %}
+    </div>
+    <div class="col-lg-5 text-center d-none d-lg-block">
+      <div style="font-size:150px;">🔐</div>
+    </div>
+  </div>
+</div>
+
+<!-- Stats -->
+<div class="row text-center mb-5">
+  <div class="col-md-4 mb-3">
+    <div class="stat-card card border-0 shadow-sm p-4">
+      <div class="stat-icon">🎯</div>
+      <h3 class="fw-bold text-primary">{{ topics|length }}+</h3>
+      <p class="text-muted">Cybersecurity Topics</p>
+    </div>
+  </div>
+  <div class="col-md-4 mb-3">
+    <div class="stat-card card border-0 shadow-sm p-4">
+      <div class="stat-icon">🧩</div>
+      <h3 class="fw-bold text-success">50+</h3>
+      <p class="text-muted">Quiz Questions</p>
+    </div>
+  </div>
+  <div class="col-md-4 mb-3">
+    <div class="stat-card card border-0 shadow-sm p-4">
+      <div class="stat-icon">📊</div>
+      <h3 class="fw-bold text-warning">100%</h3>
+      <p class="text-muted">Free to Use</p>
+    </div>
+  </div>
+</div>
+
+<!-- Topics Preview -->
+<h2 class="mb-4 fw-bold">🔐 Cybersecurity Topics</h2>
+<div class="row">
+  {% for topic in topics %}
+  <div class="col-md-4 col-sm-6 mb-4">
+    <div class="card topic-card h-100 border-0 shadow-sm">
+      <div class="card-body text-center p-4">
+        <div style="font-size:48px;">{{ topic.icon }}</div>
+        <h5 class="card-title fw-bold mt-2">{{ topic.title }}</h5>
+        <p class="card-text text-muted">{{ topic.description }}</p>
+        <a href="{{ url_for('main.topic_detail', slug=topic.slug) }}" class="btn btn-primary btn-sm">Learn More</a>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+<!-- Common Threats -->
+<div class="alert-section mt-5 p-4 rounded-4 bg-dark text-white">
+  <h3 class="mb-3">⚠️ Common Cyber Threats</h3>
+  <div class="row">
+    <div class="col-md-3 mb-3">
+      <div class="threat-item p-3 rounded-3 bg-danger bg-opacity-25">
+        <h6>🎣 Phishing</h6>
+        <small>91% of cyberattacks start with phishing</small>
+      </div>
+    </div>
+    <div class="col-md-3 mb-3">
+      <div class="threat-item p-3 rounded-3 bg-warning bg-opacity-25">
+        <h6>🔐 Weak Passwords</h6>
+        <small>80% of breaches involve weak passwords</small>
+      </div>
+    </div>
+    <div class="col-md-3 mb-3">
+      <div class="threat-item p-3 rounded-3 bg-info bg-opacity-25">
+        <h6>🦠 Ransomware</h6>
+        <small>Attack every 11 seconds globally</small>
+      </div>
+    </div>
+    <div class="col-md-3 mb-3">
+      <div class="threat-item p-3 rounded-3 bg-success bg-opacity-25">
+        <h6>👤 Social Engineering</h6>
+        <small>Exploits human trust, not technology</small>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

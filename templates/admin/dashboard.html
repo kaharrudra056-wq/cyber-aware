@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% block title %}Admin Dashboard{% endblock %}
+{% block content %}
+<h2 class="fw-bold mb-4">⚙️ Admin Dashboard</h2>
+<div class="row mb-4">
+  <div class="col-md-3 mb-3">
+    <div class="card border-0 shadow-sm text-center p-3">
+      <div style="font-size:36px">👥</div>
+      <h4 class="fw-bold">{{ users|length }}</h4>
+      <small>Total Users</small>
+    </div>
+  </div>
+  <div class="col-md-3 mb-3">
+    <div class="card border-0 shadow-sm text-center p-3">
+      <div style="font-size:36px">📚</div>
+      <h4 class="fw-bold">{{ topics|length }}</h4>
+      <small>Topics</small>
+    </div>
+  </div>
+  <div class="col-md-3 mb-3">
+    <div class="card border-0 shadow-sm text-center p-3">
+      <div style="font-size:36px">🧩</div>
+      <h4 class="fw-bold">{{ questions|length }}</h4>
+      <small>Questions</small>
+    </div>
+  </div>
+  <div class="col-md-3 mb-3">
+    <div class="card border-0 shadow-sm text-center p-3">
+      <div style="font-size:36px">📊</div>
+      <h4 class="fw-bold">{{ scores|length }}</h4>
+      <small>Quiz Attempts</small>
+    </div>
+  </div>
+</div>
+<div class="d-flex gap-2 mb-4">
+  <a href="{{ url_for('admin.questions') }}" class="btn btn-primary">🧩 Manage Questions</a>
+  <a href="{{ url_for('admin.add_question') }}" class="btn btn-success">➕ Add Question</a>
+  <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#addTopicModal">📚 Add Topic</button>
+</div>
+<h5 class="fw-bold mb-3">📋 Recent Quiz Scores</h5>
+<div class="table-responsive">
+  <table class="table table-hover">
+    <thead class="table-dark">
+      <tr><th>User</th><th>Topic</th><th>Score</th><th>%</th><th>Date</th></tr>
+    </thead>
+    <tbody>
+      {% for s in scores %}
+      <tr>
+        <td>{{ s.user.username }}</td>
+        <td>{{ s.topic.title }}</td>
+        <td>{{ s.score }}/{{ s.total }}</td>
+        <td>
+          <span class="badge bg-{{ 'success' if s.percentage >= 70 else 'warning' if s.percentage >= 50 else 'danger' }}">
+            {{ s.percentage }}%
+          </span>
+        </td>
+        <td>{{ s.taken_at.strftime('%d %b %Y') }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<!-- Add Topic Modal -->
+<div class="modal fade" id="addTopicModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add New Topic</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <form method="POST" action="{{ url_for('admin.add_topic') }}">
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label">Title</label>
+            <input name="title" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Icon (emoji)</label>
+            <input name="icon" class="form-control" value="🔒">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Description</label>
+            <textarea name="description" class="form-control" rows="2" required></textarea>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Content (HTML allowed)</label>
+            <textarea name="content" class="form-control" rows="5" required></textarea>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Display Order</label>
+            <input type="number" name="order" class="form-control" value="10">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success">Add Topic</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

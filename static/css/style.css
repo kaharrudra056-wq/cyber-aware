@@ -1,0 +1,76 @@
+:root {
+  --primary: #0d6efd;
+  --success: #198754;
+  --dark: #212529;
+}
+
+body {
+  background-color: #f8f9fa;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.hero-section {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  min-height: 320px;
+}
+
+.topic-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border-radius: 12px !important;
+}
+
+.topic-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.15) !important;
+}
+
+.stat-card {
+  border-radius: 12px;
+  transition: transform 0.2s;
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+}
+
+.stat-icon {
+  font-size: 36px;
+  margin-bottom: 8px;
+}
+
+.threat-item {
+  transition: transform 0.2s;
+}
+
+.threat-item:hover {
+  transform: scale(1.03);
+}
+
+.topic-content h4 {
+  color: #0f3460;
+  margin-top: 1.5rem;
+}
+
+.topic-content ul {
+  padding-left: 1.5rem;
+}
+
+.topic-content li {
+  margin-bottom: 0.4rem;
+}
+
+.footer {
+  background-color: #1a1a2e !important;
+}
+
+.navbar {
+  background-color: #1a1a2e !important;
+}
+
+.progress-bar {
+  border-radius: 8px;
+}
+
+.alert-section {
+  background: linear-gradient(135deg, #1a1a2e, #16213e) !important;
+}

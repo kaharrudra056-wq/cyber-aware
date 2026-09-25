@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}Learn Cybersecurity{% endblock %}
+{% block content %}
+<h2 class="mb-2 fw-bold">📚 Cybersecurity Topics</h2>
+<p class="text-muted mb-4">Click any topic to read and mark it as completed.</p>
+<div class="row">
+  {% for topic in topics %}
+  <div class="col-md-4 col-sm-6 mb-4">
+    <div class="card h-100 border-0 shadow-sm topic-card">
+      <div class="card-body text-center p-4">
+        <div style="font-size:52px">{{ topic.icon }}</div>
+        <h5 class="fw-bold mt-2">{{ topic.title }}</h5>
+        <p class="text-muted small">{{ topic.description }}</p>
+        <div class="d-flex justify-content-center gap-2 mt-3">
+          <a href="{{ url_for('main.topic_detail', slug=topic.slug) }}" class="btn btn-primary btn-sm">📖 Read</a>
+          {% if topic.questions %}
+          <a href="{{ url_for('quiz.start_quiz', topic_id=topic.id) }}" class="btn btn-success btn-sm">🧩 Quiz ({{ topic.questions|length }}Q)</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}
